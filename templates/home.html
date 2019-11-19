@@ -9,6 +9,7 @@
   <meta name="author" content="SitePoint">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./static/style.css">
+  
   <style>
       @import url('https://fonts.googleapis.com/css?family=Nunito&display=swap');
   </style> 
@@ -38,16 +39,16 @@
           <form id=loginForm>
             <h2>Member Login</h2>
             <div class="form-group mt-3">
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username">
+              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username" required>
             </div>
 
             <div class="form-group">
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
             </div>
             <div class="form-group">
-              <button type="submit" class="btn btn-dark mr-3">Sign in</button> or
+              <button type="submit" class="btn btn-dark mr-3 menuButton">Sign in</button> or
               <a href="/register">
-                <input type="button" class="btn btn-dark ml-3" value="Register" />
+                <input type="button" class="btn btn-dark ml-3 menuButton" value="Register" />
               </a>
             </div>
           </form> 

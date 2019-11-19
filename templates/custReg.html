@@ -1,0 +1,55 @@
+{% extends 'registerBase.html' %}
+
+{% block jumbo %}
+<div class="jumbotron jt2 mt-5">
+  <h1 id="">Customer Registration</h1>
+  <div class="row">
+    <div class="col">
+            <form id="menuHeader">
+                <label for="lname">Username</label>
+                <div class="row">
+                    <div class="col-6">
+    
+                        <input type="name" class="form-control" id="lastname" placeholder="Enter Username" required>
+                    </div>
+                </div>
+                <label for="fname">Your Name</label>
+              <div class="row">
+                <div class="col">
+                    <input type="name" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter First Name" required>
+                </div>
+                <div class="col">
+                    <input type="name" class="form-control" id="lastname" placeholder="Enter Last Name" required>
+                </div>
+              </div>
+              <div class="row">
+
+              </div>
+              <label for="fname">Password</label>
+              <div class="row">
+                  <div class="col">
+                      <input type="password" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Password" required>
+                  </div>
+                  <div class="col">
+                      <input type="password" class="form-control" id="lastname" placeholder="Confirm Password" required>
+                  </div>
+                </div>
+
+              <div class="row mt-3">
+                    <div class="col">
+                            <label for="cc">Credit Card #: </label> 
+                            <input type="text" placeholder="00000000000">
+                            <input type="button" id="addCC" value="+">
+                        </div>
+                        <div class="col">
+                            
+                        </div>
+              </div>
+                        
+                        
+                    <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
+                    <button type="submit" class="btn btn-primary mt-3 menuButton">Submit</button>
+                  </form>
+    </div>
+  </div>
+{% endblock %}

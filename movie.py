@@ -16,5 +16,32 @@ def index():
 def regiserHome():
     return render_template('registerHome.html')
 
+@app.route("/register/<role>", methods=['GET', 'POST'])
+def registerRole(role):
+    if request.method == 'GET':
+        return getRegTemplate(role)
+
+@app.route("/portal")
+def custPort():
+    return getPortal();
+
+@app.route("/manager")
+def custPort():
+    return 1
+
+
+
+#helpers
+def getRegTemplate(role):
+    if role == 'user':
+        return render_template('userReg.html')
+    elif role == "manager":
+        return render_template('manReg.html')
+    elif role == "customer":
+        return render_template('custReg.html')
+    elif role == "mancust":
+        return render_template('custManReg.html')
+
+
 
 

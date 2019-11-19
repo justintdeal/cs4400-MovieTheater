@@ -30,3 +30,13 @@ body {
 button {
     border-radius: 30px;
 }
+
+.menuButton {
+    font-family: 'Quicksand', sans-serif;
+    background-color:  	#282828;
+}
+
+#menuHeader {
+    color: #282828;
+    font-family: 'Poppins', sans-serif;
+}

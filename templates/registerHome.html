@@ -2,29 +2,32 @@
 
 {% block jumbo %}
 <div class="jumbotron jt2 mt-5">
-  <div class="row">
-    <div class="col-6">
-      <h1>What Kind of User Are You?</h1>
+  <div class="row text-center pb-2">
+    <div class="col-1"></div>
+    <div class="col-5 pt-5" id="menuHeader">
+      <h2>What Kind of User Are You?</h2>
     </div>
-    <div class="col-6">
-      <form>
-        <div class="form-group row">
-          <button type="submit" class="btn btn-dark pl-5 pr-5">User</button>
-        </div>
-        <div class="form-group row">
-          <button type="submit" class="btn btn-dark pl-5 pr-5">Customer</button>
-        </div>
-        <div class="form-group row">
-          <button type="submit" class="btn btn-dark pl-5 pr-5">Manager</button>
-        </div>
-        <div class="form-group row">
-          <button type="submit" class="btn btn-dark">Manager & Customer</button>
-        </div>
-        <div class="form-group row">
-                <button type="submit" class="btn btn-dark pl-5 pr-5">Back</button>
-        </div>
-        
-      </form> 
+    <div class="col-1"></div>
+    <div class="col-4">
+      <a href="register/user">
+          <input type="submit" name="role" class="btn btn-dark btn-block menuButton mt-4" value="User" >
+      </a>
+      <a href="register/customer">
+        <input type="submit" name="role" class="btn btn-dark btn-block menuButton mt-3" value="Customer" >
+      </a>
+      <a href="register/manager">
+        <input type="submit" name="role" class="btn btn-dark btn-block menuButton mt-3" value="Manager" >
+      </a>
+      <a href="register/mancust">
+       <input type="button" name="role" class="btn btn-dark btn-block menuButton mt-3" value="Manager & Customer" > 
+      </a>
+          
+    </div>
+  </div>
+  <div class="row pt-5">
+    <div class="col-1"></div>
+    <div class="col">
+        <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
     </div>
   </div>
 {% endblock %}
