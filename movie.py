@@ -21,13 +21,9 @@ def registerRole(role):
     if request.method == 'GET':
         return getRegTemplate(role)
 
-@app.route("/portal")
-def custPort():
-    return getPortal();
-
-@app.route("/manager")
-def custPort():
-    return 1
+@app.route("/dashboard/")
+def dashboard():
+    return render_template('dashBase.html')
 
 
 
