@@ -23,7 +23,17 @@ def registerRole(role):
 
 @app.route("/dashboard/")
 def dashboard():
-    return render_template('dashBase.html')
+    userType = "Base"
+    template = "dash"+ userType +".html"
+    
+    #dashMan
+    #dashCust
+    #dashAdmin
+    #dashUser
+    #dashAdminCust
+    #dashManCust
+    print(userType)
+    return render_template(template)
 
 
 
