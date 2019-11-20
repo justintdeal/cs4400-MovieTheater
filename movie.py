@@ -25,6 +25,14 @@ def registerRole(role):
 def dashboard():
     return render_template('dashBase.html')
 
+@app.route("/manage/user")
+def manageUser():
+    return render_template('manageUser.html')
+
+@app.route("/manage/company")
+def manageCompany():
+    return render_template('manageCompany.html')
+
 
 
 #helpers
