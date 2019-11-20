@@ -35,6 +35,14 @@ def dashboard():
     print(userType)
     return render_template(template)
 
+@app.route("/manage/user")
+def manageUser():
+    return render_template('manageUser.html')
+
+@app.route("/manage/company")
+def manageCompany():
+    return render_template('manageCompany.html')
+
 
 
 #helpers
