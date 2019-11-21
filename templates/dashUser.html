@@ -1,0 +1,25 @@
+{% extends 'registerBase.html' %}
+
+{% block jumbo %}
+<div class="jumbotron jt2 mt-5">
+  <h1 id="">User Functionality</h1>
+  <div class="row">
+    <div class="col">
+            <form id="menuHeader">
+              <div class="row">
+                <div class="col">
+                  <button type="submit" class="btn btn-primary mt-3 menuButton">Visit History</button>
+                </div>
+                <div class="col">
+                  <button type="submit" class="btn btn-primary mt-3 menuButton">Explore Theater</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
+                </div>
+              </div>
+                  </form>
+    </div>
+  </div>
+{% endblock %}
