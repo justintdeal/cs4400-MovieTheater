@@ -23,12 +23,12 @@ def registerRole(role):
 
 @app.route("/dashboard/")
 def dashboard():
-    types = ['Man', 'Cust', 'Admin', 'User', 'AdminCust', 'ManCust']
+    types = ['Manager', 'Cust', 'Admin', 'User', 'AdminCust', 'ManagerCust']
 
-    userType = types[3]
+    userType = types[5]
     template = "dash"+ userType +".html"
     return render_template(template)
-
+'''
 @app.route("/dashboard/admin")
 def adminDashboard():
     return render_template('dashAdmin.html')
@@ -52,7 +52,7 @@ def customerDashboard():
 @app.route("/dashboard/user")
 def userDashboard():
     return render_template('dashUser.html')
-
+'''
 @app.route("/manage/user")
 def manageUser():
     return render_template('manageUser.html')
