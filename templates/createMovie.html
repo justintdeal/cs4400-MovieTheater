@@ -1,0 +1,42 @@
+{% extends 'registerBase.html' %}
+
+{% block jumbo %}
+<div class="jumbotron jt2 mt-5">
+  <h1 id="">Create Movie</h1>
+  <div class="row">
+    <div class="col">
+            <form id="menuHeader">
+              <div class="row">
+                <div class="col">
+                  <label for="lname">Name</label>
+                </div>
+                <div class="col">
+                  <label for="fname">Duration</label>
+                </div>
+              </div>
+                <div class="row">
+                    <div class="col-6">
+    
+                        <input type="name" class="form-control" id="lastname" placeholder="Enter Movie Name" required>
+                    </div>
+                    <div class="col">
+                        <input type="name" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Duration" required>
+                    </div>
+                </div>
+              <div class="row">
+
+              </div>
+              <label for="fname">Release Date</label>
+              <div class="row">
+                  <div class="col">
+                      <input type="password" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Release Date" required>
+                  </div>
+                </div>
+                        
+                        
+                        <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
+                    <button type="submit" class="btn btn-primary mt-3 menuButton">Create</button>
+                  </form>
+    </div>
+  </div>
+{% endblock %}

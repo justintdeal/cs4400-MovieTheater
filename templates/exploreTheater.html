@@ -1,0 +1,118 @@
+{% extends 'registerBase.html' %}
+
+{% block jumbo %}
+<div class="jumbotron jt2 mt-5">
+  <h1 id="">Explore Theater</h1>
+  <div class="row">
+    <div class="col">
+            <form>
+                    <div class="row">
+                        <div class="col">
+                                <label for="lname">Theater Name</label>
+                        </div>
+                        <div class="col">
+                                <label for="lname">Company Name</label>
+                                
+                        </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col">
+                                    <select id="inputStatus" class="form-control">
+                                                <option selected>Choose...</option>
+                                                <option>...</option>
+                                              </select>
+                                </div>
+                                <div class="col">
+                                  <select id="inputStatus" class="form-control">
+                                                <option selected>Choose...</option>
+                                                <option>...</option>
+                                              </select>
+                                  </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                                <label for="lname">City</label>
+                        </div>
+                        <div class="col">
+                                <label for="lname">State</label>
+                                
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col">
+                                  <input type="name" class="form-control" id="lowEmp">
+                                  </div>
+                                <div class="col">
+                                  <select id="inputStatus" class="form-control">
+                                                <option selected>Choose...</option>
+                                                <option>...</option>
+                                              </select>
+                                  </div>
+                    </div>
+                  <div class="row">
+                    <div class="col" style="text-align:center" >
+                        <button type="button" class="btn btn-primary mt-3 menuButton">Filter</button>  
+                    </div>
+                    
+                  </div>
+                  <div class="row">
+                    <label for="lname"> </label>
+                  </div>
+                  <div class="row">
+                    <script src="https://www.w3schools.com/lib/w3.js"></script>
+                    <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet" />
+                      <table id="companyTable" class="w3-table-all">
+                       
+                      <tr>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Theater</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Address</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Company</th>
+                      </tr> 
+
+                      <tr class="item">
+                        <td>user:2911002</td>
+                        <td>UK</td>
+                        <td>Melissa</td>
+                      </tr>
+                      <tr class="item">
+                        <td>user:2201002</td>
+                        <td>France</td>
+                        <td>Justin</td>
+                      </tr>
+                      <tr class="item">
+                        <td>user:2901092</td>
+                        <td>San Francisco</td>
+                        <td>Judy</td>
+                      </tr>
+                      <tr class="item">
+                        <td>user:2801002</td>
+                        <td>Canada</td>
+                        <td>Skipper</td>
+                      </tr>
+                      <tr class="item">
+                        <td>user:2901009</td>
+                        <td>Christchurch</td>
+                        <td>Alex</td>
+                      </tr>
+
+                    </table>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
+                    </div>
+                    <div class="col">
+                      <label for="lname"> </label>
+                      <input type="name" class="form-control" id="lowEmp" placeholder="Visit Date">
+                    </div>
+                    <div class="col">
+                      <button type="submit" class="btn btn-primary mt-3 menuButton">Log Visit</button>
+                    </div>
+                  </div>
+                        
+                   
+                  </form>
+    </div>
+  </div>
+{% endblock %}

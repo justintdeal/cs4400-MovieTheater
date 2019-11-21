@@ -2,26 +2,23 @@
 
 {% block jumbo %}
 <div class="jumbotron jt2 mt-5">
-  <h1 id="">Admin Manage Company</h1>
+  <h1 id="">Theater Overview</h1>
   <div class="row">
     <div class="col">
             <form>
                     <div class="row">
                         <div class="col">
-                                <label for="lname">Name</label>
+                                <label for="lname">Movie Name</label>
                         </div>
                         <div class="col">
-                                <label for="lname"># Cities Covered</label>
+                                <label for="lname">Movie Duration</label>
                                 
                         </div>
                     </div>
 
                     <div class="row">
                             <div class="col">
-                                    <select id="inputName" class="form-control">
-                                                <option selected>Choose...</option>
-                                                <option>...</option>
-                                              </select>
+                                    <input type="name" class="form-control" id="name">
                                 </div>
                                 <div class="col">
                                   <div class="row">
@@ -39,10 +36,10 @@
                     </div>
                     <div class="row">
                       <div class="col">
-                                <label for="lname"># Theaters</label>
+                                <label for="lname">Movie Release Date</label>
                         </div>
                         <div class="col">
-                                <label for="lname"># Employees</label>
+                                <label for="lname">Movie Play Date</label>
                                 
                         </div>
                     </div>
@@ -74,13 +71,14 @@
                                     </div>
                                   </div>
                     </div>
-                  <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-primary mt-3 menuButton">Filter</button>  
+                    <div class="row">
+                      <div class="col" style="text-align:center" >
+                        <input type="checkbox" name="checkbox" value="Not played"> Only Include Not Played Movies<br>
+                      </div>
                     </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary mt-3 menuButton">Create Theater</button> 
-                        <button type="submit" class="btn btn-primary mt-3 menuButton">Detail</button>   
+                  <div class="row">
+                    <div class="col" style="text-align:center" >
+                        <button type="button" class="btn btn-primary mt-3 menuButton">Filter</button>  
                     </div>
                     
                   </div>
@@ -93,10 +91,10 @@
                       <table id="companyTable" class="w3-table-all">
                        
                       <tr>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Name</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">#CityCovered</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">#Theaters</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">#Employee</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Movie Name</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Duration</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Release Date</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Play Date</th>
                       </tr> 
 
                       <tr class="item">
