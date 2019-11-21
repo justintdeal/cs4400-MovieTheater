@@ -5,21 +5,21 @@
   <h1 id="">Customer Registration</h1>
   <div class="row">
     <div class="col">
-            <form id="menuHeader">
+            <form id="menuHeader" name = "menu"  action="http://localhost:5000/">
                 <label for="lname">Username</label>
                 <div class="row">
                     <div class="col-6">
     
-                        <input type="name" class="form-control" id="lastname" placeholder="Enter Username" required>
+                        <input type="name" class="form-control" id="lastname" onKeyup="checkform()" placeholder="Enter Username" required>
                     </div>
                 </div>
                 <label for="fname">Your Name</label>
               <div class="row">
                 <div class="col">
-                    <input type="name" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter First Name" required>
+                    <input type="name" class="form-control" id="firstName" aria-describedby="firstname" onKeyup="checkform()" placeholder="Enter First Name" required>
                 </div>
                 <div class="col">
-                    <input type="name" class="form-control" id="lastname" placeholder="Enter Last Name" required>
+                    <input type="name" class="form-control" id="lastname" onKeyup="checkform()" placeholder="Enter Last Name" required>
                 </div>
               </div>
               <div class="row">
@@ -28,17 +28,17 @@
               <label for="fname">Password</label>
               <div class="row">
                   <div class="col">
-                      <input type="password" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Password" required>
+                      <input type="password" class="form-control" id="firstName" aria-describedby="firstname" onKeyup="checkform()" placeholder="Enter Password" required>
                   </div>
                   <div class="col">
-                      <input type="password" class="form-control" id="lastname" placeholder="Confirm Password" required>
+                      <input type="password" class="form-control" id="lastname" onKeyup="checkform()" placeholder="Confirm Password" required>
                   </div>
                 </div>
 
               <div class="row mt-3">
                     <div class="col">
                             <label for="cc">Credit Card #: </label> 
-                            <input type="text" placeholder="00000000000">
+                            <input type="text" placeholder="00000000000" onKeyup="checkform()">
                             <input type="button" id="addCC" value="+">
                         </div>
                         <div class="col">
@@ -48,7 +48,7 @@
                         
                         
                     <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
-                    <button type="submit" class="btn btn-primary mt-3 menuButton">Submit</button>
+                    <button type="submit" id = "submitButton" class="btn btn-primary mt-3 menuButton">Submit</button>
                   </form>
     </div>
   </div>

@@ -5,32 +5,40 @@
   <h1 id="">Admin-Only Functionality</h1>
   <div class="row">
     <div class="col">
-            <form id="menuHeader">
               <div class="row">
                 <div class="col">
-                  <button type="submit" class="btn btn-primary mt-3 menuButton">Manage User</button>
+                  <a href="http://localhost:5000/manage/user">
+                    <input type="submit" class="btn btn-primary mt-3 menuButton" value="Manage User">
+                  </a>
                 </div>
                 <div class="col">
-                  <button type="submit" class="btn btn-primary mt-3 menuButton">Explore Theater</button>
+                  <a href="http://localhost:5000/theater/explore">
+                    <input type="submit" class="btn btn-primary mt-3 menuButton" value="Explore Theater">
+                  </a>
                 </div>
               </div>
                 <div class="row">
                     <div class="col">
-                      <button type="submit" class="btn btn-primary mt-3 menuButton">Manage Company</button>
+                      <a href="http://localhost:5000/manage/company">
+                        <input type="submit" class="btn btn-primary mt-3 menuButton" value="Manage Company">
+                      </a>
                     </div>
                     <div class="col">
-                      <button type="submit" class="btn btn-primary mt-3 menuButton">Visit History</button>
+                      <a href="http://localhost:5000/visit/history">
+                        <input type="submit" class="btn btn-primary mt-3 menuButton" value="Visit History">
+                      </a>
                     </div>
                 </div>
               <div class="row">
                     <div class="col">
-                      <button type="submit" class="btn btn-primary mt-3 menuButton">Create Movie</button>
+                      <a href="http://localhost:5000/manage/company/create/movie">
+                        <input type="submit" class="btn btn-primary mt-3 menuButton" value="Create Movie">
+                      </a>
                     </div>
                     <div class="col">
                       <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
                     </div>
                 </div>
-                  </form>
     </div>
   </div>
 {% endblock %}

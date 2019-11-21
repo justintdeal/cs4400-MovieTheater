@@ -25,7 +25,7 @@ def registerRole(role):
 def dashboard():
     types = ['Manager', 'Cust', 'Admin', 'User', 'AdminCust', 'ManagerCust']
 
-    userType = types[5]
+    userType = types[4]
     template = "dash"+ userType +".html"
     return render_template(template)
 '''
@@ -53,47 +53,47 @@ def customerDashboard():
 def userDashboard():
     return render_template('dashUser.html')
 '''
-@app.route("/manage/user")
+@app.route("/manage/user", methods=['GET', 'POST'])
 def manageUser():
     return render_template('manageUser.html')
 
-@app.route("/manage/company")
+@app.route("/manage/company", methods=['GET', 'POST'])
 def manageCompany():
     return render_template('manageCompany.html')
 
-@app.route("/manage/company/create/theater")
+@app.route("/manage/company/create/theater", methods=['GET', 'POST'])
 def createTheater():
     return render_template('createTheater.html')
 
-@app.route("/manage/company/<name>")
+@app.route("/manage/company/<name>", methods=['GET', 'POST'])
 def viewCompany(name):
     return render_template('viewCompany.html')
 
-@app.route("/manage/company/create/movie")
+@app.route("/manage/company/create/movie", methods=['GET', 'POST'])
 def createMovie():
     return render_template('createMovie.html')
 
-@app.route("/manage/company/schedule/movie")
+@app.route("/manage/company/schedule/movie", methods=['GET', 'POST'])
 def scheduleMovie():
     return render_template('scheduleMovie.html')
 
-@app.route("/manage/company/theater/overview")
+@app.route("/manage/company/theater/overview", methods=['GET', 'POST'])
 def theaterOverview():
     return render_template('theaterOverview.html')
 
-@app.route("/theater/explore")
+@app.route("/theater/explore", methods=['GET', 'POST'])
 def exploreTheater():
     return render_template('exploreTheater.html')
 
-@app.route("/movie/explore")
+@app.route("/movie/explore", methods=['GET', 'POST'])
 def exploreMovie():
     return render_template('exploreMovie.html')
 
-@app.route("/movie/history")
+@app.route("/movie/history", methods=['GET', 'POST'])
 def viewHistory():
     return render_template('viewHistory.html')
 
-@app.route("/visit/history")
+@app.route("/visit/history", methods=['GET', 'POST'])
 def visitHistory():
     return render_template('visitHistory.html')
 

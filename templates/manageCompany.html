@@ -5,7 +5,6 @@
   <h1 id="">Admin Manage Company</h1>
   <div class="row">
     <div class="col">
-            <form>
                     <div class="row">
                         <div class="col">
                                 <label for="lname">Name</label>
@@ -79,8 +78,12 @@
                         <button type="button" class="btn btn-primary mt-3 menuButton">Filter</button>  
                     </div>
                     <div class="col">
-                        <button type="submit" class="btn btn-primary mt-3 menuButton">Create Theater</button> 
-                        <button type="submit" class="btn btn-primary mt-3 menuButton">Detail</button>   
+                        <a href="company/create/theater">
+                          <input type="submit" class="btn btn-primary mt-3 menuButton" value="Create Theater">
+                        </a>
+                        <a href="company/name">
+                          <input type="submit" class="btn btn-primary mt-3 menuButton" value="Detail">
+                        </a>
                     </div>
                     
                   </div>
@@ -100,31 +103,31 @@
                       </tr> 
 
                       <tr class="item">
-                        <td>user:2911002</td>
+                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
                         <td>UK</td>
                         <td>Melissa</td>
                         <td>Pending</td>
                       </tr>
                       <tr class="item">
-                        <td>user:2201002</td>
+                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
                         <td>France</td>
                         <td>Justin</td>
                         <td>Pending</td>
                       </tr>
                       <tr class="item">
-                        <td>user:2901092</td>
+                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
                         <td>San Francisco</td>
                         <td>Judy</td>
                         <td>Pending</td>
                       </tr>
                       <tr class="item">
-                        <td>user:2801002</td>
+                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
                         <td>Canada</td>
                         <td>Skipper</td>
                         <td>Pending</td>
                       </tr>
                       <tr class="item">
-                        <td>user:2901009</td>
+                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
                         <td>Christchurch</td>
                         <td>Alex</td>
                       </tr>
@@ -135,8 +138,6 @@
                     <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
                   </div>
                         
-                   
-                  </form>
     </div>
   </div>
 {% endblock %}
