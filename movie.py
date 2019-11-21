@@ -35,6 +35,30 @@ def dashboard():
     print(userType)
     return render_template(template)
 
+@app.route("/dashboard/admin")
+def adminDashboard():
+    return render_template('dashAdmin.html')
+
+@app.route("/dashboard/adminCust")
+def adminCustDashboard():
+    return render_template('dashAdminCust.html')
+
+@app.route("/dashboard/manager")
+def managerDashboard():
+    return render_template('dashManager.html')
+
+@app.route("/dashboard/managerCust")
+def managerCustDashboard():
+    return render_template('dashManagerCust.html')
+
+@app.route("/dashboard/customer")
+def customerDashboard():
+    return render_template('dashCustomer.html')
+
+@app.route("/dashboard/user")
+def userDashboard():
+    return render_template('dashUser.html')
+
 @app.route("/manage/user")
 def manageUser():
     return render_template('manageUser.html')
@@ -42,6 +66,42 @@ def manageUser():
 @app.route("/manage/company")
 def manageCompany():
     return render_template('manageCompany.html')
+
+@app.route("/manage/company/create/theater")
+def createTheater():
+    return render_template('createTheater.html')
+
+@app.route("/manage/company/<name>")
+def viewCompany(name):
+    return render_template('viewCompany.html')
+
+@app.route("/manage/company/create/movie")
+def createMovie():
+    return render_template('createMovie.html')
+
+@app.route("/manage/company/schedule/movie")
+def scheduleMovie():
+    return render_template('scheduleMovie.html')
+
+@app.route("/manage/company/theater/overview")
+def theaterOverview():
+    return render_template('theaterOverview.html')
+
+@app.route("/theater/explore")
+def exploreTheater():
+    return render_template('exploreTheater.html')
+
+@app.route("/movie/explore")
+def exploreMovie():
+    return render_template('exploreMovie.html')
+
+@app.route("/movie/history")
+def viewHistory():
+    return render_template('viewHistory.html')
+
+@app.route("/visit/history")
+def visitHistory():
+    return render_template('visitHistory.html')
 
 
 

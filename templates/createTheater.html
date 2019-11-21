@@ -1,0 +1,89 @@
+{% extends 'registerBase.html' %}
+
+{% block jumbo %}
+<div class="jumbotron jt2 mt-5">
+  <h1 id="">Admin Create Theater</h1>
+  <div class="row">
+    <div class="col">
+            <form>
+                    <div class="row">
+                        <div class="col">
+                                <label for="lname">Name</label>
+                        </div>
+                        <div class="col">
+                                <label for="cname">Company</label>
+                                
+                        </div>
+                    </div>
+
+                    <div class="row">
+                            <div class="col">
+        
+                                    <input type="name" class="form-control" id="lastname" placeholder="Enter New Theater Name" required>
+                                </div>
+                                <div class="col">
+                                        <select id="inputCompany" class="form-control">
+                                                <option selected>Choose...</option>
+                                                <option>...</option>
+                                              </select>
+    
+                                    </div>
+                    </div>
+                  <div class="row">
+                     <div class="col">
+                                <label for="address">Street Address</label>
+                        </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <input type="name" class="form-control" id="lastname" placeholder="Enter Street Address" required>
+                    </div>
+                  </div>
+                  <div class="row">
+                      <div class="col">
+                        <label for="city">City</label>
+                        <input type="name" class="form-control" id="city" placeholder="Enter City" required>
+                      </div>
+                      <div class="col">
+                        <label for="state">State</label>
+                        <select id="inputCompany" class="form-control">
+                                                <option selected>Choose...</option>
+                                                <option>...</option>
+                                              </select>
+                      </div>
+                      <div class="col">
+                        <label for="zipcode">Zipcode</label>
+                        <input type="name" class="form-control" id="zipcode" placeholder="Enter Zipcode" required>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col">
+                        <label for="zipcode">Capacity</label>
+                        <input type="name" class="form-control" id="zipcode" placeholder="Enter Capacity" required>
+                      </div>
+                      <div class="col">
+                        <label for="state">Manager</label>
+                        <select id="inputCompany" class="form-control">
+                                                <option selected>Choose...</option>
+                                                <option>...</option>
+                                              </select>
+                      </div>
+                  </div>
+                    <div class="row">
+                      <div class="col">
+                        <div style="text-align:center">  
+                          <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
+                        </div>
+                      </div>
+                      <div class="col">
+                        <div style="text-align:center">  
+                          <input type="button" class="btn btn-primary mt-3 menuButton" value="Create" onclick="history.back()">
+                        </div>
+                      </div>
+                    </div>
+                        
+                   
+                  </form>
+    </div>
+  </div>
+{% endblock %}

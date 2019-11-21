@@ -2,52 +2,28 @@
 
 {% block jumbo %}
 <div class="jumbotron jt2 mt-5">
-  <h1 id="">Admin Manage Company</h1>
+  <h1 id="">Visit History</h1>
   <div class="row">
     <div class="col">
             <form>
                     <div class="row">
                         <div class="col">
-                                <label for="lname">Name</label>
+                                <label for="lname">Company Name</label>
                         </div>
                         <div class="col">
-                                <label for="lname"># Cities Covered</label>
+                                <label for="lname">Visit Date</label>
                                 
                         </div>
                     </div>
 
                     <div class="row">
                             <div class="col">
-                                    <select id="inputName" class="form-control">
+                                    <select id="inputStatus" class="form-control">
                                                 <option selected>Choose...</option>
                                                 <option>...</option>
                                               </select>
                                 </div>
                                 <div class="col">
-                                  <div class="row">
-                                  <div class="col">
-                                        <input type="name" class="form-control" id="lowCity">
-                                        </div>
-                                  <div class="col">
-                                        <center for="to">to</center>
-                                        </div>
-                                  <div class="col">
-                                        <input type="name" class="form-control" id="upCity">
-                                        </div>
-                                    </div>
-                                  </div>
-                    </div>
-                    <div class="row">
-                      <div class="col">
-                                <label for="lname"># Theaters</label>
-                        </div>
-                        <div class="col">
-                                <label for="lname"># Employees</label>
-                                
-                        </div>
-                    </div>
-                    <div class="row">
-                            <div class="col">
                                   <div class="row">
                                   <div class="col">
                                         <input type="name" class="form-control" id="lowTheater">
@@ -60,30 +36,7 @@
                                         </div>
                                     </div>
                                   </div>
-                                <div class="col">
-                                  <div class="row">
-                                  <div class="col">
-                                        <input type="name" class="form-control" id="lowEmp">
-                                        </div>
-                                  <div class="col">
-                                        <center for="to">to</center>
-                                        </div>
-                                  <div class="col">
-                                        <input type="name" class="form-control" id="upEmp">
-                                        </div>
-                                    </div>
-                                  </div>
                     </div>
-                  <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-primary mt-3 menuButton">Filter</button>  
-                    </div>
-                    <div class="col">
-                        <button type="submit" class="btn btn-primary mt-3 menuButton">Create Theater</button> 
-                        <button type="submit" class="btn btn-primary mt-3 menuButton">Detail</button>   
-                    </div>
-                    
-                  </div>
                   <div class="row">
                     <label for="lname"> </label>
                   </div>
@@ -93,10 +46,10 @@
                       <table id="companyTable" class="w3-table-all">
                        
                       <tr>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Name</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">#CityCovered</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">#Theaters</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">#Employee</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Theater</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Address</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Company</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Visit Date</th>
                       </tr> 
 
                       <tr class="item">
