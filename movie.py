@@ -20,6 +20,8 @@ def regiserHome():
 def registerRole(role):
     if request.method == 'GET':
         return getRegTemplate(role)
+    else:
+
 
 @app.route("/dashboard/")
 def dashboard():
@@ -28,31 +30,7 @@ def dashboard():
     userType = types[4]
     template = "dash"+ userType +".html"
     return render_template(template)
-'''
-@app.route("/dashboard/admin")
-def adminDashboard():
-    return render_template('dashAdmin.html')
 
-@app.route("/dashboard/adminCust")
-def adminCustDashboard():
-    return render_template('dashAdminCust.html')
-
-@app.route("/dashboard/manager")
-def managerDashboard():
-    return render_template('dashManager.html')
-
-@app.route("/dashboard/managerCust")
-def managerCustDashboard():
-    return render_template('dashManagerCust.html')
-
-@app.route("/dashboard/customer")
-def customerDashboard():
-    return render_template('dashCustomer.html')
-
-@app.route("/dashboard/user")
-def userDashboard():
-    return render_template('dashUser.html')
-'''
 @app.route("/manage/user", methods=['GET', 'POST'])
 def manageUser():
     return render_template('manageUser.html')
@@ -111,5 +89,11 @@ def getRegTemplate(role):
         return render_template('custManReg.html')
 
 
+def validateEmail(email):
+    regx = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+    if (re.search(regx, email)):
+        return True
+    return False
 
-
+def validatePass(password, confPass):
+    return 0
