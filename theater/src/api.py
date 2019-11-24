@@ -15,11 +15,12 @@ def index():
         user = request.form['email']
         password = request.form['password']
         #user (username, status, isCustomer, isAdmin, isManager)
-        user = db.userLogin(user, password)
-        if user[0] == None:
-            flash('Invalid Login')
-            return render_template('home.html')
-        if user[0][2]:
+        # user = db.userLogin(user, password)
+        # if user[0] == None:
+        #     flash('Invalid Login')
+        #     return render_template('home.html')
+        # if user[0][2]:
+        return render_template('home.html')
 
 #screen 2
 #finished
