@@ -38,10 +38,49 @@
               <div class="row mt-3">
                     <div class="col">
                             <label for="cc">Credit Card #: </label> 
-                            <input type="text" placeholder="00000000000" onKeyup="checkform()">
-                            <input type="button" id="addCC" value="+">
-                        </div>
-                        <div class="col">
+                            <input type="text" placeholder="0000000000000000" id="ccNum">
+                            <input type="button"  onclick="addCC()" value="+">
+                          <script>
+                            let creditCards = [];
+                            var i = 0
+
+                            function addCC() { 
+                                
+                                number = document.getElementById("ccNum").value;   
+                                if (number.toString().length == 16 && creditCards.length < 5) {
+                                    console.log("here")
+                                    creditCards[i] = number
+                                    i++
+    
+                                text = "<ul>";
+                                creditCards.forEach(listCC);
+                                text += "</ul>";
+                                text += '<input type="button"  onclick="removeCC()" value="-">'
+                                document.getElementById("creditCards").innerHTML = text
+                                document.getElementById("ccNum").value = "0000000000000000"
+                                }
+                            };
+
+                            function removeCC() {
+                              creditCards.pop()
+                              i--
+                              text = "<ul>";
+                              creditCards.forEach(listCC);
+                              text += "</ul>";
+                              if (creditCards.length != 0) {
+                                text += '<input type="button"  onclick="removeCC()" value="-">'
+                              }
+                              
+                              document.getElementById("creditCards").innerHTML = text
+                              document.getElementById("ccNum").value = "0000000000000000"
+                            }
+
+                            function listCC(number) {
+                                text += "<li>" + number + "</li>";
+                            };
+                          </script>
+                          </div>
+                        <div class="col" id="creditCards">
                             
                         </div>
               </div>
