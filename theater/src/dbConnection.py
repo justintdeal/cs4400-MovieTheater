@@ -7,8 +7,7 @@ password = None
 host = None
 
 def connect():
-    connection = mysql.connector.connect(user=user, password=password,
-                                        host=host)
+    connection = mysql.connector.connect(user=user, password=password, host=host)
     return connection
 
 def query(sql):
@@ -112,7 +111,7 @@ def adminDeclineUser(user):
     cursor.close()
     connection.close()
 
-def adminFilterUser(user, status, sortBy, sortDirection)):
+def adminFilterUser(user, status, sortBy, sortDirection):
     connection = connect()
     cursor = connection.cursor()
     sql = "EXEC admin_filter_user @i_username = {}, @i_status = {}\

@@ -36,14 +36,14 @@
 
         </div>
         <div class="col-3">      
-          <form id=loginForm action="dashboard/">
+          <form id=loginForm method="POST" action="/">
             <h2>Member Login</h2>
             <div class="form-group mt-3">
-              <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username" required>
+              <input type="email" name="email" class="form-control" id="email" aria-describedby="email" placeholder="Username" required>
             </div>
 
             <div class="form-group">
-              <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+              <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
             </div>
             <div class="form-group">
               <button type="submit" class="btn btn-dark mr-3 menuButton">Sign in</button> or

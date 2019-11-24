@@ -1,5 +1,6 @@
 from theater import app
-from flask import render_template, request
+import theater.src.dbConnection as db
+from flask import render_template, request, flash, url_for
 
 #screen 1: login
 #need to validate login here
@@ -11,7 +12,14 @@ def index():
     if request.method == 'GET':
         return render_template('home.html')
     else:
-        return "hello"
+        user = request.form['email']
+        password = request.form['password']
+        #user (username, status, isCustomer, isAdmin, isManager)
+        user = db.userLogin(user, password)
+        if user[0] == None:
+            flash('Invalid Login')
+            return render_template('home.html')
+        if user[0][2]:
 
 #screen 2
 #finished
