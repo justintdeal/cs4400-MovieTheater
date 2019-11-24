@@ -1,6 +1,5 @@
 from theater import app
 from flask import render_template, request
-from src import valid
 
 #screen 1: login
 #need to validate login here
