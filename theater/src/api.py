@@ -1,6 +1,6 @@
 from theater import app
 import theater.src.dbConnection as db
-from flask import render_template, request, flash, url_for, redirect
+from flask import render_template, request, flash, url_for, redirect, json
 
 #screen 1: login
 @app.route('/', methods=['GET', 'POST'])
@@ -24,9 +24,6 @@ def regiserHome():
     return render_template('registerHome.html')
 
 #screens 3-6
-
-# unique credit card numbers
-# # credit card >=1 && <=5 and lenght == 16
 # populate company dropdown
 @app.route("/register/<role>", methods=['GET', 'POST'])
 def registerRole(role):
@@ -43,19 +40,88 @@ def registerRole(role):
             if password == confPass and len(password) >= 8:
                 db.userRegister(username, password, first, last)
             elif len(password) <= 8:
-                print(10)
                 message = "Password must be at least 8 characters"
                 return render_template("userReg.html", messages=message)
             else:
                 message = "Passwords must match"
                 return getRegTemplate("user", message)
+        
         if role == "customer":
             password = request.form['password']
             confPass = request.form['confPass']
             first = request.form['first']
             last = request.form['last']
             username = request.form['username']
-            return "hello"
+            
+            #need to fix but temp credit card
+            ccs = [0000000000000000] 
+            print("here")
+            if password == confPass and len(password) >= 8 and ccs != None:
+                db.userRegister(username, password, first, last)
+                for cc in ccs:
+                    db.custAddCC(user, cc)
+            elif ccs == None:
+                message = "You must add at least one credit card"
+                return render_template("custReg.html", messages=message)
+            elif len(password) <= 8:
+                message = "Password must be at least 8 characters"
+                return render_template("custReg.html", messages=message)
+            else:
+                message = "Passwords must match"
+                return getRegTemplate("customer", message)
+        
+        if role == "manager":
+            password = request.form['password']
+            confPass = request.form['confPass']
+            first = request.form['first']
+            last = request.form['last']
+            username = request.form['username']
+            street = request.form['street']
+            city = request.form['city']
+            state = request.form['state']
+            zipcode = request.form['zipcode']
+            #get correct company
+            company = "amc"
+ 
+            if password == confPass and len(password) >= 8:
+                db.manRegister(username, password, first, last, company, street, 
+                city, state, zipcode)
+            elif len(password) <= 8:
+                message = "Password must be at least 8 characters"
+                return render_template("manReg.html", messages=message)
+            else:
+                message = "Passwords must match"
+                return getRegTemplate("manager", message)
+        
+        if role == "mancust":
+            password = request.form['password']
+            confPass = request.form['confPass']
+            first = request.form['first']
+            last = request.form['last']
+            username = request.form['username']
+            street = request.form['street']
+            city = request.form['city']
+            state = request.form['state']
+            zipcode = request.form['zipcode']
+            #get correct company
+            company = "amc"
+            ccs = [0000000000000000]
+            if password == confPass and len(password) >= 8 and ccs != None:
+                db.manCustRegister(username, password, first, last, company, street, 
+                city, state, zipcode)
+                for cc in ccs:
+                    manCustAddCC(user, cc)
+            elif ccs == None:
+                message = "You must add at least one credit card"
+                return render_template("custManReg.html", messages=message)
+            elif len(password) <= 8:
+                message = "Password must be at least 8 characters"
+                return render_template("custManReg.html", messages=message)
+            else:
+                message = "Passwords must match"
+                return getRegTemplate("mancust", message)
+
+
 
 
 def getRegTemplate(role, messages=None):
@@ -66,7 +132,7 @@ def getRegTemplate(role, messages=None):
     elif role == "customer":
         return render_template('custReg.html', messages=messages)
     elif role == "mancust":
-        return render_template('custManReg.html', messages=message)
+        return render_template('custManReg.html', messages=messages)
 
 #screens 7-12
 @app.route("/dashboard/")

@@ -5,7 +5,7 @@
   <h1 id="">Manager & Customer Registration</h1>
   <div class="row">
     <div class="col">
-            <form action="http://localhost:5000/">
+            <form method="POST" action="/register/mancust">
                     <div class="row">
                         <div class="col">
                                 <label for="lname">Username</label>
@@ -19,10 +19,10 @@
                     <div class="row">
                             <div class="col">
         
-                                    <input type="name" class="form-control" id="lastname" placeholder="Enter Username" required>
+                                    <input type="name" name="username" class="form-control" id="lastname" placeholder="Enter Username" required>
                                 </div>
                                 <div class="col">
-                                        <select id="inputState" class="form-control">
+                                        <select id="inputState" name="company" class="form-control">
                                                 <option selected>Choose...</option>
                                                 <option>...</option>
                                               </select>
@@ -32,10 +32,10 @@
                     <label for="fname">Your Name</label>
                   <div class="row">
                     <div class="col">
-                        <input type="name" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter First Name" required>
+                        <input type="name" name="first" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter First Name" required>
                     </div>
                     <div class="col">
-                        <input type="name" class="form-control" id="lastname" placeholder="Enter Last Name" required>
+                        <input type="name" name="last" class="form-control" id="lastname" placeholder="Enter Last Name" required>
                     </div>
                   </div>
                   <div class="row">
@@ -44,24 +44,24 @@
                   <label for="fname">Password</label>
                   <div class="row">
                       <div class="col">
-                          <input type="password" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Password" required>
+                          <input type="password" name="password" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Password" required>
                       </div>
                       <div class="col">
-                          <input type="password" class="form-control" id="lastname" placeholder="Confirm Password" required>
+                          <input type="password" name="confPass" class="form-control" id="lastname" placeholder="Confirm Password" required>
                       </div>
                     </div>
                     <div class="form-group">
                       <label for="inputAddress">Address</label>
-                      <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
+                      <input type="text" name="street" class="form-control" id="inputAddress" placeholder="1234 Main St" required>
                     </div>
                     <div class="form-row">
                       <div class="form-group col-md-6">
                         <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity" required>
+                        <input type="text" name="city" class="form-control" id="inputCity" required>
                       </div>
                       <div class="form-group col-md-4">
                         <label for="inputState">State</label>
-                        <select id="inputState" class="form-control" required>
+                        <select id="inputState" name="state" class="form-control" required>
                           <option selected>Choose...</option>
                           <option value="AL">AL</option>
                           <option value="AK">AK</option>
@@ -119,19 +119,66 @@
                       </div>
                       <div class="form-group col-md-2">
                         <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip" required>
+                        <input type="text" name="zipcode" class="form-control" id="inputZip" required>
                       </div>
                     </div>
                     <div class="row mt-3">
-                            <div class="col">
-                                    <label for="cc">Credit Card #: </label> 
-                                    <input type="text" placeholder="00000000000">
-                                    <input type="button" id="addCC" value="+">
-                                </div>
-                                <div class="col">
+                        <div class="col">
+                                <label for="cc">Credit Card #: </label> 
+                                <input type="text" placeholder="0000000000000000" id="ccNum">
+                                <input type="button"  onclick="addCC()" value="+">
+                              <script>
+                                let creditCards = [];
+                                var i = 0
+    
+                                function addCC() { 
                                     
-                                </div>
-                      </div>
+                                    number = document.getElementById("ccNum").value;   
+                                    if (number.toString().length == 16 && creditCards.length < 5) {
+                                      var dup = 0
+                                      for (var i = 0; i<creditCards.length; ++i) {
+                                          if (creditCards[i] == number) {
+                                            dup = 1
+                                          }
+                                        }
+                                      if (dup == 0) {
+                                        creditCards[i] = number
+                                        i++
+                                      }
+                                    
+        
+                                    text = "<ul>";
+                                    creditCards.forEach(listCC);
+                                    text += "</ul>";
+                                    text += '<input type="button" class="btn btn-primary mt-3 menuButton" onclick="removeCC()" value="-">'
+                                    document.getElementById("creditCards").innerHTML = text
+                                    document.getElementById("ccNum").value = "0000000000000000"
+                                    }
+                                };
+    
+                                function removeCC() {
+                                  creditCards.pop()
+                                  i--
+                                  text = "<ul>";
+                                  creditCards.forEach(listCC);
+                                  text += "</ul>";
+                                  if (creditCards.length != 0) {
+                                    text += '<input type="button" class="btn btn-primary mt-3 menuButton" onclick="removeCC()" value="-">'
+                                  }
+                                  
+                                  document.getElementById("creditCards").innerHTML = text
+                                  document.getElementById("ccNum").value = "0000000000000000"
+                                }
+    
+                                function listCC(number) {
+                                    text += "<li>" + number + "</li>";
+                                };
+                              </script>
+                              </div>
+                            <div class="col" id="creditCards">
+                                
+                            </div>
+                  </div>
                                 
 
                     <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
@@ -139,6 +186,12 @@
                         
                    
                   </form>
+                  {% if messages %}
+                  <ul class="mt-4" style="color:red;">
+                    <li>{{ messages}}</li>
+                      
+                  </ul>
+                  {% endif %}
     </div>
   </div>
 {% endblock %}
