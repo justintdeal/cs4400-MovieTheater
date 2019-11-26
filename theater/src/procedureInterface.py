@@ -20,6 +20,7 @@ def query(sql):
     return data
 
 ### Executes Stored Percedures
+#screen 1
 def userLogin(user, password):
     connection = connect()
     cursor = connection.cursor()
@@ -30,6 +31,7 @@ def userLogin(user, password):
     connection.close()
     return data
 
+#screen 3
 def userRegister(user, password, first, last):
     connection = connect()
     cursor = connection.cursor()
@@ -40,6 +42,7 @@ def userRegister(user, password, first, last):
     cursor.close()
     connection.close()
 
+#screen 4
 def custRegister(user, password, first, last):
     connection = connect()
     cursor = connection.cursor()
@@ -50,6 +53,7 @@ def custRegister(user, password, first, last):
     cursor.close()
     connection.close()
 
+#screen 4
 def custAddCC(user, cc):
     connection = connect()
     cursor = connection.cursor()
@@ -59,7 +63,7 @@ def custAddCC(user, cc):
     cursor.close()
     connection.close()
 
-
+#screen 5
 def manRegister(user, password, first, last, company, street, 
                 city, state, zipcode):
     connection = connect()
@@ -73,6 +77,7 @@ def manRegister(user, password, first, last, company, street,
     cursor.close()
     connection.close()
 
+#screen 6
 def manCustRegister(user, password, first, last, company, street, 
                 city, state, zipcode):
     connection = connect()
@@ -86,6 +91,7 @@ def manCustRegister(user, password, first, last, company, street,
     cursor.close()
     connection.close()
 
+#screen 6
 def manCustAddCC(user, cc):
     connection = connect()
     cursor = connection.cursor()
@@ -95,6 +101,7 @@ def manCustAddCC(user, cc):
     cursor.close()
     connection.close()
 
+#screen 13
 def adminApproveUser(user):
     connection = connect()
     cursor = connection.cursor()
@@ -103,6 +110,7 @@ def adminApproveUser(user):
     cursor.close()
     connection.close()
 
+#screen 13
 def adminDeclineUser(user):
     connection = connect()
     cursor = connection.cursor()
@@ -111,6 +119,7 @@ def adminDeclineUser(user):
     cursor.close()
     connection.close()
 
+#screen 13
 def adminFilterUser(user, status, sortBy, sortDirection):
     connection = connect()
     cursor = connection.cursor()
@@ -123,6 +132,7 @@ def adminFilterUser(user, status, sortBy, sortDirection):
     connection.close()
     return data
     
+#screen 14    
 def adminFilterCompany(comName, minCity, maxCity, minTheater,  
             maxTheater, minEmp, maxEmp, sortBy, sortDirection):
     connection = connect()
@@ -138,6 +148,7 @@ def adminFilterCompany(comName, minCity, maxCity, minTheater,
     connection.close()
     return data
 
+#screen 15
 def adminCreateTheater(theaterName, comName, street, city, state, 
                         zipcode, cap, manUser):
     connection = connect()
@@ -151,7 +162,7 @@ def adminCreateTheater(theaterName, comName, street, city, state,
     cursor.close()
     connection.close()
 
-                
+#screen 16                
 def adminViewComDetail_emp(company):
     connection = connect()
     cursor - connection.cursor()
@@ -162,6 +173,7 @@ def adminViewComDetail_emp(company):
     connection.close()
     return data
 
+#screen 16
 def adminViewComDetail_th(company):
     connection = connect()
     cursor - connection.cursor()
@@ -172,6 +184,7 @@ def adminViewComDetail_th(company):
     connection.close()
     return data
 
+#screen 17
 def adminCreateMovie(movie, duration, releaseDate):
     connection = connect()
     cursor = connection.cursor()
@@ -181,6 +194,7 @@ def adminCreateMovie(movie, duration, releaseDate):
     cursor.close()
     connection.close()
 
+#screen 18
 def manageFilterTheater(manUser, movie, minDur, maxDur, minMovRD, 
              maxMovRD, minMovPD, maxMovPD, includeNotPlayed):
     connection = connect()
@@ -196,6 +210,7 @@ def manageFilterTheater(manUser, movie, minDur, maxDur, minMovRD,
     connection.close()
     return data 
 
+#screen 19
 def managerScheduleMovie(manUser, movie, movRD, movPD):
     connection = connect()
     cursor = connection.cursor()
@@ -208,6 +223,7 @@ def managerScheduleMovie(manUser, movie, movRD, movPD):
     connection.close()
     return data
 
+#screen 20
 def customerFilterMovie(movName, comName, city, state, 
             minMovPlayDate, maxMovPlayDate):
     connection = connect()
@@ -221,7 +237,7 @@ def customerFilterMovie(movName, comName, city, state,
     connection.close()
     return data
 
-
+#screen 20
 def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName, 
                 i_comName, i_movPlayDate):
     connection = connect()
@@ -234,6 +250,7 @@ def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName,
     cursor.close()
     connection.close()
 
+#screen 21
 def customerViewHistory(user):
     connection = connect()
     cursor - connection.cursor()
@@ -244,6 +261,7 @@ def customerViewHistory(user):
     connection.close()
     return data
 
+#screen 22
 def userFilterTheater(i_thName, i_comName, i_city, i_state):
     connection = connect()
     cursor - connection.cursor()
@@ -255,6 +273,7 @@ def userFilterTheater(i_thName, i_comName, i_city, i_state):
     connection.close()
     return data
 
+#screen 22
 def userVisitTheater(i_thName, i_comName, i_visitDate, i_username):
     connection = connect()
     cursor - connection.cursor()
@@ -264,6 +283,7 @@ def userVisitTheater(i_thName, i_comName, i_visitDate, i_username):
     cursor.close()
     connection.close()
 
+#screen 23
 def userFilterVisitHistory(i_username, i_minVisitDate, i_maxVisitDate):
     connection = connect()
     cursor - connection.cursor()
