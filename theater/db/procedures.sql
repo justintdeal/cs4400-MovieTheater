@@ -1,5 +1,16 @@
 USE `team50`;
 
+DROP FUNCTION IF EXISTS num_emp;
+DELIMITER $$
+CREATE FUNCTION `num_emp` (i_compName VARCHAR(50))
+    RETURNS INT
+    DETERMINISTIC
+    READS SQL DATA
+BEGIN
+    RETURN (Select count(*) from `manager` where company = i_compName);
+END$$ 
+DELIMITER ;
+ 
 DROP FUNCTION IF EXISTS get_type;
 DELIMITER $$
 CREATE FUNCTION `get_type` (i_username VARCHAR(50))
@@ -30,7 +41,7 @@ CREATE FUNCTION `is_Customer` (i_username VARCHAR(50))
     DETERMINISTIC
     READS SQL DATA
 BEGIN
-    RETURN EXISTS(Select * from `Customer` where username = i_username);
+    RETURN EXISTS(Select * from `customer` where username = i_username);
 END$$ 
 DELIMITER ;
  
@@ -41,7 +52,7 @@ CREATE FUNCTION `is_Manager` (i_username VARCHAR(50))
     DETERMINISTIC
     READS SQL DATA
 BEGIN
-    RETURN EXISTS(Select * from `Manager` where username = i_username);
+    RETURN EXISTS(Select * from `manager` where username = i_username);
 END$$ 
 DELIMITER ;
  
@@ -65,7 +76,8 @@ BEGIN
     DROP TABLE IF EXISTS UserLogin;
     CREATE TABLE UserLogin
         SELECT username, status, is_Customer(i_username) as isCustomer, is_Admin(i_username) as isAdmin, 0 as isManager
-        FROM User where i_username = username and i_password = password;
+        FROM user
+        where i_username = username and md5(i_password) = password;
 END$$
 DELIMITER ;
  
@@ -197,6 +209,102 @@ BEGIN
         case when i_sortBy = "status" and i_sortDirection = 'ASC' then status end ASC;
 END$$
 DELIMITER ;
+ 
+-- 14
+DROP PROCEDURE IF EXISTS admin_filter_company;
+DELIMITER $$
+CREATE PROCEDURE `admin_filter_company`(IN i_comName VARCHAR(50), 
+IN i_minCity INT, IN i_maxCity INT, IN i_minTheater INT, IN i_maxTheater INT,
+IN i_minEmployee INT, IN i_maxEmployee INT,
+IN i_sortBy ENUM('comName','numCityCover','numTheater','numEmployee'),
+IN i_sortDirection ENUM('ASC','DESC'))
+BEGIN
+    DROP TABLE IF EXISTS AdFilterCom;
+    CREATE TABLE AdFilterCom
+    SELECT company.name as compName,
+count(distinct theater.city) as numCityCover, count(theater.name) as numTheater, num_emp(company.name) as numEmployee
+    FROM company, theater
+    where theater.company = company.name
+    GROUP BY compName
+    ORDER BY 
+        case when i_sortBy IS NULL and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then comName end DESC,
+        case when i_sortBy = "comName" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then comName end DESC,
+        case when i_sortBy = "numCityCover" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then numCityCover end DESC,
+        case when i_sortBy = "numTheater" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then numTheater end DESC,
+        case when i_sortBy = "numEmployee" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then numEmployee end DESC,
+        case when i_sortBy IS NULL and i_sortDirection = 'ASC' then comName end ASC,
+        case when i_sortBy = "comName" and i_sortDirection = 'ASC' then comName end ASC,
+        case when i_sortBy = "numCityCover" and i_sortDirection = 'ASC' then numCityCover end ASC,
+        case when i_sortBy = "numTheater" and i_sortDirection = 'ASC' then numTheater end ASC,
+        case when i_sortBy = "numEmployee" and i_sortDirection = 'ASC' then numEmployee end ASC;
+END$$
+DELIMITER ;
+ 
+-- 15
+DROP PROCEDURE IF EXISTS admin_create_theater;
+DELIMITER $$
+CREATE PROCEDURE `admin_create_theater`(IN i_thName VARCHAR(50),
+IN i_comName VARCHAR(50), IN i_thStreet VARCHAR(50), IN i_thCity VARCHAR(50),
+IN i_thState VARCHAR(50), IN i_thZipcode VARCHAR(50), IN i_capacity INT,
+IN i_managerUsername VARCHAR(50))
+BEGIN
+    INSERT INTO theater (company, name, street, city, state, zipcode, capacity, manager)
+    VALUES (i_comName, i_thName, i_thStreet, i_thCity, i_thState, i_thZipcode, i_capacity, i_managerUsername);
+END$$
+DELIMITER ;
+ 
+-- 16a
+DROP PROCEDURE IF EXISTS admin_view_comDetail_emp;
+DELIMITER $$
+CREATE PROCEDURE `admin_view_comDetail_emp`(IN i_comName VARCHAR(50))
+BEGIN
+    DROP TABLE IF EXISTS AdComDetailEmp;
+    CREATE TABLE AdComDetailEmp
+        SELECT firstname as empFirstname, lastname as empLastName
+        FROM user natural join manager
+        where i_comName = company;
+END$$
+DELIMITER ;
+ 
+-- 16b
+DROP PROCEDURE IF EXISTS admin_view_comDetail_th;
+DELIMITER $$
+CREATE PROCEDURE `admin_view_comDetail_th`(IN i_comName VARCHAR(50))
+BEGIN
+    DROP TABLE IF EXISTS AdComDetailTh;
+    CREATE TABLE AdComDetailTh
+        SELECT name as thName, manager as thManagerUsername, city as thCity, state as thState, capacity as thCapacity
+        FROM theater
+        where i_comName = company;
+END$$
+DELIMITER ;
+ 
+-- 17
+DROP PROCEDURE IF EXISTS admin_create_movie;
+DELIMITER $$
+CREATE PROCEDURE `admin_create_movie`(IN i_movName VARCHAR(50),
+IN i_movDuration INT, IN i_movReleaseDate DATE)
+BEGIN
+    INSERT INTO movie
+    VALUES (i_movName, i_movDuration, i_movReleaseDate);
+END$$
+DELIMITER ;
+ 
+ 
+ 
+ 
+-- 19
+DROP PROCEDURE IF EXISTS manager_schedule_mov; 
+DELIMITER $$
+CREATE PROCEDURE `manager_schedule_mov`(IN i_manUsername VARCHAR(50), IN i_movName VARCHAR(50),
+IN i_movReleaseDate DATE, IN i_movPlayDate DATE)
+BEGIN
+    INSERT INTO moviePlay VALUES (i_movName, i_movReleaseDate,
+    (SELECT name FROM theater WHERE manager=i_manUsername), 
+    (SELECT company FROM theater WHERE manager=i_manUsername), i_movPlayDate);
+END$$
+DELIMITER ;
+ 
  
 -- 20a
 DROP PROCEDURE IF EXISTS customer_filter_mov; 

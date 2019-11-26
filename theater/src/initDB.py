@@ -34,4 +34,4 @@ def runSqlFile(path):
 def initDB(schema, data, procedures):
     runSqlFile(schema)
     os.system('mysql -u {} -p{} team50 < {}'.format(user, password, procedures))
-    runSqlFile(data)
+    os.system('mysql -u {} -p{} team50 < {}'.format(user, password, data))

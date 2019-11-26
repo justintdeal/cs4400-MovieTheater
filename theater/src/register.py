@@ -22,7 +22,7 @@ def register(role):
     
         if password == confPass and len(password) >= 8:
             db.userRegister(username, password, first, last)
-            user = db.userLogin(user, password)
+            user = db.userLogin(username, password)
             return redirect(url_for('dashboard', user = user))
         elif len(password) <= 8:
             message = "Password must be at least 8 characters"

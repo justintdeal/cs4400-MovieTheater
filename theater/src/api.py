@@ -13,10 +13,10 @@ def index():
         password = request.form['password']
         #user (username, status, isCustomer, isAdmin, isManager)
         user = db.userLogin(user, password)
-        if user[0] == None:
+        print(user)
+        if len(user) == 0:
             message = "Invalid Login"
             return render_template('home.html', messages=message)
-        user=user[0]
         return redirect(url_for('dashboard', user = user))
 
 #screen 2
