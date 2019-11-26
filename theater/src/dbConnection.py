@@ -2,9 +2,9 @@ from theater import app
 import mysql.connector
 
 #db connection info
-user = None
-password = None
-host = None
+user = "team50"
+password = "Columns1!"
+host = "127.0.0.1"
 
 def connect():
     connection = mysql.connector.connect(user=user, password=password, host=host)
