@@ -1,6 +1,7 @@
 from theater import app
 import mysql.connector
 import os
+import sys
 
 #db connection info
 user = "team50"
@@ -33,5 +34,9 @@ def runSqlFile(path):
 
 def initDB(schema, data, procedures):
     runSqlFile(schema)
-    os.system('mysql -u {} -p{} team50 < {}'.format(user, password, procedures))
-    os.system('mysql -u {} -p{} team50 < {}'.format(user, password, data))
+    if sys.platform == 'linux':
+        os.system('mysql -u {} -p{} team50 < {}'.format(user, password, procedures))
+        os.system('mysql -u {} -p{} team50 < {}'.format(user, password, data))
+    else:
+        os.system('mysql.exe -u {} -p{} team50 < {}'.format(user, password, procedures))
+        os.system('mysql.exe -u {} -p{} team50 < {}'.format(user, password, data))

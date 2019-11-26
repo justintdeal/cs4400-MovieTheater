@@ -42,8 +42,8 @@ def userLogin(user, password):
 def userRegister(user, password, first, last):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call user_register(@{},@{}, @{}, \
-           @{});".format(user, password, first, last)
+    sql = "call user_register(@{},@{},@{},@{});".format(user, password, first, last)
+    print(sql)
     cursor.execute(sql)
     cursor.close()
     connection.close()

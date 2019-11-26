@@ -20,6 +20,11 @@ def register(role):
         last = request.form['last']
         username = request.form['username']
     
+        print(password)
+        print(confPass)
+        print(first)
+        print(last)
+        print(username)
         if password == confPass and len(password) >= 8:
             db.userRegister(username, password, first, last)
             user = db.userLogin(username, password)
@@ -70,8 +75,7 @@ def register(role):
         company = "amc"
  
         if password == confPass and len(password) >= 8:
-            db.manRegister(username, password, first, last, company, street, 
-            city, state, zipcode)
+            db.manRegister(username, password, first, last, company, street, city, state, zipcode)
             user = db.userLogin(user, password)
             redirect(url_for('dashboard', user = user))
         elif len(password) <= 8:
