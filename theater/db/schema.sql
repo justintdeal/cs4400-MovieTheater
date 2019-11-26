@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
     `username` varchar(20) NOT NULL,
-    `password` varchar(20) NOT NULL,
+    `password` varchar(50) NOT NULL,
     `status` ENUM('pending','approved','declined') NOT NULL DEFAULT 'pending',
     `firstname` varchar(20) NOT NULL,
     `lastname` varchar(20) NOT NULL, 

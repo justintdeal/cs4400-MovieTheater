@@ -1,5 +1,5 @@
 from theater import app
-import theater.src.dbConnection as db
+import theater.src.procedureInterface as db
 import theater.src.register as reg
 from flask import render_template, request, url_for, redirect, json
 

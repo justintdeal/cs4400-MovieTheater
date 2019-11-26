@@ -1,5 +1,5 @@
 from flask import render_template, request, url_for, redirect
-import theater.src.dbConnection as db
+import theater.src.procedureInterface as db
 
 
 def getRegTemplate(role, messages=None):
