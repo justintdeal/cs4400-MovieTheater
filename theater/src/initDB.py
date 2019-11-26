@@ -8,6 +8,7 @@ import platform
 user = "team50"
 password = "Columns1!"
 host = "127.0.0.1"
+port = "3306"
 
 def connect():
     connection = mysql.connector.connect(user=user, password=password, host=host)
@@ -40,5 +41,5 @@ def initDB(schema, data, procedures):
         os.system('mysql -u {} -p{} team50 < {}'.format(user, password, procedures))
         os.system('mysql -u {} -p{} team50 < {}'.format(user, password, data))
     else:
-        os.system('mysql.exe -u {} -p{} team50 < {}'.format(user, password, procedures))
-        os.system('mysql.exe -u {} -p{} team50 < {}'.format(user, password, data))
+        os.system('mysql -h {} -P {} -u {} -p{} team50 < {}'.format(host, port, user, password, procedures))
+        os.system('mysql -h {} -P {} -u {} -p{} team50 < {}'.format(host, port, user, password, data))
