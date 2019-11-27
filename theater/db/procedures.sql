@@ -413,4 +413,3 @@ BEGIN
 		(i_maxVisitDate IS NULL OR visitDate <= i_maxVisitDate);
 END$$
 DELIMITER ;
->>>>>>> shayan
