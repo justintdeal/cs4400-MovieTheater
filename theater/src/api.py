@@ -12,8 +12,7 @@ def index():
         user = request.form['email']
         password = request.form['password']
         #user (username, status, isCustomer, isAdmin, isManager)
-        user = db.userLogin(user, password)
-        print(user)
+        user = db.userLogin(user, password)[0]
         if len(user) == 0:
             message = "Invalid Login"
             return render_template('home.html', messages=message)
@@ -34,13 +33,14 @@ def registerRole(role):
         return reg.register(role)
 
 #screens 7-12
-@app.route("/dashboard/")
+@app.route("/dashboard/<user>")
 def dashboard(user):
     userType = getUserType(user)
     template = "dash"+ userType +".html"
     return render_template(template)
 
 def getUserType(user):
+    print(user)
     if user[3] and not user[2] and not user[4]:
         return "Admin"
     if user[3] and user[2] and not user[4]:
@@ -50,7 +50,9 @@ def getUserType(user):
     if user[2] and user[4] and not user[3]:
         return "ManagerCust"
     if user[2] and not user[4] and not user[3]:
+        print(100)
         return "Customer"
+    print('sad')
     return "User"
 
 #screen 13

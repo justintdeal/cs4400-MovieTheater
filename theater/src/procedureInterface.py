@@ -8,7 +8,7 @@ host = "127.0.0.1"
 db = 'team50'
 
 def connect():
-    connection = mysql.connector.connect(user=user, password=password, host=host, db = db)
+    connection = mysql.connector.connect(user=user, password=password, host=host, db=db)
     return connection
 
 def query(sql):
@@ -25,7 +25,6 @@ def query(sql):
 def userLogin(user, password):
     connection = connect()
     cursor = connection.cursor()
-    #print(user, password)
     sql = "use `team50`;"
     cursor.execute(sql)
     sql = "call user_login('{}', '{}');".format(user, password)
@@ -33,7 +32,6 @@ def userLogin(user, password):
     sql = "select * from UserLogin;"
     cursor.execute(sql)
     data = cursor.fetchall()
-    print(data)
     cursor.close()
     connection.close()
     return data
