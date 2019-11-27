@@ -29,8 +29,6 @@ def index():
         if len(user) == 0:
             message = "Invalid Login"
             return render_template('home.html', messages=message)
-        return redirect(url_for('dashboard', user = user[0]))
-
         print(user)
         user = user[0]
         session['active'] = True
