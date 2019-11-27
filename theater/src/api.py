@@ -1,12 +1,25 @@
 from theater import app
 import theater.src.procedureInterface as db
 import theater.src.register as reg
-from flask import render_template, request, url_for, redirect, json
+from flask import render_template, request, url_for, redirect, session
+
+
+#login stuff
+@app.route('/logout')
+def logout():
+    session['active'] = False
+    return render_template('home.html')
+
+def loggedIn():
+    return session['active']
 
 #screen 1: login
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/',methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
+        if session['active'] == True:
+            print('here')
+            return redirect(url_for('dashboard'))
         return render_template('home.html')
     else:
         user = request.form['email']
@@ -17,6 +30,27 @@ def index():
             message = "Invalid Login"
             return render_template('home.html', messages=message)
         return redirect(url_for('dashboard', user = user[0]))
+
+        print(user)
+        user = user[0]
+        session['active'] = True
+        session['user'] = user[0]
+        session['type'] = getUserType(user)
+        print(session)
+        return redirect(url_for('dashboard', user = user))
+
+def getUserType(user):
+    if user[3] and not user[2] and not user[4]:
+        return "Admin"
+    if user[3] and user[2] and not user[4]:
+        return "AdminCust"
+    if user[4] and not user[2] and not user[3]:
+        return "Manager"
+    if user[2] and user[4] and not user[3]:
+        return "ManagerCust"
+    if user[2] and not user[4] and not user[3]:
+        return "Customer"
+    return "User"
 
 #screen 2
 @app.route("/register")
@@ -33,27 +67,14 @@ def registerRole(role):
         return reg.register(role)
 
 #screens 7-12
-@app.route("/dashboard/<user>")
-def dashboard(user):
-    userType = getUserType(user)
-    template = "dash"+ userType +".html"
+@app.route("/dashboard/")
+def dashboard():
+    if not loggedIn():
+        return redirect(url_for('index'))
+    template = "dash"+ session['type'] + ".html"
     return render_template(template)
 
-def getUserType(user):
-    print(user)
-    if user[3] and not user[2] and not user[4]:
-        return "Admin"
-    if user[3] and user[2] and not user[4]:
-        return "AdminCust"
-    if user[4] and not user[2] and not user[3]:
-        return "Manager"
-    if user[2] and user[4] and not user[3]:
-        return "ManagerCust"
-    if user[2] and not user[4] and not user[3]:
-        print(100)
-        return "Customer"
-    print('sad')
-    return "User"
+
 
 #screen 13
 # can approve pending/declined users

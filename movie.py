@@ -6,5 +6,7 @@ data = "./theater/db/data.sql"
 procedures = "./theater/db/procedures.sql"
 db.initDB(schema, data, procedures)
 
+
+
 app.secret_key="afd34cf"
 app.run(debug=True)
