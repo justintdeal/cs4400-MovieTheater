@@ -409,7 +409,7 @@ BEGIN
 		company as comName, date as visitDate
 	FROM visit NATURAL JOIN theater
 	WHERE (username = i_username) AND
-		(i_minVisitDate IS NULL OR visitDate >= i_minVisitDate) AND
-		(i_maxVisitDate IS NULL OR visitDate <= i_maxVisitDate);
+		(i_minVisitDate IS NULL OR date >= i_minVisitDate) AND
+		(i_maxVisitDate IS NULL OR date <= i_maxVisitDate);
 END$$
 DELIMITER ;

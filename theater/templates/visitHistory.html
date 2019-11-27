@@ -5,7 +5,7 @@
   <h1 id="">Visit History</h1>
   <div class="row">
     <div class="col">
-            <form>
+            <form method="POST" action="/visit/history">
                     <div class="row">
                         <div class="col">
                                 <label for="lname">Company Name</label>
@@ -18,7 +18,7 @@
 
                     <div class="row">
                             <div class="col">
-                                    <select id="inputStatus" class="form-control">
+                                    <select id="inputStatus" name="company" class="form-control">
                                                 <option selected>All</option>
                                                 {% for company in companies %}
                                                 <option>{{company}}</option>
@@ -40,7 +40,7 @@
                                   </div>
                     </div>
                   <div class="row">
-                    <label for="lname"> </label>
+                    <input type="submit" value="filter">
                   </div>
                   <div class="row">
                     <script src="https://www.w3schools.com/lib/w3.js"></script>
@@ -54,36 +54,14 @@
                         <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Visit Date</th>
                       </tr> 
 
+                      {% for visit in history %}
                       <tr class="item">
-                        <td>user:2911002</td>
-                        <td>UK</td>
-                        <td>Melissa</td>
-                        <td>Pending</td>
+                        <td>{{visit[0]}}</td>
+                        <td>{{visit[1]}} {{visit[2]}}, {{visit[3]}}, {{visit[4]}}</td></td>
+                        <td>{{visit[5]}}</td>
+                        <td>{{visit[6]}}</td>
                       </tr>
-                      <tr class="item">
-                        <td>user:2201002</td>
-                        <td>France</td>
-                        <td>Justin</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td>user:2901092</td>
-                        <td>San Francisco</td>
-                        <td>Judy</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td>user:2801002</td>
-                        <td>Canada</td>
-                        <td>Skipper</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td>user:2901009</td>
-                        <td>Christchurch</td>
-                        <td>Alex</td>
-                      </tr>
-
+                      {% endfor %}
                     </table>
                   </div>
                   <div style="text-align:center">  

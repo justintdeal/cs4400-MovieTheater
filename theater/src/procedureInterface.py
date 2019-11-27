@@ -280,8 +280,12 @@ def userVisitTheater(i_thName, i_comName, i_visitDate, i_username):
 def userFilterVisitHistory(i_username, i_minVisitDate, i_maxVisitDate):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call user_filter_visitHistory('{}', '{}',\
-           '{}');".format(i_username, i_minVisitDate, i_maxVisitDate)
+    if i_minVisitDate != 'NULL':
+        i_minVisitDate = "'" + i_minVisitDate + "'"
+    if i_maxVisitDate != 'NULL':
+        i_maxVisitDate = "'" + i_maxVisitDate + "'"
+    sql = "call user_filter_visitHistory('{}', {},\
+        {});".format(i_username, i_minVisitDate, i_maxVisitDate)
     cursor.execute(sql)
     sql = "select * from UserVisitHistory"
     cursor.execute(sql)
