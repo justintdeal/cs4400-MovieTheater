@@ -51,7 +51,7 @@ CREATE FUNCTION `is_Manager` (i_username VARCHAR(50))
 	RETURNS INT
     DETERMINISTIC
     READS SQL DATA
-BEGIN
+BEGIN 
 	RETURN EXISTS(Select * from `manager` where username = i_username);
 END$$ 
 DELIMITER ;
@@ -74,7 +74,7 @@ CREATE PROCEDURE `user_login`(IN i_username VARCHAR(50), IN i_password VARCHAR(5
 BEGIN
 	DROP TABLE IF EXISTS UserLogin;
     CREATE TABLE UserLogin
-		SELECT username, status, is_Customer(i_username) as isCustomer, is_Admin(i_username) as isAdmin, 0 as isManager
+		SELECT username, status, is_Customer(i_username) as isCustomer, is_Admin(i_username) as isAdmin, is_Manager(i_username) as isManager
 		FROM User
         where i_username = username and md5(i_password) = password;
 END$$
@@ -83,8 +83,8 @@ DELIMITER ;
 -- 3
 DROP PROCEDURE IF EXISTS user_register;
 DELIMITER $$
-CREATE PROCEDURE `user_register`(IN i_username VARCHAR(50), IN i_password
-VARCHAR(50), IN i_firstname VARCHAR(50), IN i_lastname VARCHAR(50))
+CREATE PROCEDURE `user_register`(IN i_username VARCHAR(50), IN i_password VARCHAR(50), 
+IN i_firstname VARCHAR(50), IN i_lastname VARCHAR(50))
 BEGIN
 	INSERT INTO user (username, password, firstname, lastname) VALUES
 	(i_username, MD5(i_password), i_firstname, i_lastname);
@@ -94,8 +94,8 @@ DELIMITER ;
 -- 4a
 DROP PROCEDURE IF EXISTS customer_only_register;
 DELIMITER $$
-CREATE PROCEDURE `customer_only_register`(IN i_username VARCHAR(50), IN i_password
-VARCHAR(50), IN i_firstname VARCHAR(50), IN i_lastname VARCHAR(50))
+CREATE PROCEDURE `customer_only_register`(IN i_username VARCHAR(50), IN i_password VARCHAR(50), 
+IN i_firstname VARCHAR(50), IN i_lastname VARCHAR(50))
 BEGIN
 	INSERT INTO customer (username, password, firstname, lastname) VALUES
 	(i_username, MD5(i_password), i_firstname, i_lastname);
