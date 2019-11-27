@@ -12,15 +12,15 @@ def index():
         user = request.form['email']
         password = request.form['password']
         #user (username, status, isCustomer, isAdmin, isManager)
-        user = db.userLogin(user, password)[0]
+        user = db.userLogin(user, password)
         if len(user) == 0:
             message = "Invalid Login"
             return render_template('home.html', messages=message)
-        return redirect(url_for('dashboard', user = user))
+        return redirect(url_for('dashboard', user = user[0]))
 
 #screen 2
 @app.route("/register")
-def regiserHome():
+def registerHome():
     return render_template('registerHome.html')
 
 #screens 3-6

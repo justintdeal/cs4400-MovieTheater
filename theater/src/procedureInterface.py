@@ -42,6 +42,10 @@ def userRegister(user, password, first, last):
     cursor = connection.cursor()
     sql = "call user_register('{}','{}','{}','{}');".format(user, password, first, last)
     cursor.execute(sql)
+    sql = "select * from user;"
+    cursor.execute(sql)
+    data = cursor.fetchall()
+    print(data)
     cursor.close()
     connection.close()
 
