@@ -19,20 +19,22 @@
                     <div class="row">
                             <div class="col">
                                     <select id="inputStatus" class="form-control">
-                                                <option selected>Choose...</option>
-                                                <option>...</option>
+                                                <option selected>All</option>
+                                                {% for company in companies %}
+                                                <option>{{company}}</option>
+                                                {% endfor %}
                                               </select>
                                 </div>
                                 <div class="col">
                                   <div class="row">
                                   <div class="col">
-                                        <input type="name" class="form-control" id="lowTheater">
+                                        <input type="date" name="start" class="form-control" id="lowTheater">
                                         </div>
                                   <div class="col">
                                         <center for="to">to</center>
                                         </div>
                                   <div class="col">
-                                        <input type="name" class="form-control" id="upTheater">
+                                        <input type="date" name="end" class="form-control" id="upTheater">
                                         </div>
                                     </div>
                                   </div>

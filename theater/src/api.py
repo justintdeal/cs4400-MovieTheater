@@ -128,9 +128,28 @@ def exploreMovie():
 
 @app.route("/movie/history", methods=['GET', 'POST'])
 def viewHistory():
-    view_history = db. customerViewHistory(session['user'])
+    if not loggedIn():
+        return redirect(url_for('index'))
+    view_history = db.customerViewHistory(session['user'])
     return render_template('viewHistory.html', history = view_history)
 
 @app.route("/visit/history", methods=['GET', 'POST'])
 def visitHistory():
-    return render_template('visitHistory.html')
+    if not loggedIn():
+        return redirect(url_for('index'))
+    companies = db.query("select * from company;")
+    companies = [company[0] for company in companies]
+
+    start=None
+    end=None
+    
+    if request.method == 'POST':
+        start = request.form['start']
+        end = request.form['end']
+    print(start)
+    print(end)
+    print(session['user'])
+    vist_history = db.userFilterVisitHistory(session['user'], start, end)
+    
+    print(visitHistory)
+    return render_template('visitHistory.html', companies = companies)
