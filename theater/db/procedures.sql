@@ -75,7 +75,7 @@ BEGIN
 	DROP TABLE IF EXISTS UserLogin;
     CREATE TABLE UserLogin
 		SELECT username, status, is_Customer(i_username) as isCustomer, is_Admin(i_username) as isAdmin, is_Manager(i_username) as isManager
-		FROM User
+		FROM user
         where i_username = username and md5(i_password) = password;
 END$$
 DELIMITER ;
