@@ -16,40 +16,21 @@
                        
                       <tr>
                         <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Movie Name</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Duration</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Release Date</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Play Date</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Theater</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Company</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Credit Card</th>
+                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">View Date</th>
                       </tr> 
 
+                      {% for movie in history%}
                       <tr class="item">
-                        <td>user:2911002</td>
-                        <td>UK</td>
-                        <td>Melissa</td>
-                        <td>Pending</td>
+                        <td>{{movie[0]}}</td>
+                        <td>{{movie[1]}}</td>
+                        <td>{{movie[2]}}</td>
+                        <td>{{movie[3]}}</td>
+                        <td>{{movie[4]}}</td>
                       </tr>
-                      <tr class="item">
-                        <td>user:2201002</td>
-                        <td>France</td>
-                        <td>Justin</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td>user:2901092</td>
-                        <td>San Francisco</td>
-                        <td>Judy</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td>user:2801002</td>
-                        <td>Canada</td>
-                        <td>Skipper</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td>user:2901009</td>
-                        <td>Christchurch</td>
-                        <td>Alex</td>
-                      </tr>
+                      {% endfor %}
 
                     </table>
                   </div>

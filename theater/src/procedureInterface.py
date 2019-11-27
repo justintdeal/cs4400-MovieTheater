@@ -248,8 +248,10 @@ def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName,
 #screen 21
 def customerViewHistory(user):
     connection = connect()
-    cursor - connection.cursor()
-    sql = "call customer_view_history({});".format(user)
+    cursor = connection.cursor()
+    sql = "call customer_view_history('{}');".format(user)
+    cursor.execute(sql)
+    sql = "select * from CosViewHistory;"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
@@ -280,9 +282,17 @@ def userVisitTheater(i_thName, i_comName, i_visitDate, i_username):
 #screen 23
 def userFilterVisitHistory(i_username, i_minVisitDate, i_maxVisitDate):
     connection = connect()
+<<<<<<< HEAD
     cursor - connection.cursor()
     sql = "call user_filter_visitHistory({}, {},\
            {};".format(i_username, i_minVisitDate, i_maxVisitDate)
+=======
+    cursor = connection.cursor()
+    sql = "call user_filter_visitHistory('{}', '{}',\
+           '{}');".format(i_username, i_minVisitDate, i_maxVisitDate)
+    cursor.execute(sql)
+    sql = "select * from UserVisitHistory"
+>>>>>>> master
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
