@@ -57,35 +57,15 @@
                         <th onclick="w3.sortHTML('#usersTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Status</th>
                       </tr> 
 
+                      {% for user in users%}
                       <tr class="item">
-                          <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>UK</td>
-                        <td>Melissa</td>
-                        <td>Pending</td>
+                        <td>{{user[0]}}</td>
+                        <td>{{user[1]}}</td>
+                        <td>{{user[2]}}</td>
+                        <td>{{user[3]}}</td>
                       </tr>
-                      <tr class="item">
-                          <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>France</td>
-                        <td>Justin</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                          <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>San Francisco</td>
-                        <td>Judy</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                          <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>Canada</td>
-                        <td>Skipper</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                          <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>Christchurch</td>
-                        <td>Alex</td>
-                      </tr>
+                      {% endfor %}
+
 
                     </table>
                   </div>

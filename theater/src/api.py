@@ -80,7 +80,14 @@ def dashboard():
 # cannot decline approve
 @app.route("/manage/user", methods=['GET', 'POST'])
 def manageUser():
-    return render_template('manageUser.html')
+    if not loggedIn():
+        return redirect(url_for('index'))
+    if request.method == 'GET':
+        view_users = db.adminFilterUser('','ALL', NULL, NULL)
+    else:
+        # approve or decline
+        print("hi")
+    return render_template('manageUser.html', users = view_users)
 
 #screen 14
 # can search theaters by #cities coverd, #theaters, and #Employee
