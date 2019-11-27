@@ -128,7 +128,8 @@ def exploreMovie():
 
 @app.route("/movie/history", methods=['GET', 'POST'])
 def viewHistory():
-    return render_template('viewHistory.html')
+    view_history = db. customerViewHistory(session['user'])
+    return render_template('viewHistory.html', history = view_history)
 
 @app.route("/visit/history", methods=['GET', 'POST'])
 def visitHistory():

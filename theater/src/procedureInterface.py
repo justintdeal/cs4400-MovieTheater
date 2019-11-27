@@ -245,8 +245,10 @@ def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName,
 #screen 21
 def customerViewHistory(user):
     connection = connect()
-    cursor - connection.cursor()
-    sql = "call customer_view_history(@{});".format(user)
+    cursor = connection.cursor()
+    sql = "call customer_view_history('{}');".format(user)
+    cursor.execute(sql)
+    sql = "select * from CosViewHistory;"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
