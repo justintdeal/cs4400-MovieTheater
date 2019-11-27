@@ -4,6 +4,7 @@ import theater.src.register as reg
 from flask import render_template, request, url_for, redirect, session
 
 
+
 #login stuff
 @app.route('/logout')
 def logout():
@@ -11,14 +12,16 @@ def logout():
     return render_template('home.html')
 
 def loggedIn():
-    return session['active']
+    try:
+        return session['active']
+    except:
+        return False
 
 #screen 1: login
 @app.route('/',methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        if session['active'] == True:
-            print('here')
+        if loggedIn():
             return redirect(url_for('dashboard'))
         return render_template('home.html')
     else:
