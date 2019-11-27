@@ -20,14 +20,15 @@ def register(role):
         last = request.form['last']
         username = request.form['username']
     
-        print(password)
-        print(confPass)
-        print(first)
-        print(last)
-        print(username)
+        # print(password)
+        # print(confPass)
+        # print(first)
+        # print(last)
+        # print(username)
         if password == confPass and len(password) >= 8:
             db.userRegister(username, password, first, last)
             user = db.userLogin(username, password)
+            print(user)
             return redirect(url_for('dashboard', user = user))
         elif len(password) <= 8:
             message = "Password must be at least 8 characters"

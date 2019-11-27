@@ -25,10 +25,10 @@ def query(sql):
 def userLogin(user, password):
     connection = connect()
     cursor = connection.cursor()
-    print(user, password)
+    #print(user, password)
     sql = "use `team50`;"
     cursor.execute(sql)
-    sql = "call user_login(@{}, @{});".format(user, password)
+    sql = "call user_login('{}', '{}');".format(user, password)
     cursor.execute(sql)
     sql = "select * from UserLogin;"
     cursor.execute(sql)
@@ -42,8 +42,7 @@ def userLogin(user, password):
 def userRegister(user, password, first, last):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call user_register(@{},@{},@{},@{});".format(user, password, first, last)
-    print(sql)
+    sql = "call user_register('{}','{}','{}','{}');".format(user, password, first, last)
     cursor.execute(sql)
     cursor.close()
     connection.close()
