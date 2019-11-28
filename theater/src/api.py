@@ -4,6 +4,7 @@ import theater.src.register as reg
 from flask import render_template, request, url_for, redirect, session
 
 
+
 #login stuff
 @app.route('/logout')
 def logout():
@@ -11,14 +12,16 @@ def logout():
     return render_template('home.html')
 
 def loggedIn():
-    return session['active']
+    try:
+        return session['active']
+    except:
+        return False
 
 #screen 1: login
 @app.route('/',methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
-        if session['active'] == True:
-            print('here')
+        if loggedIn():
             return redirect(url_for('dashboard'))
         return render_template('home.html')
     else:
@@ -147,16 +150,24 @@ def visitHistory():
     companies = db.query("select * from company;")
     companies = [company[0] for company in companies]
 
-    start=None
-    end=None
+    start="NULL"
+    end="NULL"
     
     if request.method == 'POST':
         start = request.form['start']
         end = request.form['end']
-    print(start)
-    print(end)
-    print(session['user'])
-    vist_history = db.userFilterVisitHistory(session['user'], start, end)
+
+        if len(start) == 0:
+            start = "NULL"
+        if len(end) == 0:
+            end = "NULL"
+    visit_history = db.userFilterVisitHistory(session['user'], start, end)
     
-    print(visitHistory)
-    return render_template('visitHistory.html', companies = companies)
+    if request.method == 'POST':
+        company = request.form['company']
+        print(company)
+        if company != 'All':
+            visit_history = [visit if visit[5] == company else None for visit in visit_history]
+
+    return render_template('visitHistory.html', companies = companies, history = visit_history)
+
