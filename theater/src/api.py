@@ -30,9 +30,12 @@ def index():
         #user (username, status, isCustomer, isAdmin, isManager)
         user = db.userLogin(user, password)
         if len(user) == 0:
-            message = "Invalid Login"
+            message = "Invalid Login: Wrong Credentials"
             return render_template('home.html', messages=message)
-        print(user)
+        if user[0][1] == 'declined':
+            message = "Invalid Login: Declined User! Contact an Admin"
+            return render_template('home.html', messages=message)
+        print(user[0][1])
         user = user[0]
         session['active'] = True
         session['user'] = user[0]
@@ -85,12 +88,26 @@ def dashboard():
 def manageUser():
     if not loggedIn():
         return redirect(url_for('index'))
+    name = ''
+    status = 'ALL'
+    sortby = 'NULL'
+    sortdir = 'NULL'
+    #view_users = db.adminFilterUser("''","'ALL'", 'NULL', 'NULL')
     if request.method == 'GET':
-        view_users = db.adminFilterUser('','ALL', NULL, NULL)
+        view_users = db.adminFilterUser(name,status, sortby, sortdir)
     else:
-        # approve or decline
-        print("hi")
-    return render_template('manageUser.html', users = view_users)
+        # approve or decline or filter
+        if request.form['submit'] == 'filter':
+            name = request.form['uname']
+            status = request.form['status']
+            view_users = db.adminFilterUser(name,status, sortby, sortdir)
+        elif request.form['submit'] == 'approve':
+            selected = request.form['radio']
+            db.adminApproveUser(selected)
+            view_users = db.adminFilterUser(name,status, sortby, sortdir)
+        elif request.form['submit'] == 'decline':
+            view_users = db.adminFilterUser(name,status, sortby, sortdir)
+    return render_template('manageUser.html', users = view_users, name = name, status = status, sortBy = sortby, sortDirection = sortdir)
 
 #screen 14
 # can search theaters by #cities coverd, #theaters, and #Employee

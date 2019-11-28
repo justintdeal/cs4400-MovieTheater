@@ -36,6 +36,7 @@ def userLogin(user, password):
     connection.close()
     return data
 
+
 #screen 3
 def userRegister(user, password, first, last):
     connection = connect()
@@ -53,8 +54,8 @@ def userRegister(user, password, first, last):
 def custRegister(user, password, first, last):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call customer_only_register({}, {}, {}, \
-           {});".format(user, password, first, last)
+    sql = "call customer_only_register('{}', '{}', '{}', \
+           '{}');".format(user, password, first, last)
     cursor.execute(sql)
     cursor.close()
     connection.close()
@@ -63,8 +64,8 @@ def custRegister(user, password, first, last):
 def custAddCC(user, cc):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call customer_add_creditcard({}, \
-           {});".format(user, cc)
+    sql = "call customer_add_creditcard('{}', \
+           '{}');".format(user, cc)
     cursor.execute(sql)
     cursor.close()
     connection.close()
@@ -74,8 +75,8 @@ def manRegister(user, password, first, last, company, street,
                 city, state, zipcode):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call manager_only_register({}, {}, {}, {},\
-           {},{}, {}, {}, {});".format(user, password, first, last, 
+    sql = "call manager_only_register('{}', '{}', '{}', '{}',\
+           '{}','{}', '{}', '{}', '{}');".format(user, password, first, last, 
            company, street, city, state, zipcode)
     cursor.execute(sql)
     cursor.close()
@@ -86,8 +87,8 @@ def manCustRegister(user, password, first, last, company, street,
                 city, state, zipcode):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call manager_customer_register({}, {}, {}, {}, {},\
-           {}, {}, {}, {});".format(user, password, first, last, 
+    sql = "call manager_customer_register('{}', '{}', '{}', '{}', '{}',\
+           '{}', '{}', '{}', '{}');".format(user, password, first, last, 
            company, street, city, state, zipcode)
     cursor.execute(sql)
     cursor.close()
@@ -97,7 +98,7 @@ def manCustRegister(user, password, first, last, company, street,
 def manCustAddCC(user, cc):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call manager_customer_add_creditcard({}, {});".format(user, cc)
+    sql = "call manager_customer_add_creditcard('{}','{}');".format(user, cc)
     cursor.execute(sql)
     cursor.close()
     connection.close()
@@ -106,7 +107,7 @@ def manCustAddCC(user, cc):
 def adminApproveUser(user):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_approve_user({});".format(user)
+    sql = "call admin_approve_user('{}');".format(user)
     cursor.execute(sql)
     cursor.close()
     connection.close()
@@ -115,7 +116,7 @@ def adminApproveUser(user):
 def adminDeclineUser(user):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_decline_user({});".format(user)
+    sql = "call admin_decline_user('{}');".format(user)
     cursor.execute(sql)
     cursor.close()
     connection.close()
@@ -124,9 +125,10 @@ def adminDeclineUser(user):
 def adminFilterUser(user, status, sortBy, sortDirection):
     connection = connect()
     cursor = connection.cursor()
-    sql = "EXEC admin_filter_user({}, {}\
-           {}, {});".format(user, status, 
-           sortBy, sortDirection)
+    sql = "call admin_filter_user('{}', '{}', {}, {});".format(
+        user, status, sortBy, sortDirection)
+    cursor.execute(sql)
+    sql = "select * from adfilteruser;"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()

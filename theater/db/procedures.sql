@@ -190,8 +190,10 @@ BEGIN
 	UNION
     SELECT username, 0 as creditCardCount, get_type(username) as userType, status
     FROM user
-		WHERE (username = i_username OR i_username = '') AND
-		(status = i_status OR i_status = "ALL")
+        WHERE (username = i_username OR i_username = '') AND
+        (status = i_status OR i_status = "ALL") and 
+        (username not in (
+            SELECT username from creditCard))
 	GROUP BY username
 	ORDER BY 
 		case when i_sortBy IS NULL and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then username end DESC,

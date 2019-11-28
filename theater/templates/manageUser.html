@@ -5,7 +5,7 @@
   <h1 id="">Admin Manage User</h1>
   <div class="row">
     <div class="col">
-            <form>
+            <form method="POST" action="/manage/user">
                     <div class="row">
                         <div class="col">
                                 <label for="lname">Username</label>
@@ -19,14 +19,13 @@
                     <div class="row">
                             <div class="col">
         
-                                    <input type="name" class="form-control" id="lastname" placeholder="Enter Username" required>
+                                    <input type="name" class="form-control" name="uname" placeholder="Enter Username">
                                 </div>
                                 <div class="col">
-                                        <select id="inputStatus" class="form-control">
-                                                <option selected>Choose...</option>
-                                                <option>All</option>
+                                        <select id="inputStatus" name="status" class="form-control">
+                                                <option selected>All</option>
                                                 <option>Pending</option>
-                                                <option>Decline</option>
+                                                <option>Declined</option>
                                                 <option>Approved</option>
                                               </select>
     
@@ -34,11 +33,11 @@
                     </div>
                   <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-primary mt-3 menuButton">Filter</button>  
+                        <button type="submit" name="submit" value="filter" class="btn btn-primary mt-3 menuButton">Filter</button>  
                     </div>
                     <div class="col">
-                        <button type="submit" class="btn btn-primary mt-3 menuButton">Approve</button> 
-                        <button type="submit" class="btn btn-primary mt-3 menuButton">Decline</button>   
+                        <button type="submit" name="submit" value="approve" class="btn btn-primary mt-3 menuButton">Approve</button> 
+                        <button type="submit" name="submit" value="decline" class="btn btn-primary mt-3 menuButton">Decline</button>   
                     </div>
                     
                   </div>
@@ -51,7 +50,7 @@
                       <table id="usersTable" class="w3-table-all">
                        
                       <tr>
-                        <th onclick="w3.sortHTML('#usersTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Username</th>
+                        <th onclick="" style="cursor:pointer">Username</th>
                         <th onclick="w3.sortHTML('#usersTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Credit Card Count</th>
                         <th onclick="w3.sortHTML('#usersTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">User Type</th>
                         <th onclick="w3.sortHTML('#usersTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Status</th>
@@ -59,7 +58,7 @@
 
                       {% for user in users%}
                       <tr class="item">
-                        <td>{{user[0]}}</td>
+                        <td><input type="radio" name="radio" value="{{user[0]}}">{{user[0]}}</input><br></td>
                         <td>{{user[1]}}</td>
                         <td>{{user[2]}}</td>
                         <td>{{user[3]}}</td>
