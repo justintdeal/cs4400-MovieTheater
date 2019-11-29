@@ -316,7 +316,7 @@ BEGIN
 	(i_minMovDuration IS NULL OR duration >= i_minMovDuration) AND
 	(i_maxMovDuration IS NULL OR duration <= i_maxMovDuration) ;
 END$$
-DELIMETER ;
+DELIMITER ;
 
 -- 19
 DROP PROCEDURE IF EXISTS manager_schedule_mov; 
