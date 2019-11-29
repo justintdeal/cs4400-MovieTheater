@@ -216,23 +216,27 @@ DELIMITER $$
 CREATE PROCEDURE `admin_filter_company`(IN i_comName VARCHAR(50), 
 IN i_minCity INT, IN i_maxCity INT, IN i_minTheater INT, IN i_maxTheater INT,
 IN i_minEmployee INT, IN i_maxEmployee INT,
-IN i_sortBy ENUM('comName','numCityCover','numTheater','numEmployee'),
-IN i_sortDirection ENUM('ASC','DESC'))
+IN i_sortBy ENUM('comName','numCityCover','numTheater','numEmployee', ''),
+IN i_sortDirection ENUM('ASC','DESC', ''))
 BEGIN
     DROP TABLE IF EXISTS AdFilterCom;
     CREATE TABLE AdFilterCom
-    SELECT company.name as compName,
-count(distinct theater.city) as numCityCover, count(theater.name) as numTheater, num_emp(company.name) as numEmployee
-    FROM company, theater
-    where theater.company = company.name
-    GROUP BY compName
+    SELECT c.name as comName,
+    count(distinct t.city) as numCityCover, count(t.name) as numTheater, num_emp(c.name) as numEmployee
+    FROM company as c
+     right outer join theater as t on (t.company = c.name)
+     where (c.name = i_comName or i_comName = 'ALL' or i_comName = '')
+    GROUP BY comName
+    HAVING (i_minCity IS NULL or i_maxCity IS NULL or numCityCover >= i_minCity and numCityCover <= i_maxCity) and
+    (i_minTheater IS NULL or i_maxTheater IS NULL or numTheater >= i_minTheater and numTheater <= i_maxTheater) and
+    (i_minEmployee IS NULL or i_maxEmployee IS NULL or numEmployee >= i_minEmployee and numEmployee <= i_maxEmployee)
     ORDER BY 
-        case when i_sortBy IS NULL and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then comName end DESC,
-        case when i_sortBy = "comName" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then comName end DESC,
-        case when i_sortBy = "numCityCover" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then numCityCover end DESC,
-        case when i_sortBy = "numTheater" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then numTheater end DESC,
-        case when i_sortBy = "numEmployee" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then numEmployee end DESC,
-        case when i_sortBy IS NULL and i_sortDirection = 'ASC' then comName end ASC,
+        case when i_sortBy = '' and (i_sortDirection = '' or i_sortDirection = 'DESC') then comName end DESC,
+        case when i_sortBy = "comName" and (i_sortDirection = '' or i_sortDirection = 'DESC') then comName end DESC,
+        case when i_sortBy = "numCityCover" and (i_sortDirection = '' or i_sortDirection = 'DESC') then numCityCover end DESC,
+        case when i_sortBy = "numTheater" and (i_sortDirection = '' or i_sortDirection = 'DESC') then numTheater end DESC,
+        case when i_sortBy = "numEmployee" and (i_sortDirection = '' or i_sortDirection = 'DESC') then numEmployee end DESC,
+        case when i_sortBy = '' and i_sortDirection = 'ASC' then comName end ASC,
         case when i_sortBy = "comName" and i_sortDirection = 'ASC' then comName end ASC,
         case when i_sortBy = "numCityCover" and i_sortDirection = 'ASC' then numCityCover end ASC,
         case when i_sortBy = "numTheater" and i_sortDirection = 'ASC' then numTheater end ASC,

@@ -5,6 +5,7 @@
   <h1 id="">Admin Manage Company</h1>
   <div class="row">
     <div class="col">
+      <form method="POST" action="/manage/company">
                     <div class="row">
                         <div class="col">
                                 <label for="lname">Name</label>
@@ -17,21 +18,23 @@
 
                     <div class="row">
                             <div class="col">
-                                    <select id="inputName" class="form-control">
-                                                <option selected>Choose...</option>
-                                                <option>...</option>
-                                              </select>
+                                    <select id="inputName" name="company" value="company" class="form-control">
+                                        <option selected>ALL</option>
+                                        {% for comp in comps%}
+                                        <option>{{comp[0]}}</option>
+                                        {% endfor %}
+                                    </select>
                                 </div>
                                 <div class="col">
                                   <div class="row">
                                   <div class="col">
-                                        <input type="name" class="form-control" id="lowCity">
+                                        <input class="form-control" name="lowCity">
                                         </div>
                                   <div class="col">
                                         <center for="to">to</center>
                                         </div>
                                   <div class="col">
-                                        <input type="name" class="form-control" id="upCity">
+                                        <input class="form-control" name="upCity">
                                         </div>
                                     </div>
                                   </div>
@@ -49,41 +52,43 @@
                             <div class="col">
                                   <div class="row">
                                   <div class="col">
-                                        <input type="name" class="form-control" id="lowTheater">
+                                        <input class="form-control" name="lowTheater">
                                         </div>
                                   <div class="col">
                                         <center for="to">to</center>
                                         </div>
                                   <div class="col">
-                                        <input type="name" class="form-control" id="upTheater">
+                                        <input class="form-control" name="upTheater">
                                         </div>
                                     </div>
                                   </div>
                                 <div class="col">
                                   <div class="row">
                                   <div class="col">
-                                        <input type="name" class="form-control" id="lowEmp">
+                                        <input class="form-control" name="lowEmp">
                                         </div>
                                   <div class="col">
                                         <center for="to">to</center>
                                         </div>
                                   <div class="col">
-                                        <input type="name" class="form-control" id="upEmp">
+                                        <input class="form-control" name="upEmp">
                                         </div>
                                     </div>
                                   </div>
                     </div>
                   <div class="row">
                     <div class="col">
-                        <button type="button" class="btn btn-primary mt-3 menuButton">Filter</button>  
+                        <button type="submit" name="submit" value="filter" class="btn btn-primary mt-3 menuButton">Filter</button> 
                     </div>
                     <div class="col">
-                        <a href="company/create/theater">
+                        <!-- <a href="company/create/theater">
                           <input type="submit" class="btn btn-primary mt-3 menuButton" value="Create Theater">
-                        </a>
-                        <a href="company/name">
+                        </a> -->
+                        <button type="submit" name="submit" value="create" class="btn btn-primary mt-3 menuButton">Create Theater</button> 
+                        <!-- <a href="company/name">
                           <input type="submit" class="btn btn-primary mt-3 menuButton" value="Detail">
-                        </a>
+                        </a> -->
+                        <button type="submit" name="submit" value="detail" class="btn btn-primary mt-3 menuButton">Detail</button> 
                     </div>
                     
                   </div>
@@ -96,48 +101,26 @@
                       <table id="companyTable" class="w3-table-all">
                        
                       <tr>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(1)')" style="cursor:pointer">Name</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">#CityCovered</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">#Theaters</th>
-                        <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">#Employee</th>
+                        <th>Name<input type="checkbox" name="checkSort" value="comName"><input type="checkbox" name="checkOrder" value="1"></th>
+                        <th>#CityCovered<input type="checkbox" name="checkSort" value="numCityCover"><input type="checkbox" name="checkOrder" value="2"></th>
+                        <th>#Theaters<input type="checkbox" name="checkSort" value="numTheater"><input type="checkbox" name="checkOrder" value="3"></th>
+                        <th>#Employee<input type="checkbox" name="checkSort" value="numEmployee"><input type="checkbox" name="checkOrder" value="4"></th>
                       </tr> 
-
+                      {% for comp in comps%}
                       <tr class="item">
-                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>UK</td>
-                        <td>Melissa</td>
-                        <td>Pending</td>
+                        <td><input type="radio" name="radio" value={{comp[0]}}> {{comp[0]}}<br></td>
+                        <td>{{comp[1]}}</td>
+                        <td>{{comp[2]}}</td>
+                        <td>{{comp[3]}}</td>
                       </tr>
-                      <tr class="item">
-                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>France</td>
-                        <td>Justin</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>San Francisco</td>
-                        <td>Judy</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>Canada</td>
-                        <td>Skipper</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td><input type="checkbox" name="checkbox" value="Not played"> user:2911002<br></td>
-                        <td>Christchurch</td>
-                        <td>Alex</td>
-                      </tr>
+                      {% endfor %}
 
                     </table>
                   </div>
                   <div style="text-align:center">  
                     <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
                   </div>
-                        
+              </form>   
     </div>
   </div>
 {% endblock %}

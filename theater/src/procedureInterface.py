@@ -141,10 +141,11 @@ def adminFilterCompany(comName, minCity, maxCity, minTheater,
             maxTheater, minEmp, maxEmp, sortBy, sortDirection):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_filter_company({}, {}\
-           {}, {}, {}, \
-           {} , {}, {} {});".format(comName, minCity, maxCity, 
+    sql = "call admin_filter_company('{}', {}, {}, {}, {}, {}, {}, '{}', '{}');".format(comName, minCity, maxCity, 
            minTheater, maxTheater, minEmp, maxEmp, sortBy, sortDirection)
+    print(sql)
+    cursor.execute(sql)
+    sql = "select * from adfiltercom;"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()

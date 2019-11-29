@@ -133,12 +133,60 @@ def manageUser():
             except:
                 print("nobody selected")
             view_users = db.adminFilterUser(name,status, sortby, sortdir)
-    return render_template('manageUser.html', users = view_users, name = name, status = status, sortBy = sortby, sortDirection = sortdir)
+    return render_template('manageUser.html', users = view_users)
 
 #screen 14
 @app.route("/manage/company", methods=['GET', 'POST'])
 def manageCompany():
-    return render_template('manageCompany.html')
+    if not loggedIn():
+        return redirect(url_for('index'))
+    name = 'ALL'
+    minCity = 'NULL'
+    maxCity = 'NULL'
+    minTh = 'NULL'
+    maxTh = 'NULL'
+    minEmp = 'NULL'
+    maxEmp = 'NULL'
+    sortby = ''
+    sortdir = ''
+    if request.method == 'GET':
+        view_comps = db.adminFilterCompany(name,minCity,maxCity,minTh,maxTh,minEmp,maxEmp,sortby,sortdir)
+    else:
+        if request.form['submit'] == 'filter':
+            name = request.form['company']
+            if len(request.form['lowCity']) != 0:
+                minCity = "'{}'".format(request.form['lowCity'])
+            if len(request.form['upCity']) != 0:
+                maxCity = "'{}'".format(request.form['upCity'])
+            if len(request.form['lowTheater']) != 0:
+                minTh = "'{}'".format(request.form['lowTheater'])
+            if len(request.form['upTheater']) != 0:
+                maxTh = "'{}'".format(request.form['upTheater'])
+            if len(request.form['lowEmp']) != 0:
+                minEmp = "'{}'".format(request.form['lowEmp'])
+            if len(request.form['upEmp']) != 0:
+                maxEmp = "'{}'".format(request.form['upEmp'])
+            try:
+                sortby = request.form['checkSort']
+            except:
+                sortby = ''
+            try:
+                sortdirnum = request.form['checkOrder']
+                if (sortdirnum == '1' and (sortby == 'comName' or sortby == '')):
+                    sortdir = 'ASC'
+                elif (sortdirnum == '2' and sortby == 'numCityCover'):
+                    sortdir = 'ASC'
+                elif (sortdirnum == '3' and sortby == 'numTheater'):
+                    sortdir = 'ASC'
+                elif (sortdirnum == '4' and sortby == 'numEmployee'):
+                    sortdir = 'ASC'
+                else:
+                    sortdir = ''
+            except:
+                sortdir = ''
+            view_comps = db.adminFilterCompany(name,minCity,maxCity,minTh,maxTh,minEmp,maxEmp,sortby,sortdir)
+        view_comps = db.adminFilterCompany(name,minCity,maxCity,minTh,maxTh,minEmp,maxEmp,sortby,sortdir)
+    return render_template('manageCompany.html', comps = view_comps)
 
 #screen 15: Admin Create Theater
 @app.route("/manage/company/create/theater", methods=['GET', 'POST'])
