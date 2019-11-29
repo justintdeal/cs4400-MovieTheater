@@ -281,7 +281,7 @@ def viewHistory():
     return render_template('viewHistory.html', history = view_history)
 
 #Screen 22: User Explore Theater
-#both procedures broken
+#finished but need to fix ''s
 @app.route("/theater/explore", methods=['GET', 'POST'])
 def exploreTheater():
     if not loggedIn():
@@ -319,7 +319,14 @@ def exploreTheater():
             if len(visit_date) == 0:
                 message = "You Must Select A Visit Date"
             else: 
-                db.userVisitTheater(theater_group[0], theater_group[1], visit_date, session['user'])
+                ind = None
+                for i in range(len(theater_group)):
+                    if theater_group[i] == '|':
+                        ind = i
+                th = theater_group[0:ind]
+                comp  = theater_group[ind+1:]
+
+                db.userVisitTheater(th, comp, visit_date, session['user'])
                 message = "Added"
 
     return render_template('exploreTheater.html', messages = message, datas = data, theaters = theaters, companies = companies)

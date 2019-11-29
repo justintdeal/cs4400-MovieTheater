@@ -269,6 +269,8 @@ def userFilterTheater(i_thName, i_comName, i_city, i_state):
     sql = "call user_filter_th('{}', '{}', '{}',\
            '{}');".format(i_thName, i_comName, i_city, i_state)
     cursor.execute(sql)
+    sql = "select * from UserFilterTh;"
+    cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
     connection.close()
@@ -280,6 +282,7 @@ def userVisitTheater(i_thName, i_comName, i_visitDate, i_username):
     cursor = connection.cursor()
     sql = "call user_visit_th('{}','{}','{}','{}');".format(i_thName, i_comName, i_visitDate, i_username)
     cursor.execute(sql)
+    connection.commit()
     cursor.close()
     connection.close()
 
