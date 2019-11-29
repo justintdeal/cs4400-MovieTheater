@@ -202,12 +202,16 @@ def createTheater():
     return render_template('createTheater.html')
 
 #screen 16: Admin Company Detail
+
 @app.route("/manage/company/<name>", methods=['GET', 'POST'])
 def viewCompany(name):
+    if not loggedIn():
+        return redirect(url_for('index'))
+    
     return render_template('viewCompany.html')
 
 #screen 17: Admin Create Movie
-#duration is going where rd should?
+#finished
 @app.route("/manage/company/createMovie/", methods=['GET', 'POST'])
 def createMovie():
     if not loggedIn():
@@ -264,10 +268,46 @@ def scheduleMovie():
     return render_template('scheduleMovie.html', movies = movies, messages = message)
 
 #Screen 20: Customer Explore Movie
-#a disaster part 2
+#filter will work when procedure works
 @app.route("/movie/explore", methods=['GET', 'POST'])
 def exploreMovie():
-    return render_template('exploreMovie.html')
+    if not loggedIn():
+        return redirect(url_for('index'))
+    
+    companies = db.query("select * from company;")
+    companies = [company[0] for company in companies]
+
+    movies = db.query("select * from movie;")
+    movies = [movie[0] for movie in movies]
+
+    movie = "All"
+    company = ""
+    city = ""
+    state = ""
+    pd_start = 'NULL'
+    pd_end = 'NULL'
+
+    if request.method == "POST":
+        if request.form['hidden'] == 'true':
+            movie = request.form['movie']
+            company = request.form['company']
+            if company == "All":
+                company = ''
+            city = request.form['city']
+            if len(city) == 0:
+                city = ''
+            state = request.form['state']
+            if state == 'All':
+                state = ''
+            pd_start = request.form['pd_start']
+            if len(pd_start) == 0:
+                pd_start = 'NULL'
+            pd_end = request.form['pd_end']
+            if len(pd_end) == 0:
+                pd_end = 'NULL'
+    filtered = db.customerFilterMovie(movie, company, city, state, pd_start, pd_end)
+    print(filtered)
+    return render_template('exploreMovie.html', datas = filtered, companies = companies, movies= movies)
 
 #Screen 21: Customer View History 
 #Finished

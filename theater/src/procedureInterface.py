@@ -193,9 +193,10 @@ def adminViewComDetail_th(company):
 def adminCreateMovie(movie, duration, releaseDate):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_create_movie('{}', '{}', \
+    sql = "call admin_create_movie('{}', {}, \
            '{}');".format(movie, duration, releaseDate)
     cursor.execute(sql)
+    connection.commit()
     cursor.close()
     connection.close()
 
@@ -204,9 +205,18 @@ def manageFilterTheater(manUser, movie, minDur, maxDur, minMovRD,
              maxMovRD, minMovPD, maxMovPD, includeNotPlayed):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call manager_filter_th({}, {}, {}, {}, \
-           {}, {}, {});".format(manUser, movie, minDur, maxDur, minMovRD, maxMovRD, minMovPD,
-           maxMovPD, includeNotPlayed)
+    if minMovRD != 'NULL':
+        minMovRD = "'" + minMovRD + "'"
+    if maxMovRD != 'NULL':
+        maxMovRD = "'" + maxMovRD + "'"
+    if minMovPD != 'NULL':
+        minMovPD = "'" + minMovPD + "'"
+    if maxMovPD != 'NULL':
+        maxMovPD = "'" + maxMovPD + "'"
+    
+    sql = "call manager_filter_th('{}', '{}', {}, {}, \
+           {}, {}, {}, {}, {});".format(manUser, movie, minDur, maxDur, minMovRD, 
+           maxMovRD, minMovPD, maxMovPD, includeNotPlayed)
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
@@ -234,9 +244,17 @@ def customerFilterMovie(movName, comName, city, state,
             minMovPlayDate, maxMovPlayDate):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call customer_filter_mov({}, {},\
-           {}, {}, {}, {});".format(movName, comName, city, state, 
+    if minMovPlayDate != 'NULL':
+        minMovPlayDate = "'" + minMovPlayDate + "'"
+    if minMovPlayDate != 'NULL':
+        minMovPlayDate = "'" + minMovPlayDate + "'"
+
+    sql = "call customer_filter_mov('{}', '{}',\
+           '{}', '{}', {}, {});".format(movName, comName, city, state, 
             minMovPlayDate, maxMovPlayDate)
+    cursor.execute(sql)
+    sql = "select * from CosFilterMovie;"
+    cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
     connection.close()
@@ -246,7 +264,7 @@ def customerFilterMovie(movName, comName, city, state,
 def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName, 
                 i_comName, i_movPlayDate):
     connection = connect()
-    cursor - connection.cursor()
+    cursor = connection.cursor()
     sql = "call customer_view_mov({}, {}, {} \
            {}, {}, {});".format(i_creditCardNum, 
            i_movName, i_movReleaseDate, i_thName, i_comName, i_movPlayDate)
