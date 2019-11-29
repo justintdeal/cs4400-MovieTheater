@@ -240,8 +240,7 @@ def theaterOverview():
 
 
 #screen 19: Manager Schedule Movie 
-#query broken? Works but I don't think scheduled movie is in db
-#if release dates dont match, breaks (fix with try except?)
+#fixed except maybe ''s
 @app.route("/manage/company/schedule/movie", methods=['GET', 'POST'])
 def scheduleMovie():
     if not loggedIn():
@@ -260,8 +259,7 @@ def scheduleMovie():
         elif len(pd) == 0:
             message = "You Must Select a Play Date"
         else:
-            db.managerScheduleMovie(session['user'], movie, rd, pd)
-            message = "Movie Scheduled"
+            message = db.managerScheduleMovie(session['user'], movie, rd, pd)
 
     return render_template('scheduleMovie.html', movies = movies, messages = message)
 

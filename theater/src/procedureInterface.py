@@ -219,9 +219,15 @@ def managerScheduleMovie(manUser, movie, movRD, movPD):
     cursor = connection.cursor()
     sql = "call manager_schedule_mov('{}', '{}', \
            '{}', '{}');".format(manUser, movie, movRD, movPD)
-    cursor.execute(sql)
+    try:
+        cursor.execute(sql)
+        data = "Movie Scheduled"
+        connection.commit()
+    except:
+        data = "Release Date Be Correct"
     cursor.close()
     connection.close()
+    return data
 
 #screen 20
 def customerFilterMovie(movName, comName, city, state, 
