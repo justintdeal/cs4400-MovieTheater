@@ -18,6 +18,7 @@ def loggedIn():
         return False
 
 #screen 1: login
+#finished
 @app.route('/',methods=['GET', 'POST'])
 def index():
     if request.method == 'GET':
@@ -57,12 +58,15 @@ def getUserType(user):
     return "User"
 
 #screen 2
+#finished
 @app.route("/register")
 def registerHome():
     return render_template('registerHome.html')
 
 #screens 3-6
-# populate company dropdown
+#user works
+#customer procedure is broken / need to figure out cc issue
+#manager 
 @app.route("/register/<role>", methods=['GET', 'POST'])
 def registerRole(role):
     if request.method == 'GET':
