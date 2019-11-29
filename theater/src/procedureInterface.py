@@ -190,8 +190,8 @@ def adminViewComDetail_th(company):
 def adminCreateMovie(movie, duration, releaseDate):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_create_mov({}, {}, \
-           {});".format(movie, duration, releaseDate)
+    sql = "call admin_create_movie('{}', '{}', \
+           '{}');".format(movie, duration, releaseDate)
     cursor.execute(sql)
     cursor.close()
     connection.close()
@@ -214,13 +214,11 @@ def manageFilterTheater(manUser, movie, minDur, maxDur, minMovRD,
 def managerScheduleMovie(manUser, movie, movRD, movPD):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call manage_schedule_mov({}, {}, \
-           {}, {});".format(manUser, movie, movRD, movPD)
+    sql = "call manager_schedule_mov('{}', '{}', \
+           '{}', '{}');".format(manUser, movie, movRD, movPD)
     cursor.execute(sql)
-    data = cursor.fetchall()
     cursor.close()
     connection.close()
-    return data
 
 #screen 20
 def customerFilterMovie(movName, comName, city, state, 
@@ -264,9 +262,9 @@ def customerViewHistory(user):
 #screen 22
 def userFilterTheater(i_thName, i_comName, i_city, i_state):
     connection = connect()
-    cursor - connection.cursor()
-    sql = "call user_filter_th({}, {}, {},\
-           {});".format(i_thName, i_comName, i_city, i_state)
+    cursor = connection.cursor()
+    sql = "call user_filter_th('{}', '{}', '{}',\
+           '{}');".format(i_thName, i_comName, i_city, i_state)
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
@@ -276,8 +274,8 @@ def userFilterTheater(i_thName, i_comName, i_city, i_state):
 #screen 22
 def userVisitTheater(i_thName, i_comName, i_visitDate, i_username):
     connection = connect()
-    cursor - connection.cursor()
-    sql = "call user_visit_th({},{},{},{});".format(i_thName, i_comName, i_visitDate, i_username)
+    cursor = connection.cursor()
+    sql = "call user_visit_th('{}','{}','{}','{}');".format(i_thName, i_comName, i_visitDate, i_username)
     cursor.execute(sql)
     cursor.close()
     connection.close()

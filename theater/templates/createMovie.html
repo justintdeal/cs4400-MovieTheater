@@ -5,7 +5,7 @@
   <h1 id="">Create Movie</h1>
   <div class="row">
     <div class="col">
-            <form id="menuHeader" action="http://localhost:5000/dashboard/">
+            <form id="menuHeader" method="POST" action="http://localhost:5000/manage/company/createMovie/">
               <div class="row">
                 <div class="col">
                   <label for="lname">Name</label>
@@ -17,10 +17,10 @@
                 <div class="row">
                     <div class="col-6">
     
-                        <input type="name" class="form-control" id="lastname" placeholder="Enter Movie Name" required>
+                        <input type="text" name="movie" class="form-control" id="lastname" placeholder="Enter Movie Name" required>
                     </div>
                     <div class="col">
-                        <input type="name" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Duration" required>
+                        <input type="name" name="dur" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Duration" required>
                     </div>
                 </div>
               <div class="row">
@@ -29,14 +29,18 @@
               <label for="fname">Release Date</label>
               <div class="row">
                   <div class="col">
-                      <input type="password" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Release Date" required>
+                      <input type="date" name="rd" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Release Date" required>
                   </div>
                 </div>
                         
                         
                         <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
-                    <button type="submit" class="btn btn-primary mt-3 menuButton">Create</button>
-                  </form>
+                    <input type="submit" class="btn btn-primary mt-3 menuButton" value="Create"
+                  {% if messages %}
+                  <ul class="mt-4" style="color:red;">
+                    <li>{{ messages}}</li>
+                  </ul>
+                  {% endif %}
     </div>
   </div>
 {% endblock %}

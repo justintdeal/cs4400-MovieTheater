@@ -5,7 +5,7 @@
   <h1 id="">Schedule Movie</h1>
   <div class="row">
     <div class="col">
-            <form id="menuHeader" action="http://localhost:5000/dashboard/">
+            <form id="menuHeader" method='POST' action="http://localhost:5000/manage/company/schedule/movie">
               <div class="row">
                 <div class="col">
                   <label for="lname">Name</label>
@@ -17,13 +17,14 @@
                 <div class="row">
                     <div class="col-6">
     
-                        <select id="inputStatus" class="form-control">
-                                                <option selected>Choose...</option>
-                                                <option>...</option>
-                                              </select>
+                        <select id="inputStatus" name="movie" class="form-control">
+                                              {% for movie in movies %}
+                                              <option>{{movie}}</option>
+                                              {% endfor %}
+                                            </select>
                     </div>
                     <div class="col">
-                        <input type="name" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Release Date" required>
+                        <input type="date" name="rd" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Release Date" required>
                     </div>
                 </div>
               <div class="row">
@@ -32,13 +33,20 @@
               <label for="fname">Play Date</label>
               <div class="row">
                   <div class="col">
-                      <input type="password" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Play Date" required>
+                      <input type="date" name="pd" class="form-control" id="firstName" aria-describedby="firstname" placeholder="Enter Play Date" required>
                   </div>
                 </div>
                         
                         
                         <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
-                    <button type="submit" class="btn btn-primary mt-3 menuButton">Add</button>
+                    <input type="submit" class="btn btn-primary mt-3 menuButton" value="Add">
+            </form>
+            {% if messages %}
+            <ul class="mt-4" style="color:red;">
+              <li>{{ messages}}</li>
+            </ul>
+            {% endif %}
     </div>
   </div>
+</div>
 {% endblock %}
