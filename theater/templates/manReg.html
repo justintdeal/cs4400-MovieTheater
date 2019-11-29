@@ -22,9 +22,10 @@
                                     <input type="name" name="username" class="form-control" id="lastname" placeholder="Enter Username" required>
                                 </div>
                                 <div class="col">
-                                        <select id="inputState" class="form-control" required>
-                                                <option selected>Choose...</option>
-                                                <option>...</option>
+                                        <select id="inputState" name="company" class="form-control" required>
+                                                {% for company in companies %}
+                                                <option>{{company}}</option>
+                                                {% endfor %}
                                               </select>
     
                                     </div>

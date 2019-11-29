@@ -6,7 +6,8 @@ def getRegTemplate(role, messages=None):
     if role == 'user':
         return render_template('userReg.html', messages=messages)
     elif role == "manager":
-        return render_template('manReg.html', messages=messages)
+        companies = [company[0] for company in db.query("select * from company")]
+        return render_template('manReg.html', messages=messages, companies = companies)
     elif role == "customer":
         return render_template('custReg.html', messages=messages)
     elif role == "mancust":
@@ -27,13 +28,7 @@ def register(role):
         # print(username)
         if password == confPass and len(password) >= 8:
             db.userRegister(username, password, first, last)
-            # user = db.userLogin(username, password)
-            # print(user)
-            # if len(user) == 0:
-            #     message = "Invalid Login"
-            #     return redirect(url_for('index'))
-            # return redirect(url_for('dashboard', user = user))
-            return render_template('home.html')
+            return redirect(url_for('index'))
         elif len(password) <= 8:
             message = "Password must be at least 8 characters"
             return render_template("userReg.html", messages=message)
@@ -53,7 +48,7 @@ def register(role):
         if password == confPass and len(password) >= 8 and ccs != None:
             db.userRegister(username, password, first, last)
             for cc in ccs:
-                db.custAddCC(user, cc)
+                db.custAddCC(username, cc)
             user = db.userLogin(user, password)
             return redirect(url_for('dashboard', user = user))
         elif ccs == None:
@@ -76,6 +71,7 @@ def register(role):
         city = request.form['city']
         state = request.form['state']
         zipcode = request.form['zipcode']
+        
         #get correct company
         company = "amc"
  
@@ -100,8 +96,8 @@ def register(role):
         city = request.form['city']
         state = request.form['state']
         zipcode = request.form['zipcode']
-        #get correct company
-        company = "amc"
+        company = requset.form['company']
+        
         ccs = [0000000000000000]
         if password == confPass and len(password) >= 8 and ccs != None:
             db.manCustRegister(username, password, first, last, company, street, 

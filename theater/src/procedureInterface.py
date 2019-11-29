@@ -43,10 +43,7 @@ def userRegister(user, password, first, last):
     cursor = connection.cursor()
     sql = "call user_register('{}','{}','{}','{}');".format(user, password, first, last)
     cursor.execute(sql)
-    # sql = "select * from user;"
-    # cursor.execute(sql)
-    # data = cursor.fetchall()
-    # print(data)
+    connection.commit()
     cursor.close()
     connection.close()
 
@@ -57,6 +54,7 @@ def custRegister(user, password, first, last):
     sql = "call customer_only_register('{}', '{}', '{}', \
            '{}');".format(user, password, first, last)
     cursor.execute(sql)
+    connection.commit()
     cursor.close()
     connection.close()
 
@@ -67,6 +65,7 @@ def custAddCC(user, cc):
     sql = "call customer_add_creditcard('{}', \
            '{}');".format(user, cc)
     cursor.execute(sql)
+    connection.commit()
     cursor.close()
     connection.close()
 
@@ -79,6 +78,7 @@ def manRegister(user, password, first, last, company, street,
            '{}','{}', '{}', '{}', '{}');".format(user, password, first, last, 
            company, street, city, state, zipcode)
     cursor.execute(sql)
+    connection.commit()
     cursor.close()
     connection.close()
 
@@ -91,6 +91,7 @@ def manCustRegister(user, password, first, last, company, street,
            '{}', '{}', '{}', '{}');".format(user, password, first, last, 
            company, street, city, state, zipcode)
     cursor.execute(sql)
+    connection.commit()
     cursor.close()
     connection.close()
 
@@ -100,6 +101,7 @@ def manCustAddCC(user, cc):
     cursor = connection.cursor()
     sql = "call manager_customer_add_creditcard('{}','{}');".format(user, cc)
     cursor.execute(sql)
+    connection.commit()
     cursor.close()
     connection.close()
 
