@@ -72,7 +72,7 @@ CREATE TABLE `theater` (
     `state` char(2) NOT NULL,
     `zipcode` INT NOT NULL,
     `capacity` INT NOT NULL, 
-    `manager` varchar(16) NOT NULL,
+    `manager` varchar(20) NOT NULL,
     PRIMARY KEY (`company`, `name`),
     CONSTRAINT `theater_ibfk_1` FOREIGN KEY (`company`) REFERENCES `company` (`name`)
 		ON DELETE CASCADE ON UPDATE CASCADE,

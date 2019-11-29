@@ -67,6 +67,15 @@ BEGIN
 END$$ 
 DELIMITER ;
  
+DROP VIEW IF EXISTS scheduled_movies;
+CREATE VIEW scheduled_movies
+AS SELECT t.manager, mP.movie, mP.releaseDate, mP.date, m.duration
+FROM theater AS t, moviePlay AS mP, movie as m
+WHERE (t.name = mP.theater) AND 
+(t.company = mP.company) AND
+(mP.movie = m.name) AND 
+(mP.releaseDate = m.release);
+
 -- 1 
 DROP PROCEDURE IF EXISTS user_login;
 DELIMITER $$
@@ -288,31 +297,26 @@ END$$
 DELIMITER ;
 
 -- 18
--- DROP PROCEDURE IF EXISTS manager_filter_th;
--- DELIMITER $$
--- CREATE PROCEDURE `manager_filter_th`(IN i_manUsername VARCHAR(50), IN i_movName VARCHAR(50),
--- IN i_minMovDuration INT, IN i_maxMovDuration INT, IN i_minMovReleaseDate DATE, IN i_maxMovReleaseDate DATE,
--- IN i_minMovPlayDate DATE, IN i_maxMovPlayDate DATE, IN i_includeNotPlayed BOOLEAN)
--- BEGIN
--- 	DROP TABLE IF EXISTS ManFilterTh;
--- 	CREATE TABLE ManFilterTh
--- 	SELECT movie as movName,duration as movDuration,releaseDate as movReleaseDate,date as movPlayDate
--- 	FROM (SELECT movie,duration,releaseDate,date,manager FROM moviePlay,theater,movie
--- 		WHERE (moviePlay.movie = movie.name) AND
--- 		(moviePlay.releaseDate = movie.release) AND
--- 		(moviePlay.theater = theater.name) AND
--- 		(moviePlay.company = theater.company))
--- 	WHERE (manager = i_manUsername) AND
---         (i_movName = "" OR CHARINDEX(i_movName, movie)>0) AND
---         (i_includeNotPlayed IS NULL OR CURDATE() > date) AND
--- 		(i_minMovPlayDate IS NULL OR date >= i_minMovPlayDate) AND
--- 		(i_maxMovPlayDate IS NULL OR date <= i_maxMovPlayDate) AND
--- 		(i_minMovReleaseDate IS NULL OR date >= i_minMovReleaseDate) AND
--- 		(i_maxMovReleaseDate IS NULL OR date <= i_maxMovReleaseDate) AND
--- 		(i_minMovDuration IS NULL OR duration >= i_minMovDuration) AND
--- 		(i_maxMovDuration IS NULL OR duration <= i_maxMovDuration) ;
--- END$$
--- DELIMETER ;
+DROP PROCEDURE IF EXISTS manager_filter_th;
+DELIMITER $$
+CREATE PROCEDURE `manager_filter_th`(IN i_manUsername VARCHAR(50), IN i_movName VARCHAR(50),
+IN i_minMovDuration INT, IN i_maxMovDuration INT, IN i_minMovReleaseDate DATE, IN i_maxMovReleaseDate DATE,
+IN i_minMovPlayDate DATE, IN i_maxMovPlayDate DATE, IN i_includeNotPlayed BOOLEAN)
+BEGIN
+	DROP TABLE IF EXISTS ManFilterTh;
+	CREATE TABLE ManFilterTh
+	SELECT movie as movName,duration as movDuration,releaseDate as movReleaseDate,date as movPlayDate
+	FROM scheduled_movies
+ 	WHERE (manager = i_manUsername) AND
+	(i_movName = "" OR LOCATE(i_movName, movie)>0) AND
+	(i_minMovPlayDate IS NULL OR date >= i_minMovPlayDate) AND
+	(i_maxMovPlayDate IS NULL OR date <= i_maxMovPlayDate) AND
+	(i_minMovReleaseDate IS NULL OR date >= i_minMovReleaseDate) AND
+	(i_maxMovReleaseDate IS NULL OR date <= i_maxMovReleaseDate) AND
+	(i_minMovDuration IS NULL OR duration >= i_minMovDuration) AND
+	(i_maxMovDuration IS NULL OR duration <= i_maxMovDuration) ;
+END$$
+DELIMETER ;
 
 -- 19
 DROP PROCEDURE IF EXISTS manager_schedule_mov; 
