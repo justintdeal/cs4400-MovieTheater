@@ -296,7 +296,7 @@ CREATE PROCEDURE `admin_create_movie`(IN i_movName VARCHAR(50),
 IN i_movDuration INT, IN i_movReleaseDate DATE)
 BEGIN
 	INSERT INTO movie
-    VALUES (i_movName, i_movDuration, i_movReleaseDate);
+    VALUES (i_movName, i_movReleaseDate, i_movDuration);
 END$$
 DELIMITER ;
 
