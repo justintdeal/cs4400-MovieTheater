@@ -177,7 +177,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS admin_filter_user;
 DELIMITER $$
 CREATE PROCEDURE `admin_filter_user`(IN i_username VARCHAR(50), IN i_status ENUM('pending','approved','declined','ALL'), 
-IN i_sortBy ENUM('username','creditCardCount','userType','status'), IN i_sortDirection ENUM('ASC','DESC'))
+IN i_sortBy ENUM('username','creditCardCount','userType','status', ''), IN i_sortDirection ENUM('ASC','DESC', ''))
 BEGIN
 	DROP TABLE IF EXISTS AdFilterUser;
 	CREATE TABLE AdFilterUser
@@ -196,12 +196,12 @@ BEGIN
             SELECT username from creditCard))
 	GROUP BY username
 	ORDER BY 
-		case when i_sortBy IS NULL and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then username end DESC,
-        case when i_sortBy = "username" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then username end DESC,
-        case when i_sortBy = "creditCardCount" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then creditCardCount end DESC,
-        case when i_sortBy = "userType" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then userType end DESC,
-        case when i_sortBy = "status" and (i_sortDirection IS NULL or i_sortDirection = 'DESC') then status end DESC,
-        case when i_sortBy IS NULL and i_sortDirection = 'ASC' then username end ASC,
+		case when i_sortBy = '' and (i_sortDirection = '' or i_sortDirection = 'DESC') then username end DESC,
+        case when i_sortBy = "username" and (i_sortDirection = '' or i_sortDirection = 'DESC') then username end DESC,
+        case when i_sortBy = "creditCardCount" and (i_sortDirection = '' or i_sortDirection = 'DESC') then creditCardCount end DESC,
+        case when i_sortBy = "userType" and (i_sortDirection = '' or i_sortDirection = 'DESC') then userType end DESC,
+        case when i_sortBy = "status" and (i_sortDirection = '' or i_sortDirection = 'DESC') then status end DESC,
+        case when i_sortBy = '' and i_sortDirection = 'ASC' then username end ASC,
         case when i_sortBy = "username" and i_sortDirection = 'ASC' then username end ASC,
         case when i_sortBy = "creditCardCount" and i_sortDirection = 'ASC' then creditCardCount end ASC,
         case when i_sortBy = "userType" and i_sortDirection = 'ASC' then userType end ASC,

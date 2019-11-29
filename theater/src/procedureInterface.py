@@ -125,8 +125,9 @@ def adminDeclineUser(user):
 def adminFilterUser(user, status, sortBy, sortDirection):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_filter_user('{}', '{}', {}, {});".format(
+    sql = "call admin_filter_user('{}', '{}', '{}', '{}');".format(
         user, status, sortBy, sortDirection)
+    print(sql)
     cursor.execute(sql)
     sql = "select * from adfilteruser;"
     cursor.execute(sql)

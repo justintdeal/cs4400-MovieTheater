@@ -50,10 +50,10 @@
                       <table id="usersTable" class="w3-table-all">
                        
                       <tr>
-                        <th onclick="" style="cursor:pointer">Username</th>
-                        <th onclick="w3.sortHTML('#usersTable', '.item', 'td:nth-child(2)')" style="cursor:pointer">Credit Card Count</th>
-                        <th onclick="w3.sortHTML('#usersTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">User Type</th>
-                        <th onclick="w3.sortHTML('#usersTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Status</th>
+                        <th>Username<input type="checkbox" name="checkSort" value="username"><input type="checkbox" name="checkOrder" value="ASC"></th>
+                        <th>Credit Card Count<input type="checkbox" name="checkSort" value="creditCardCount"><input type="checkbox" name="checkOrder" value="ASC"></th>
+                        <th>User Type<input type="checkbox" name="checkSort" value="userType"><input type="checkbox" name="checkOrder" value="ASC"></th>
+                        <th>Status<input type="checkbox" name="checkSort" value="status"><input type="checkbox" name="checkOrder" value="ASC"></th>
                       </tr> 
 
                       {% for user in users%}
