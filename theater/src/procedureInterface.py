@@ -184,7 +184,7 @@ def adminViewComDetail_th(company):
 def adminCreateMovie(movie, duration, releaseDate):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_create_mov('{}', '{}', \
+    sql = "call admin_create_movie('{}', '{}', \
            '{}');".format(movie, duration, releaseDate)
     cursor.execute(sql)
     cursor.close()
@@ -211,10 +211,8 @@ def managerScheduleMovie(manUser, movie, movRD, movPD):
     sql = "call manager_schedule_mov('{}', '{}', \
            '{}', '{}');".format(manUser, movie, movRD, movPD)
     cursor.execute(sql)
-    data = cursor.fetchall()
     cursor.close()
     connection.close()
-    return data
 
 #screen 20
 def customerFilterMovie(movName, comName, city, state, 

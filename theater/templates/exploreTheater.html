@@ -150,6 +150,12 @@
                   <input type="hidden" name="hidden" value="false">
                    
                   </form>
+                  {% if messages %}
+                  <ul class="mt-4" style="color:red;">
+                    <li>{{ messages}}</li>
+                      
+                  </ul>
+                  {% endif %}
     </div>
   </div>
 {% endblock %}

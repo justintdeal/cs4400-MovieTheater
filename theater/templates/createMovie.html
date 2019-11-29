@@ -5,7 +5,7 @@
   <h1 id="">Create Movie</h1>
   <div class="row">
     <div class="col">
-            <form id="menuHeader" action="http://localhost:5000/dashboard/">
+            <form id="menuHeader" method="POST" action="http://localhost:5000/manage/company/createMovie/">
               <div class="row">
                 <div class="col">
                   <label for="lname">Name</label>
@@ -35,8 +35,7 @@
                         
                         
                         <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
-                    <button type="submit" class="btn btn-primary mt-3 menuButton">Create</button>
-                  </form>
+                    <input type="submit" class="btn btn-primary mt-3 menuButton" value="Create"
                   {% if messages %}
                   <ul class="mt-4" style="color:red;">
                     <li>{{ messages}}</li>
