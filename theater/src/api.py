@@ -105,7 +105,17 @@ def manageUser():
             except:
                 sortby = ''
             try:
-                sortdir = request.form['checkOrder']
+                sortdirnum = request.form['checkOrder']
+                if (sortdirnum == '1' and (sortby == 'username' or sortby == '')):
+                    sortdir = 'ASC'
+                elif (sortdirnum == '2' and sortby == 'creditCardCount'):
+                    sortdir = 'ASC'
+                elif (sortdirnum == '3' and sortby == 'userType'):
+                    sortdir = 'ASC'
+                elif (sortdirnum == '4' and sortby == 'status'):
+                    sortdir = 'ASC'
+                else:
+                    sortdir = ''
             except:
                 sortdir = ''
             view_users = db.adminFilterUser(name,status, sortby, sortdir)
