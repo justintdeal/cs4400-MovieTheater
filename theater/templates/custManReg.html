@@ -22,9 +22,10 @@
                                     <input type="name" name="username" class="form-control" id="lastname" placeholder="Enter Username" required>
                                 </div>
                                 <div class="col">
-                                        <select id="inputState" name="company" class="form-control">
-                                                <option selected>Choose...</option>
-                                                <option>...</option>
+                                        <select id="inputState" name="company" class="form-control" required>
+                                                {% for company in companies %}
+                                                <option>{{company}}</option>
+                                                {% endfor %}
                                               </select>
     
                                     </div>
@@ -128,52 +129,53 @@
                                 <input type="text" placeholder="0000000000000000" id="ccNum">
                                 <input type="button"  onclick="addCC()" value="+">
                               <script>
-                                let creditCards = [];
-                                var i = 0
-    
-                                function addCC() { 
-                                    
-                                    number = document.getElementById("ccNum").value;   
-                                    if (number.toString().length == 16 && creditCards.length < 5) {
-                                      var dup = 0
-                                      for (var i = 0; i<creditCards.length; ++i) {
-                                          if (creditCards[i] == number) {
-                                            dup = 1
-                                          }
-                                        }
-                                      if (dup == 0) {
-                                        creditCards[i] = number
-                                        i++
+                            let creditCards = [];
+                            var i = 0
+                            var j = 0
+                            function addCC() { 
+                                
+                                number = document.getElementById("ccNum").value;   
+                                if (number.toString().length == 16 && creditCards.length < 5) {
+                                  var dup = 0
+                                  for (var i = 0; i<creditCards.length; ++i) {
+                                      if (creditCards[i] == number) {
+                                        dup = 1
                                       }
-                                    
-        
-                                    text = "<ul>";
-                                    creditCards.forEach(listCC);
-                                    text += "</ul>";
-                                    text += '<input type="button" class="btn btn-primary mt-3 menuButton" onclick="removeCC()" value="-">'
-                                    document.getElementById("creditCards").innerHTML = text
-                                    document.getElementById("ccNum").value = "0000000000000000"
                                     }
-                                };
-    
-                                function removeCC() {
-                                  creditCards.pop()
-                                  i--
-                                  text = "<ul>";
-                                  creditCards.forEach(listCC);
-                                  text += "</ul>";
-                                  if (creditCards.length != 0) {
-                                    text += '<input type="button" class="btn btn-primary mt-3 menuButton" onclick="removeCC()" value="-">'
+                                  if (dup == 0) {
+                                    creditCards[i] = number
+                                    i++
                                   }
-                                  
-                                  document.getElementById("creditCards").innerHTML = text
-                                  document.getElementById("ccNum").value = "0000000000000000"
+                                
+                                j = 0
+                                text = "<ul>";
+                                creditCards.forEach(listCC);
+                                text += "</ul>";
+                                text += '<input type="button" class="btn btn-primary mt-3 menuButton" onclick="removeCC()" value="-">'
+                                document.getElementById("creditCards").innerHTML = text
+                                document.getElementById("ccNum").value = "0000000000000000"
                                 }
-    
-                                function listCC(number) {
-                                    text += "<li>" + number + "</li>";
-                                };
-                              </script>
+                            };
+
+                            function removeCC() {
+                              creditCards.pop()
+                              i--
+                              text = "<ul>";
+                              creditCards.forEach(listCC);
+                              text += "</ul>";
+                              if (creditCards.length != 0) {
+                                text += '<input type="button" class="btn btn-primary mt-3 menuButton" onclick="removeCC()" value="-">'
+                              }
+                              
+                              document.getElementById("creditCards").innerHTML = text
+                              document.getElementById("ccNum").value = "0000000000000000"
+                            }
+
+                            function listCC(number) {
+                                text += '<li><input name="'+ j +'" value="' + number + '"readonly>'+"</li>";
+                                j++
+                            };
+                          </script>
                               </div>
                             <div class="col" id="creditCards">
                                 

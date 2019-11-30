@@ -36,12 +36,10 @@ def index():
         if user[0][1] == 'declined':
             message = "Invalid Login: Declined User! Contact an Admin"
             return render_template('home.html', messages=message)
-        print(user[0][1])
         user = user[0]
         session['active'] = True
         session['user'] = user[0]
         session['type'] = getUserType(user)
-        print(session)
         return redirect(url_for('dashboard', user = user))
 
 def getUserType(user):

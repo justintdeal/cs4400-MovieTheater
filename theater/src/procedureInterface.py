@@ -129,7 +129,6 @@ def adminFilterUser(user, status, sortBy, sortDirection):
     cursor = connection.cursor()
     sql = "call admin_filter_user('{}', '{}', '{}', '{}');".format(
         user, status, sortBy, sortDirection)
-    print(sql)
     cursor.execute(sql)
     sql = "select * from adfilteruser;"
     cursor.execute(sql)
@@ -145,7 +144,6 @@ def adminFilterCompany(comName, minCity, maxCity, minTheater,
     cursor = connection.cursor()
     sql = "call admin_filter_company('{}', {}, {}, {}, {}, {}, {}, '{}', '{}');".format(comName, minCity, maxCity, 
            minTheater, maxTheater, minEmp, maxEmp, sortBy, sortDirection)
-    print(sql)
     cursor.execute(sql)
     sql = "select * from AdFilterCom;"
     cursor.execute(sql)
@@ -270,7 +268,6 @@ def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName,
     sql = "call customer_view_mov('{}', '{}', '{}', \
            '{}', '{}', '{}');".format(i_creditCardNum, 
            i_movName, i_movReleaseDate, i_thName, i_comName, i_movPlayDate)
-    print(sql)
     cursor.execute(sql)
     connection.commit()
     cursor.close()
