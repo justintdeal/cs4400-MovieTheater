@@ -218,6 +218,8 @@ def manageFilterTheater(manUser, movie, minDur, maxDur, minMovRD,
            {}, {}, {}, {}, {});".format(manUser, movie, minDur, maxDur, minMovRD, 
            maxMovRD, minMovPD, maxMovPD, includeNotPlayed)
     cursor.execute(sql)
+    sql = "select * from ManFilterTh;"
+    cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
     connection.close()

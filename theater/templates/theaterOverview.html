@@ -5,7 +5,7 @@
   <h1 id="">Theater Overview</h1>
   <div class="row">
     <div class="col">
-            <form>
+            <form method="POST" action="/theater/overview">
                     <div class="row">
                         <div class="col">
                                 <label for="lname">Movie Name</label>
@@ -18,18 +18,18 @@
 
                     <div class="row">
                             <div class="col">
-                                    <input type="name" class="form-control" id="name">
+                                    <input type="name" name="movie" class="form-control" id="name">
                                 </div>
                                 <div class="col">
                                   <div class="row">
                                   <div class="col">
-                                        <input type="name" class="form-control" id="lowCity">
+                                        <input type="number" name="durStart" class="form-control" id="lowCity">
                                         </div>
                                   <div class="col">
                                         <center for="to">to</center>
                                         </div>
                                   <div class="col">
-                                        <input type="name" class="form-control" id="upCity">
+                                        <input type="number" name="durEnd" class="form-control" id="upCity">
                                         </div>
                                     </div>
                                   </div>
@@ -47,40 +47,39 @@
                             <div class="col">
                                   <div class="row">
                                   <div class="col">
-                                        <input type="name" class="form-control" id="lowTheater">
+                                        <input type="date" name="minRd" class="form-control" id="lowTheater">
                                         </div>
                                   <div class="col">
                                         <center for="to">to</center>
                                         </div>
                                   <div class="col">
-                                        <input type="name" class="form-control" id="upTheater">
+                                        <input type="date" name="maxRd" class="form-control" id="upTheater">
                                         </div>
                                     </div>
                                   </div>
                                 <div class="col">
                                   <div class="row">
                                   <div class="col">
-                                        <input type="name" class="form-control" id="lowEmp">
+                                        <input type="date" name="minPd" class="form-control" id="lowEmp">
                                         </div>
                                   <div class="col">
                                         <center for="to">to</center>
                                         </div>
                                   <div class="col">
-                                        <input type="name" class="form-control" id="upEmp">
+                                        <input type="date" name="maxPd" class="form-control" id="upEmp">
                                         </div>
                                     </div>
                                   </div>
                     </div>
                     <div class="row">
                       <div class="col" style="text-align:center" >
-                        <input type="checkbox" name="checkbox" value="Not played"> Only Include Not Played Movies<br>
+                        <input type="checkbox" name="np" value="Not played"> Only Include Not Played Movies<br>
                       </div>
                     </div>
                   <div class="row">
                     <div class="col" style="text-align:center" >
-                        <button type="button" class="btn btn-primary mt-3 menuButton">Filter</button>  
+                        <input type="submit" class="btn btn-primary mt-3 menuButton" value="Filter">
                     </div>
-                    
                   </div>
                   <div class="row">
                     <label for="lname"> </label>
@@ -96,41 +95,20 @@
                         <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(3)')" style="cursor:pointer">Release Date</th>
                         <th onclick="w3.sortHTML('#companyTable', '.item', 'td:nth-child(4)')" style="cursor:pointer">Play Date</th>
                       </tr> 
-
+                      
+                      {% for data in datas %}
                       <tr class="item">
-                        <td>user:2911002</td>
-                        <td>UK</td>
-                        <td>Melissa</td>
-                        <td>Pending</td>
+                        <td>{{data[0]}}</td>
+                        <td>{{data[1]}}</td>
+                        <td>{{data[2]}}</td>
+                        <td>{{data[3]}}</td>
                       </tr>
-                      <tr class="item">
-                        <td>user:2201002</td>
-                        <td>France</td>
-                        <td>Justin</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td>user:2901092</td>
-                        <td>San Francisco</td>
-                        <td>Judy</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td>user:2801002</td>
-                        <td>Canada</td>
-                        <td>Skipper</td>
-                        <td>Pending</td>
-                      </tr>
-                      <tr class="item">
-                        <td>user:2901009</td>
-                        <td>Christchurch</td>
-                        <td>Alex</td>
-                      </tr>
+                      {% endfor %}
 
                     </table>
                   </div>
                   <div style="text-align:center">  
-                    <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
+                    <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="window.location.href = '/dashboard'">
                   </div>
                         
                    

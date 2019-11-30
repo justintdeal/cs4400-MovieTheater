@@ -246,10 +246,50 @@ def createMovie():
     return render_template('createMovie.html', messages=message)
 
 #Screen 18: Manager Theater Overview 
-#thicc boi
-@app.route("/manage/company/theater/overview", methods=['GET', 'POST'])
+#finished
+@app.route("/theater/overview", methods=['GET', 'POST'])
 def theaterOverview():
-    return render_template('theaterOverview.html')
+    if not loggedIn():
+        return redirect(url_for('index'))
+    
+    movie=''
+    durStart='NULL'
+    durEnd='NULL'
+    minRd = 'NULL'
+    maxRd = 'NULL'
+    minPd = 'NULL'
+    maxPd = 'NULL'
+    np = False
+
+    if request.method == "POST":
+        movie = request.form['movie']
+        durStart = request.form['durStart']
+        durEnd = request.form['durEnd']
+        minRd = request.form['minRd']
+        maxRd = request.form['maxRd']
+        minPd = request.form['minPd']
+        maxPd = request.form['maxPd']
+        np = 'np' in request.form
+
+        if len(movie) == 0:
+            movie = ''
+        if len(durStart) == 0:
+            durStart = 'NULL'
+        if len(durEnd) == 0:
+            durEnd = 'NULL'
+        if len(minRd) == 0:
+            minRd = 'NULL'
+        if len(maxRd) == 0:
+            maxRd = 'NULL'
+        if len(minPd) == 0:
+            minPd = 'NULL'
+        if len(maxPd) == 0:
+            maxPd = 'NULL'
+
+    data = db.manageFilterTheater(session['user'], movie, durStart, durEnd, minRd, maxRd, minPd, maxPd, np)
+
+
+    return render_template('theaterOverview.html', datas =data)
 
 
 #screen 19: Manager Schedule Movie 
