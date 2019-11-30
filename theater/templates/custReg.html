@@ -143,7 +143,7 @@
                           <script>
                             let creditCards = [];
                             var i = 0
-
+                            var j = 0
                             function addCC() { 
                                 
                                 number = document.getElementById("ccNum").value;   
@@ -159,7 +159,7 @@
                                     i++
                                   }
                                 
-    
+                                j = 0
                                 text = "<ul>";
                                 creditCards.forEach(listCC);
                                 text += "</ul>";
@@ -184,7 +184,8 @@
                             }
 
                             function listCC(number) {
-                                text += "<li>" + number + "</li>";
+                                text += '<li><input name="'+ j +'" value="' + number + '"readonly>'+"</li>";
+                                j++
                             };
                           </script>
                           </div>
