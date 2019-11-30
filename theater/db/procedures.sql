@@ -77,6 +77,12 @@ WHERE (t.name = mP.theater) AND
 (mP.movie = m.name) AND 
 (mP.releaseDate = m.release);
 
+DROP VIEW IF EXISTS visited_theaters;
+CREATE VIEW visited_theaters
+AS SELECT v.username, v.theater, v.company, v.date, t.street, t.city, t.state, t.zipcode
+FROM visit AS v, theater AS t
+WHERE (t.company = v.company) AND
+(t.name = v.theater);
 
 -- 1 
 DROP PROCEDURE IF EXISTS user_login;
@@ -423,11 +429,11 @@ i_minVisitDate DATE, IN i_maxVisitDate DATE)
 BEGIN
 	DROP TABLE IF EXISTS UserVisitHistory;
 	CREATE TABLE UserVisitHistory
-	SELECT name as thName, street as thStreet, city as thCity, state as thState, zipcode as thZipcode, 
-		company as comName, date as visitDate
-	FROM visit NATURAL JOIN theater
-	WHERE (username = i_username) AND
+	SELECT theater as thName, street as thStreet, city as thCity, state as thState, zipcode as thZipcode, 
+    company as comName, date as visitDate
+        FROM visited_theaters
+        WHERE (username = i_username) AND
 		(i_minVisitDate IS NULL OR date >= i_minVisitDate) AND
 		(i_maxVisitDate IS NULL OR date <= i_maxVisitDate);
-END$$
+END$$   
 DELIMITER ;
