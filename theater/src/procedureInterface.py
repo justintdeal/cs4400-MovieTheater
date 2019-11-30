@@ -171,7 +171,9 @@ def adminCreateTheater(theaterName, comName, street, city, state,
 def adminViewComDetail_emp(company):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_view_comDetail_emp({});".format(company)
+    sql = "call admin_view_comDetail_emp('{}');".format(company)
+    cursor.execute(sql)
+    sql = "select * from AdComDetailEmp"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
@@ -182,7 +184,9 @@ def adminViewComDetail_emp(company):
 def adminViewComDetail_th(company):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_view_comDetail_th({});".format(company)
+    sql = "call admin_view_comDetail_th('{}');".format(company)
+    cursor.execute(sql)
+    sql = "select * from AdComDetailTh;"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
