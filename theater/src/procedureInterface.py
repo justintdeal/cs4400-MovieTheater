@@ -130,7 +130,7 @@ def adminFilterUser(user, status, sortBy, sortDirection):
     sql = "call admin_filter_user('{}', '{}', '{}', '{}');".format(
         user, status, sortBy, sortDirection)
     cursor.execute(sql)
-    sql = "select * from adfilteruser;"
+    sql = "select * from AdFilterUser;"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
@@ -157,11 +157,12 @@ def adminCreateTheater(theaterName, comName, street, city, state,
                         zipcode, cap, manUser):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_create_theater({}, {},\
-           {}, {}, {}, \
-           {}, {}, {});".format(theaterName, comName, street, city, state, 
+    sql = "call admin_create_theater('{}', '{}',\
+           '{}', '{}', '{}', \
+           '{}', {}, '{}');".format(theaterName, comName, street, city, state, 
            zipcode, cap, manUser)
     cursor.execute(sql)
+    connection.commit()
     cursor.close()
     connection.close()
 
@@ -169,7 +170,9 @@ def adminCreateTheater(theaterName, comName, street, city, state,
 def adminViewComDetail_emp(company):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_view_comDetail_emp({});".format(company)
+    sql = "call admin_view_comDetail_emp('{}');".format(company)
+    cursor.execute(sql)
+    sql = "select * from AdComDetailEmp"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
@@ -180,7 +183,9 @@ def adminViewComDetail_emp(company):
 def adminViewComDetail_th(company):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_view_comDetail_th({});".format(company)
+    sql = "call admin_view_comDetail_th('{}');".format(company)
+    cursor.execute(sql)
+    sql = "select * from AdComDetailTh;"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()

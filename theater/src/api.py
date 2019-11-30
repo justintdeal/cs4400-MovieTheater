@@ -202,28 +202,49 @@ def manageCompany():
 #screen 15: Admin Create Theater
 @app.route("/manage/company/create/theater", methods=['GET', 'POST'])
 def createTheater():
-    # companies = db.query("select * from company;")
-    # companies = [company[0] for company in companies]
+    companies = db.query("select * from company;")
+    companies = [company[0] for company in companies]
+
+    managers = db.query("select username, company from manager;")
+    managers = [man[0] + " (" + man[1] + ")" for man in managers]
+
+
+    if request.method == "POST":
+        name = request.form['name']
+        company = request.form['company']
+        address = request.form['address']
+        city = request.form['city']
+        state = request.form['state']
+        zipcode = request.form['zipcode']
+        cap = request.form['cap']
+        manager  = request.form['manager']
+        
+        if manager == "Choose..." or company == "Choose...":
+            "sad"
+        else:
+            space = " " 
+
+            manager = manager[0:manager.index(space)]
+            db.adminCreateTheater(name, company, address, city, state, zipcode, cap, manager)
+
 
     # managers = db.query("select * from ")
-    return render_template('createTheater.html')
+    return render_template('createTheater.html', companies = companies, managers = managers)
 
 #screen 16: Admin Company Detail
-
 @app.route("/manage/company/<name>", methods=['GET', 'POST'])
 def viewCompany(name):
     if not loggedIn():
         return redirect(url_for('index'))
-    #remove when screen 14 is done
-    name = 'AI Theater Company'
+    name = name.split('_')
+    name = ' '.join(name)
+    
     employee = db.adminViewComDetail_emp(name)
     theaters = db.adminViewComDetail_th(name)
-    print(employee)
-    print(theaters)
 
+    employees = [name[0] + " " + name[1] for name in employee]
 
-
-    return render_template('viewCompany.html', employees = employee, theaters = theaters)
+    return render_template('viewCompany.html', employees = employees, theaters = theaters, name = name)
 
 #screen 17: Admin Create Movie
 #finished
