@@ -333,7 +333,16 @@ BEGIN
 	(i_minMovReleaseDate IS NULL OR date >= i_minMovReleaseDate) AND
 	(i_maxMovReleaseDate IS NULL OR date <= i_maxMovReleaseDate) AND
 	(i_minMovDuration IS NULL OR duration >= i_minMovDuration) AND
-	(i_maxMovDuration IS NULL OR duration <= i_maxMovDuration) ;
+	(i_maxMovDuration IS NULL OR duration <= i_maxMovDuration) AND
+    (i_includeNotPlayed = FALSE OR i_includeNotPlayed IS NULL)
+    UNION
+    SELECT name as movName, duration as movDuration, movie.release as movReleaseDate, NULL as movPlayDate
+    FROM movie
+    WHERE (concat(movie.name,movie.release) NOT IN (SELECT concat(movie,releaseDate) FROM scheduled_movies WHERE manager = i_manUsername)) AND
+    (i_movName = "" OR LOCATE(i_movName, name)>0) AND
+	(i_minMovReleaseDate IS NULL OR movie.release >= i_minMovReleaseDate) AND
+	(i_maxMovReleaseDate IS NULL OR movie.release <= i_maxMovReleaseDate);    
+
 END$$
 DELIMITER ;
 
