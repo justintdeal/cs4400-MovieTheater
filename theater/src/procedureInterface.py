@@ -51,6 +51,8 @@ def userLogin(user, password):
 
 #screen 3
 def userRegister(user, password, first, last):
+    user = prep(user)
+    password = prep(password)
     connection = connect()
     cursor = connection.cursor()
     sql = "call user_register('{}','{}','{}','{}');".format(user, password, first, last)
@@ -61,6 +63,8 @@ def userRegister(user, password, first, last):
 
 #screen 4
 def custRegister(user, password, first, last):
+    user = prep(user)
+    password = prep(password)
     connection = connect()
     cursor = connection.cursor()
     sql = "call customer_only_register('{}', '{}', '{}', \
@@ -72,6 +76,7 @@ def custRegister(user, password, first, last):
 
 #screen 4
 def custAddCC(user, cc):
+    user = prep(user)
     connection = connect()
     cursor = connection.cursor()
     sql = "call customer_add_creditcard('{}', \
@@ -84,6 +89,10 @@ def custAddCC(user, cc):
 #screen 5
 def manRegister(user, password, first, last, company, street, 
                 city, state, zipcode):
+    user = prep(user)
+    password = prep(password)
+    company = prep(company)
+    street = prep(street)
     connection = connect()
     cursor = connection.cursor()
     sql = "call manager_only_register('{}', '{}', '{}', '{}',\
@@ -97,6 +106,10 @@ def manRegister(user, password, first, last, company, street,
 #screen 6
 def manCustRegister(user, password, first, last, company, street, 
                 city, state, zipcode):
+    user = prep(user)
+    password = prep(password)
+    company = prep(company)
+    street = prep(street)
     connection = connect()
     cursor = connection.cursor()
     sql = "call manager_customer_register('{}', '{}', '{}', '{}', '{}',\
@@ -109,6 +122,7 @@ def manCustRegister(user, password, first, last, company, street,
 
 #screen 6
 def manCustAddCC(user, cc):
+    user = prep(user)
     connection = connect()
     cursor = connection.cursor()
     sql = "call manager_customer_add_creditcard('{}','{}');".format(user, cc)
@@ -167,6 +181,10 @@ def adminFilterCompany(comName, minCity, maxCity, minTheater,
 #screen 15
 def adminCreateTheater(theaterName, comName, street, city, state, 
                         zipcode, cap, manUser):
+    theaterName = prep(theaterName)
+    comName = prep(comName)
+    street = prep(street)
+    city = prep(city)
     connection = connect()
     cursor = connection.cursor()
     sql = "call admin_create_theater('{}', '{}',\
@@ -206,6 +224,7 @@ def adminViewComDetail_th(company):
 
 #screen 17
 def adminCreateMovie(movie, duration, releaseDate):
+    movie = prep(movie)
     connection = connect()
     cursor = connection.cursor()
     sql = "call admin_create_movie('{}', {}, \
@@ -242,6 +261,8 @@ def manageFilterTheater(manUser, movie, minDur, maxDur, minMovRD,
 
 #screen 19
 def managerScheduleMovie(manUser, movie, movRD, movPD):
+    manUser = prep(manUser)
+    movie = prep(movie)
     connection = connect()
     cursor = connection.cursor()
     sql = "call manager_schedule_mov('{}', '{}', \
@@ -281,6 +302,8 @@ def customerFilterMovie(movName, comName, city, state,
 def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName, 
                 i_comName, i_movPlayDate):
     i_movName = prep(i_movName)
+    i_thName = prep(i_thName)
+    i_comName = prep(i_comName)
     connection = connect()
     cursor = connection.cursor()
     sql = "call customer_view_mov('{}', '{}', '{}', \
@@ -320,6 +343,9 @@ def userFilterTheater(i_thName, i_comName, i_city, i_state):
 
 #screen 22
 def userVisitTheater(i_thName, i_comName, i_visitDate, i_username):
+    i_thName = prep(i_thName)
+    i_comName = prep(i_comName)
+    i_username = prep(i_comName)
     connection = connect()
     cursor = connection.cursor()
     sql = "call user_visit_th('{}','{}','{}','{}');".format(i_thName, i_comName, i_visitDate, i_username)
