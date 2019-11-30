@@ -69,12 +69,14 @@ DELIMITER ;
  
 DROP VIEW IF EXISTS scheduled_movies;
 CREATE VIEW scheduled_movies
-AS SELECT t.manager, mP.movie, mP.releaseDate, mP.date, m.duration
+AS SELECT t.manager as manager, t.street as street, t.city as city, t.state as state, t.zipcode as zipcode,
+t.name as theater, t.company as company, mP.movie as movie, mP.releaseDate as releaseDate, mP.date as date, m.duration as duration
 FROM theater AS t, moviePlay AS mP, movie as m
 WHERE (t.name = mP.theater) AND 
 (t.company = mP.company) AND
 (mP.movie = m.name) AND 
 (mP.releaseDate = m.release);
+
 
 -- 1 
 DROP PROCEDURE IF EXISTS user_login;
@@ -106,8 +108,10 @@ DELIMITER $$
 CREATE PROCEDURE `customer_only_register`(IN i_username VARCHAR(50), IN i_password VARCHAR(50), 
 IN i_firstname VARCHAR(50), IN i_lastname VARCHAR(50))
 BEGIN
-	INSERT INTO customer (username, password, firstname, lastname) VALUES
+	INSERT INTO user (username, password, firstname, lastname) VALUES
 	(i_username, MD5(i_password), i_firstname, i_lastname);
+    INSERT INTO customer (username) VALUES
+    (i_username);
 END$$
 DELIMITER ;
  
@@ -124,12 +128,14 @@ DELIMITER ;
 -- 5
 DROP PROCEDURE IF EXISTS manager_only_register;
 DELIMITER $$
-CREATE PROCEDURE `manager_only_register`(IN i_username VARCHAR(50), IN i_password
-VARCHAR(50), IN i_firstname VARCHAR(50), IN i_lastname VARCHAR(50), IN i_comName VARCHAR(50),
-	IN i_empStreet VARCHAR(50), IN i_empCity VARCHAR(50), IN i_empState CHAR(2), IN i_empZipcode CHAR(5))
+CREATE PROCEDURE `manager_only_register`(IN i_username VARCHAR(50), IN i_password VARCHAR(50), 
+IN i_firstname VARCHAR(50), IN i_lastname VARCHAR(50), IN i_comName VARCHAR(50),
+IN i_empStreet VARCHAR(50), IN i_empCity VARCHAR(50), IN i_empState CHAR(2), IN i_empZipcode CHAR(5))
 BEGIN
 	INSERT INTO user (username, password, firstname, lastname) VALUES
 	(i_username, MD5(i_password), i_firstname, i_lastname);
+    INSERT INTO employee (username) VALUES
+    (i_username);
 	INSERT INTO manager (username, company, street, city, state, zipcode) VALUES
 	(i_username, i_comName, i_empStreet, i_empCity, i_empState, i_empZipcode);
 END$$
@@ -138,14 +144,18 @@ DELIMITER ;
 -- 6a
 DROP PROCEDURE IF EXISTS manager_customer_register;
 DELIMITER $$
-CREATE PROCEDURE `manager_customer_register`(IN i_username VARCHAR(50), IN i_password
-VARCHAR(50), IN i_firstname VARCHAR(50), IN i_lastname VARCHAR(50), IN i_comName VARCHAR(50),
-	IN i_empStreet VARCHAR(50), IN i_empCity VARCHAR(50), IN i_empState CHAR(2), IN i_empZipcode CHAR(5))
+CREATE PROCEDURE `manager_customer_register`(IN i_username VARCHAR(50), IN i_password VARCHAR(50), 
+IN i_firstname VARCHAR(50), IN i_lastname VARCHAR(50), IN i_comName VARCHAR(50),
+IN i_empStreet VARCHAR(50), IN i_empCity VARCHAR(50), IN i_empState CHAR(2), IN i_empZipcode CHAR(5))
 BEGIN
 	INSERT INTO user (username, password, firstname, lastname) VALUES
 	(i_username, MD5(i_password), i_firstname, i_lastname);
-	INSERT INTO manager (username, company, street, city, state, zipcode) VALUES
+    INSERT INTO employee (username) VALUES
+    (i_username);
+    INSERT INTO manager (username, company, street, city, state, zipcode) VALUES
 	(i_username, i_comName, i_empStreet, i_empCity, i_empState, i_empZipcode);
+    INSERT INTO customer (username) VALUES
+    (i_username);
 END$$
 DELIMITER ;
  
@@ -255,7 +265,7 @@ DROP PROCEDURE IF EXISTS admin_create_theater;
 DELIMITER $$
 CREATE PROCEDURE `admin_create_theater`(IN i_thName VARCHAR(50),
 IN i_comName VARCHAR(50), IN i_thStreet VARCHAR(50), IN i_thCity VARCHAR(50),
-IN i_thState VARCHAR(50), IN i_thZipcode VARCHAR(50), IN i_capacity INT,
+IN i_thState CHAR(2), IN i_thZipcode VARCHAR(50), IN i_capacity INT,
 IN i_managerUsername VARCHAR(50))
 BEGIN
 	INSERT INTO theater (company, name, street, city, state, zipcode, capacity, manager)
@@ -292,8 +302,7 @@ DELIMITER ;
 -- 17
 DROP PROCEDURE IF EXISTS admin_create_movie;
 DELIMITER $$
-CREATE PROCEDURE `admin_create_movie`(IN i_movName VARCHAR(50),
-IN i_movDuration INT, IN i_movReleaseDate DATE)
+CREATE PROCEDURE `admin_create_movie`(IN i_movName VARCHAR(50), IN i_movDuration INT, IN i_movReleaseDate DATE)
 BEGIN
 	INSERT INTO movie
     VALUES (i_movName, i_movReleaseDate, i_movDuration);
@@ -309,7 +318,7 @@ IN i_minMovPlayDate DATE, IN i_maxMovPlayDate DATE, IN i_includeNotPlayed BOOLEA
 BEGIN
 	DROP TABLE IF EXISTS ManFilterTh;
 	CREATE TABLE ManFilterTh
-	SELECT movie as movName,duration as movDuration,releaseDate as movReleaseDate,date as movPlayDate
+	SELECT movie as movName, duration as movDuration, releaseDate as movReleaseDate, date as movPlayDate
 	FROM scheduled_movies
  	WHERE (manager = i_manUsername) AND
 	(i_movName = "" OR LOCATE(i_movName, movie)>0) AND
@@ -342,11 +351,12 @@ IN i_state VARCHAR(3), IN i_minMovPlayDate DATE, IN i_maxMovPlayDate DATE)
 BEGIN
 	DROP TABLE IF EXISTS CosFilterMovie;
 	CREATE TABLE CosFilterMovie
-	SELECT movie as movName,theater as thName,street as thStreet,city as thCity,state as thState,zipcode as thZipcode,
-		name as comName,date as movPlayDate,releaseDate as movReleaseDate 
-	FROM moviePlay NATURAL JOIN theater
-	WHERE (i_movName = "ALL" OR movie = i_movName) AND
-		(i_comName = "" OR name = i_comName) AND
+	SELECT movie as movName, theater as thName, street as thStreet, city as thCity, state as thState, zipcode as thZipcode,
+		company as comName, date as movPlayDate, releaseDate as movReleaseDate 
+	FROM scheduledMovies
+	WHERE
+        (i_movName = "ALL" OR movie = i_movName) AND
+		(i_comName = "" OR company = i_comName) AND
         (i_city = "" OR city = i_city) AND
         (i_state = "" OR state = i_state) AND
 		(i_minMovPlayDate IS NULL OR date >= i_minMovPlayDate) AND
@@ -373,7 +383,7 @@ BEGIN
 	CREATE TABLE CosViewHistory
 		SELECT movie as movName, theater as thName, company as comName, creditCardNum as creditCardNum, date as movPlayDate
 		FROM ccTransaction NATURAL JOIN creditCard
-		WHERE username = i_cusUsername;
+		WHERE (username = i_cusUsername);
 END$$
 DELIMITER ;
 
@@ -385,7 +395,7 @@ VARCHAR(50), IN i_city VARCHAR(50), IN i_state VARCHAR(3))
 BEGIN
    DROP TABLE IF EXISTS UserFilterTh;
    CREATE TABLE UserFilterTh
-SELECT name as thName, street as thStreet, city as thCity, state as thState, zipcode as thZipcode, company as comName
+   SELECT name as thName, street as thStreet, city as thCity, state as thState, zipcode as thZipcode, company as comName
    FROM theater
    WHERE (name = i_thName OR i_thName = "ALL") AND
        (company = i_comName OR i_comName = "ALL") AND

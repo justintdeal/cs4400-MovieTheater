@@ -20,12 +20,6 @@ def register(role):
         first = request.form['first']
         last = request.form['last']
         username = request.form['username']
-    
-        # print(password)
-        # print(confPass)
-        # print(first)
-        # print(last)
-        # print(username)
         if password == confPass and len(password) >= 8:
             db.userRegister(username, password, first, last)
             return redirect(url_for('index'))
@@ -44,6 +38,25 @@ def register(role):
         username = request.form['username']
             
         #need to fix but temp credit card
+        for i in range(0,5):
+            try:
+                cc = request.form['{}'.format(i)]
+                print(cc)
+            except:
+                break
+        # try:
+        #     cc = request.form['0']
+        #     print(cc)
+        #     cc = request.form['1']
+        #     print(cc)
+        #     cc = request.form['2']
+        #     print(cc)
+        #     cc = request.form['3']
+        #     print(cc)
+        #     cc = request.form['4']
+        #     print(cc)
+        # except:
+        #     print("out of bounds")
         ccs = [0000000000000000] 
         if password == confPass and len(password) >= 8 and ccs != None:
             db.userRegister(username, password, first, last)

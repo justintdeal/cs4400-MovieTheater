@@ -189,16 +189,25 @@ def manageCompany():
             except:
                 sortdir = ''
             view_comps = db.adminFilterCompany(name,minCity,maxCity,minTh,maxTh,minEmp,maxEmp,sortby,sortdir)
-        view_comps = db.adminFilterCompany(name,minCity,maxCity,minTh,maxTh,minEmp,maxEmp,sortby,sortdir)
+        elif request.form['submit'] == 'create':
+            return redirect(url_for('createTheater'))
+        elif request.form['submit'] == 'detail':
+            try:
+                selected = request.form['radio']
+                return redirect(url_for('viewCompany', name = selected))
+            except:
+                print("none selected")
+
+        #view_comps = db.adminFilterCompany(name,minCity,maxCity,minTh,maxTh,minEmp,maxEmp,sortby,sortdir)
     return render_template('manageCompany.html', comps = view_comps)
 
 #screen 15: Admin Create Theater
 @app.route("/manage/company/create/theater", methods=['GET', 'POST'])
 def createTheater():
-    companies = db.query("select * from company;")
-    companies = [company[0] for company in companies]
+    # companies = db.query("select * from company;")
+    # companies = [company[0] for company in companies]
 
-    managers = db.query("select * from ")
+    # managers = db.query("select * from ")
     return render_template('createTheater.html')
 
 #screen 16: Admin Company Detail
