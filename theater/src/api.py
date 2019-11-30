@@ -216,8 +216,16 @@ def createTheater():
 def viewCompany(name):
     if not loggedIn():
         return redirect(url_for('index'))
-    
-    return render_template('viewCompany.html')
+    #remove when screen 14 is done
+    name = 'AI Theater Company'
+    employee = db.adminViewComDetail_emp(name)
+    theaters = db.adminViewComDetail_th(name)
+    print(employee)
+    print(theaters)
+
+
+
+    return render_template('viewCompany.html', employees = employee, theaters = theaters)
 
 #screen 17: Admin Create Movie
 #finished

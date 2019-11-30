@@ -147,7 +147,7 @@ def adminFilterCompany(comName, minCity, maxCity, minTheater,
            minTheater, maxTheater, minEmp, maxEmp, sortBy, sortDirection)
     print(sql)
     cursor.execute(sql)
-    sql = "select * from adfiltercom;"
+    sql = "select * from AdFilterCom;"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
@@ -170,7 +170,7 @@ def adminCreateTheater(theaterName, comName, street, city, state,
 #screen 16                
 def adminViewComDetail_emp(company):
     connection = connect()
-    cursor - connection.cursor()
+    cursor = connection.cursor()
     sql = "call admin_view_comDetail_emp({});".format(company)
     cursor.execute(sql)
     data = cursor.fetchall()
@@ -181,7 +181,7 @@ def adminViewComDetail_emp(company):
 #screen 16
 def adminViewComDetail_th(company):
     connection = connect()
-    cursor - connection.cursor()
+    cursor = connection.cursor()
     sql = "call admin_view_comDetail_th({});".format(company)
     cursor.execute(sql)
     data = cursor.fetchall()
