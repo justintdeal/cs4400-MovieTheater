@@ -11,6 +11,20 @@ def connect():
     connection = mysql.connector.connect(user=user, password=password, host=host, db=db)
     return connection
 
+def prep(query):
+    query = list(query)
+    aposts = []
+    print(query)
+    for i, e in enumerate(query):
+        if e == "'":
+            aposts.append(i)
+    print(aposts)
+    for i in aposts:
+        query.insert(i, "'")
+    query = ''.join(query)
+    print(query)
+    return query
+
 def query(sql):
     connection = connect()
     cursor = connection.cursor()
@@ -268,6 +282,7 @@ def customerFilterMovie(movName, comName, city, state,
 #screen 20
 def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName, 
                 i_comName, i_movPlayDate):
+    i_movName = prep(i_movName)
     connection = connect()
     cursor = connection.cursor()
     sql = "call customer_view_mov('{}', '{}', '{}', \
