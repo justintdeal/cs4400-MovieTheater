@@ -277,7 +277,7 @@ def scheduleMovie():
     return render_template('scheduleMovie.html', movies = movies, messages = message)
 
 #Screen 20: Customer Explore Movie
-#filter will work when procedure works
+#finished
 @app.route("/movie/explore", methods=['GET', 'POST'])
 def exploreMovie():
     if not loggedIn():
