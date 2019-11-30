@@ -333,7 +333,7 @@ def scheduleMovie():
         rd = request.form['rd']
         pd = request.form['pd']
         movie = request.form['movie']
-
+        print(rd)
         if len(rd) == 0:
             message = "You Must Select a Release Date"
         elif len(pd) == 0:
