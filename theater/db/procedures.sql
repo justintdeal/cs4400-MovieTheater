@@ -353,7 +353,7 @@ BEGIN
 	CREATE TABLE CosFilterMovie
 	SELECT movie as movName, theater as thName, street as thStreet, city as thCity, state as thState, zipcode as thZipcode,
 		company as comName, date as movPlayDate, releaseDate as movReleaseDate 
-	FROM scheduledMovies
+	FROM scheduled_movies
 	WHERE
         (i_movName = "ALL" OR movie = i_movName) AND
 		(i_comName = "" OR company = i_comName) AND
