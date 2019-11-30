@@ -136,7 +136,7 @@
                     <label for="lname"> </label>
                   </div>
             </form>
-            <form>
+            <form method="POST" action="/movie/explore">
                   <div class="row">
                     <script src="https://www.w3schools.com/lib/w3.js"></script>
                     <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet" />
@@ -151,7 +151,7 @@
                       </tr> 
                       {% for data in datas %}
                       <tr class="item">
-                        <td><input type="radio" name="th" value="{{data[1]}}|{{data[0]}}"> {{data[0]}}</td>
+                        <td><input type="radio" name="th_group" value="{{data[0]}}|{{data[8]}}|{{data[1]}}|{{data[6]}}|{{data[7]}}"> {{data[0]}}</td>
                         <td>{{data[1]}}</td>
                         <td>{{data[2]}} {{data[3]}}, {{data[4]}}, {{data[5]}}</td></td>
                         <td>{{data[6]}}</td>
@@ -166,9 +166,10 @@
                     </div>
                     <div class="col">
                       <label for="lname"> </label>
-                      <select id="inputStatus" class="form-control">
-                                                <option selected>Choose...</option>
-                                                <option>...</option>
+                      <select id="inputStatus" name="cc" class="form-control">
+                                                {%for cc in ccs%}
+                                                <option>{{cc}}</option>
+                                                {% endfor %}
                                               </select>
                     </div>
                     <input type="hidden" name="hidden" value="false">

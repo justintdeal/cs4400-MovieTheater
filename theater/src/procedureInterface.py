@@ -265,11 +265,12 @@ def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName,
                 i_comName, i_movPlayDate):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call customer_view_mov({}, {}, {} \
-           {}, {}, {});".format(i_creditCardNum, 
+    sql = "call customer_view_mov('{}', '{}', '{}', \
+           '{}', '{}', '{}');".format(i_creditCardNum, 
            i_movName, i_movReleaseDate, i_thName, i_comName, i_movPlayDate)
+    print(sql)
     cursor.execute(sql)
-    data = cursor.fetchall()
+    connection.commit()
     cursor.close()
     connection.close()
 

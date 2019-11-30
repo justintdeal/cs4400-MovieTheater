@@ -279,6 +279,11 @@ def exploreMovie():
 
     movies = db.query("select * from movie;")
     movies = [movie[0] for movie in movies]
+    
+    user = session['user']
+    sql = "select creditCardNum from creditCard where username = '" + user + "';"
+    ccs = db.query(sql)
+    ccs = [cc[0] for cc in ccs]
 
     movie = "All"
     company = ""
@@ -305,9 +310,18 @@ def exploreMovie():
             pd_end = request.form['pd_end']
             if len(pd_end) == 0:
                 pd_end = 'NULL'
+        else:
+            cc = request.form['cc']
+            data = request.form['th_group'].split('|')
+            mv = data[0]
+            rd = data[1]
+            th = data[2]
+            com = data[3]
+            pd = data[4]
+            db.customerViewMovie(cc, mv, rd, th, com, pd)
+
     filtered = db.customerFilterMovie(movie, company, city, state, pd_start, pd_end)
-    print(filtered)
-    return render_template('exploreMovie.html', datas = filtered, companies = companies, movies= movies)
+    return render_template('exploreMovie.html', datas = filtered, companies = companies, movies= movies, ccs=ccs)
 
 #Screen 21: Customer View History 
 #Finished
