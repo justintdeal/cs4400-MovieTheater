@@ -5,7 +5,7 @@
   <h1 id="">Admin Create Theater</h1>
   <div class="row">
     <div class="col">
-            <form>
+            <form method="POST" action="/manage/company/create/theater">
                     <div class="row">
                         <div class="col">
                                 <label for="lname">Name</label>
@@ -19,12 +19,14 @@
                     <div class="row">
                             <div class="col">
         
-                                    <input type="name" class="form-control" id="lastname" placeholder="Enter New Theater Name" required>
+                                    <input type="name" name="name" class="form-control" id="lastname" placeholder="Enter New Theater Name" required>
                                 </div>
                                 <div class="col">
-                                        <select id="inputCompany" class="form-control">
+                                        <select id="inputCompany" name="company" class="form-control">
                                                 <option selected>Choose...</option>
-                                                <option>...</option>
+                                                {% for company in companies %}
+                                                <option>{{company}}</option>
+                                                {% endfor %}
                                               </select>
     
                                     </div>
@@ -36,17 +38,17 @@
                   </div>
                   <div class="row">
                     <div class="col">
-                      <input type="name" class="form-control" id="lastname" placeholder="Enter Street Address" required>
+                      <input type="name" class="form-control" name="address" id="lastname" placeholder="Enter Street Address" required>
                     </div>
                   </div>
                   <div class="row">
                       <div class="col">
                         <label for="city">City</label>
-                        <input type="name" class="form-control" id="city" placeholder="Enter City" required>
+                        <input type="name" class="form-control" name="city" id="city" placeholder="Enter City" required>
                       </div>
                       <div class="col">
                         <label for="state">State</label>
-                        <select id="inputCompany" class="form-control">
+                        <select id="inputCompany" name="state" class="form-control">
                                                 <option selected>Choose...</option>
                                                 <option value="AL">AL</option>
                                                 <option value="AK">AK</option>
@@ -103,19 +105,21 @@
                       </div>
                       <div class="col">
                         <label for="zipcode">Zipcode</label>
-                        <input type="name" class="form-control" id="zipcode" placeholder="Enter Zipcode" required>
+                        <input type="name" name="zipcode" class="form-control" id="zipcode" placeholder="Enter Zipcode" required>
                       </div>
                   </div>
                   <div class="row">
                       <div class="col">
                         <label for="zipcode">Capacity</label>
-                        <input type="name" class="form-control" id="zipcode" placeholder="Enter Capacity" required>
+                        <input type="name" class="form-control" name="cap" id="zipcode" placeholder="Enter Capacity" required>
                       </div>
                       <div class="col">
                         <label for="state">Manager</label>
-                        <select id="inputCompany" class="form-control">
+                        <select id="inputCompany" name="manager" class="form-control">
                                                 <option selected>Choose...</option>
-                                                <option>...</option>
+                                                {% for manager in managers %}
+                                                <option>{{manager}}</option>
+                                                {% endfor %}
                                               </select>
                       </div>
                   </div>
@@ -127,7 +131,7 @@
                       </div>
                       <div class="col">
                         <div style="text-align:center">  
-                          <input type="button" class="btn btn-primary mt-3 menuButton" value="Create" onclick="history.back()">
+                          <input type="submit" class="btn btn-primary mt-3 menuButton" value="Create"">
                         </div>
                       </div>
                     </div>

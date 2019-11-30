@@ -131,7 +131,7 @@ def adminFilterUser(user, status, sortBy, sortDirection):
         user, status, sortBy, sortDirection)
     print(sql)
     cursor.execute(sql)
-    sql = "select * from adfilteruser;"
+    sql = "select * from AdFilterUser;"
     cursor.execute(sql)
     data = cursor.fetchall()
     cursor.close()
@@ -159,11 +159,12 @@ def adminCreateTheater(theaterName, comName, street, city, state,
                         zipcode, cap, manUser):
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_create_theater({}, {},\
-           {}, {}, {}, \
-           {}, {}, {});".format(theaterName, comName, street, city, state, 
+    sql = "call admin_create_theater('{}', '{}',\
+           '{}', '{}', '{}', \
+           '{}', {}, '{}');".format(theaterName, comName, street, city, state, 
            zipcode, cap, manUser)
     cursor.execute(sql)
+    connection.commit()
     cursor.close()
     connection.close()
 
