@@ -27,7 +27,8 @@
                                 </div>
                                 <div class="col">
                                   <select name="company" id="inputStatus" class="form-control">
-                                      {% for company in companies %}
+                                      <option selected>All</option> 
+                                    {% for company in companies %}
                                       <option>{{company}}</option>
                                       {% endfor %}
                                     </select>
@@ -124,7 +125,7 @@
 
                       {% for data in datas %}
                       <tr class="item">
-                        <td><input type="radio" name="th" value="{{data[0]}}"> {{data[1]}}</td>
+                        <td><input type="radio" name="th" value="{{data[1]}}|{{data[0]}}"> {{data[1]}}</td>
                         <td>{{data[2]}} {{data[3]}}, {{data[4]}}, {{data[5]}}</td></td>
                         <td>{{data[0]}}</td>
                       </tr>
@@ -136,7 +137,7 @@
 
                   <div class="row">
                     <div class="col">
-                      <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="history.back()">
+                      <input type="button" class="btn btn-primary mt-3 menuButton" value="Back" onclick="window.location.href = '/dashboard'">
                     </div>
                     <div class="col">
                       <label for="lname"> </label>
@@ -148,12 +149,13 @@
                   </div>
                         
                   <input type="hidden" name="hidden" value="false">
-                   
+
+                  
                   </form>
                   {% if messages %}
                   <ul class="mt-4" style="color:red;">
                     <li>{{ messages}}</li>
-                      
+      
                   </ul>
                   {% endif %}
     </div>

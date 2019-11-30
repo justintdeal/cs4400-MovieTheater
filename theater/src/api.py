@@ -211,12 +211,16 @@ def createTheater():
     return render_template('createTheater.html')
 
 #screen 16: Admin Company Detail
+
 @app.route("/manage/company/<name>", methods=['GET', 'POST'])
 def viewCompany(name):
+    if not loggedIn():
+        return redirect(url_for('index'))
+    
     return render_template('viewCompany.html')
 
 #screen 17: Admin Create Movie
-#duration is going where rd should?
+#finished
 @app.route("/manage/company/createMovie/", methods=['GET', 'POST'])
 def createMovie():
     if not loggedIn():
@@ -249,8 +253,7 @@ def theaterOverview():
 
 
 #screen 19: Manager Schedule Movie 
-#query broken? Works but I don't think scheduled movie is in db
-#if release dates dont match, breaks (fix with try except?)
+#fixed except maybe ''s
 @app.route("/manage/company/schedule/movie", methods=['GET', 'POST'])
 def scheduleMovie():
     if not loggedIn():
@@ -269,16 +272,51 @@ def scheduleMovie():
         elif len(pd) == 0:
             message = "You Must Select a Play Date"
         else:
-            db.managerScheduleMovie(session['user'], movie, rd, pd)
-            message = "Movie Scheduled"
+            message = db.managerScheduleMovie(session['user'], movie, rd, pd)
 
     return render_template('scheduleMovie.html', movies = movies, messages = message)
 
 #Screen 20: Customer Explore Movie
-#a disaster part 2
+#filter will work when procedure works
 @app.route("/movie/explore", methods=['GET', 'POST'])
 def exploreMovie():
-    return render_template('exploreMovie.html')
+    if not loggedIn():
+        return redirect(url_for('index'))
+    
+    companies = db.query("select * from company;")
+    companies = [company[0] for company in companies]
+
+    movies = db.query("select * from movie;")
+    movies = [movie[0] for movie in movies]
+
+    movie = "All"
+    company = ""
+    city = ""
+    state = ""
+    pd_start = 'NULL'
+    pd_end = 'NULL'
+
+    if request.method == "POST":
+        if request.form['hidden'] == 'true':
+            movie = request.form['movie']
+            company = request.form['company']
+            if company == "All":
+                company = ''
+            city = request.form['city']
+            if len(city) == 0:
+                city = ''
+            state = request.form['state']
+            if state == 'All':
+                state = ''
+            pd_start = request.form['pd_start']
+            if len(pd_start) == 0:
+                pd_start = 'NULL'
+            pd_end = request.form['pd_end']
+            if len(pd_end) == 0:
+                pd_end = 'NULL'
+    filtered = db.customerFilterMovie(movie, company, city, state, pd_start, pd_end)
+    print(filtered)
+    return render_template('exploreMovie.html', datas = filtered, companies = companies, movies= movies)
 
 #Screen 21: Customer View History 
 #Finished
@@ -290,7 +328,7 @@ def viewHistory():
     return render_template('viewHistory.html', history = view_history)
 
 #Screen 22: User Explore Theater
-#both procedures broken
+#finished but need to fix ''s
 @app.route("/theater/explore", methods=['GET', 'POST'])
 def exploreTheater():
     if not loggedIn():
@@ -328,7 +366,14 @@ def exploreTheater():
             if len(visit_date) == 0:
                 message = "You Must Select A Visit Date"
             else: 
-                db.userVisitTheater(theater_group[0], theater_group[1], visit_date, session['user'])
+                ind = None
+                for i in range(len(theater_group)):
+                    if theater_group[i] == '|':
+                        ind = i
+                th = theater_group[0:ind]
+                comp  = theater_group[ind+1:]
+
+                db.userVisitTheater(th, comp, visit_date, session['user'])
                 message = "Added"
 
     return render_template('exploreTheater.html', messages = message, datas = data, theaters = theaters, companies = companies)
