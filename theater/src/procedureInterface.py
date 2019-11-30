@@ -14,15 +14,13 @@ def connect():
 def prep(query):
     query = list(query)
     aposts = []
-    print(query)
+    
     for i, e in enumerate(query):
         if e == "'":
             aposts.append(i)
-    print(aposts)
     for i in aposts:
         query.insert(i, "'")
     query = ''.join(query)
-    print(query)
     return query
 
 def query(sql):
