@@ -372,6 +372,7 @@ def exploreMovie():
     pd_start = "NULL"
     pd_end = "NULL"
 
+    message = None
     if request.method == "POST":
         if request.form['hidden'] == 'true':
             movie = request.form['movie']
@@ -391,20 +392,26 @@ def exploreMovie():
             if len(pd_end) == 0:
                 pd_end = "NULL"
         else:
-            cc = request.form['cc']
-            data = request.form['th_group'].split('|')
-            mv = data[0]
-            rd = data[1]
-            th = data[2]
-            com = data[3]
-            pd = data[4]
-            # get num movies watched on that day
-            numViews = db.query("select count(*) from cctransaction where date = '{}' and creditCardNum in (select creditCardNum from creditCard where username in(select username from creditCard where creditCardNum = '{}'));".format(pd,cc))
-            print(numViews)
-            db.customerViewMovie(cc, mv, rd, th, com, pd)
+            try:
+                cc = request.form['cc']
+                data = request.form['th_group'].split('|')
+                mv = data[0]
+                rd = data[1]
+                th = data[2]
+                com = data[3]
+                pd = data[4]
+                # get num movies watched on that day
+                numViews = db.query("select count(*) from cctransaction where date = '{}' and creditCardNum in (select creditCardNum from creditCard where username in(select username from creditCard where creditCardNum = '{}'));".format(pd,cc))
+                print(numViews)
+                if numViews[0][0] < 3:
+                    db.customerViewMovie(cc, mv, rd, th, com, pd)
+                else:
+                    message = "3 Movie Per Day Limit Reached"
+            except:
+                message = "Please Select a Movie"
 
     filtered = db.customerFilterMovie(movie, company, city, state, pd_start, pd_end)
-    return render_template('exploreMovie.html', datas = filtered, companies = companies, movies= movies, ccs=ccs)
+    return render_template('exploreMovie.html', datas = filtered, companies = companies, movies= movies, ccs=ccs, messages = message)
 
 #Screen 21: Customer View History 
 #Finished

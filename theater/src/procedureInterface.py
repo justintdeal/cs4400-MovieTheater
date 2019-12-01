@@ -286,12 +286,10 @@ def customerFilterMovie(movName, comName, city, state,
         minMovPlayDate = "'" + minMovPlayDate + "'"
     if maxMovPlayDate != 'NULL':
         maxMovPlayDate = "'" + maxMovPlayDate + "'"
-    print(maxMovPlayDate)
 
     sql = "call customer_filter_mov('{}', '{}',\
            '{}', '{}', {}, {});".format(movName, comName, city, state, 
             minMovPlayDate, maxMovPlayDate)
-    print(sql)
     cursor.execute(sql)
     sql = "select * from CosFilterMovie;"
     cursor.execute(sql)
