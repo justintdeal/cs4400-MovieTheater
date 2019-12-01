@@ -365,8 +365,8 @@ def exploreMovie():
     company = ""
     city = ""
     state = ""
-    pd_start = 'NULL'
-    pd_end = 'NULL'
+    pd_start = "NULL"
+    pd_end = "NULL"
 
     if request.method == "POST":
         if request.form['hidden'] == 'true':
@@ -382,10 +382,10 @@ def exploreMovie():
                 state = ''
             pd_start = request.form['pd_start']
             if len(pd_start) == 0:
-                pd_start = 'NULL'
+                pd_start = "NULL"
             pd_end = request.form['pd_end']
             if len(pd_end) == 0:
-                pd_end = 'NULL'
+                pd_end = "NULL"
         else:
             cc = request.form['cc']
             data = request.form['th_group'].split('|')
