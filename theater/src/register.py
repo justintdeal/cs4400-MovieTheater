@@ -22,7 +22,11 @@ def register(role):
         last = request.form['last']
         username = request.form['username']
         if password == confPass and len(password) >= 8:
-            db.userRegister(username, password, first, last)
+            try:
+                db.userRegister(username, password, first, last)
+            except:
+                message = "User already exists!"
+                return render_template("userReg.html", messages=message)
             user = db.userLogin(username, password)
             if len(user) == 0:
                 message = "Invalid Login: Error registering user"
@@ -53,9 +57,17 @@ def register(role):
             except:
                 break
         if password == confPass and len(password) >= 8 and ccs != None:
-            db.custRegister(username, password, first, last)
+            try:
+                db.custRegister(username, password, first, last)
+            except:
+                message = "User already exists!"
+                return render_template("custReg.html", messages=message)
             for cc in ccs:
-                db.custAddCC(username, cc)
+                try:
+                    db.custAddCC(username, cc)
+                except:
+                    message = "Credit Cards Must Be Unique in System!"
+                    return render_template("custReg.html", messages=message)
             user = db.userLogin(username, password)
             if len(user) == 0:
                 message = "Invalid Login: Error registering user"
@@ -88,7 +100,11 @@ def register(role):
         company = request.form['company']
  
         if password == confPass and len(password) >= 8:
-            db.manRegister(username, password, first, last, company, street, city, state, zipcode)
+            try:
+                db.manRegister(username, password, first, last, company, street, city, state, zipcode)
+            except:
+                message = "User already exists!"
+                return render_template("manReg.html", messages=message)
             user = db.userLogin(username, password)
             if len(user) == 0:
                 message = "Invalid Login: Error registering user"
@@ -124,10 +140,17 @@ def register(role):
             except:
                 break
         if password == confPass and len(password) >= 8 and ccs != None:
-            db.manCustRegister(username, password, first, last, company, street, 
-            city, state, zipcode)
+            try:
+                db.manCustRegister(username, password, first, last, company, street, city, state, zipcode)
+            except:
+                message = "User already exists!"
+                return render_template("manReg.html", messages=message)
             for cc in ccs:
-                db.manCustAddCC(username, cc)
+                try:
+                    db.manCustAddCC(username, cc)
+                except:
+                    message = "Credit Cards Must Be Unique in System!"
+                    return render_template("custReg.html", messages=message)
             user = db.userLogin(username, password)
             if len(user) == 0:
                 message = "Invalid Login: Error registering user"

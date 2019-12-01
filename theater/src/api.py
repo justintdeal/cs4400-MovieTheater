@@ -2,7 +2,7 @@ from theater import app
 import theater.src.procedureInterface as db
 import theater.src.register as reg
 from flask import render_template, request, url_for, redirect, session
-
+from datetime import datetime
 
 
 #login stuff
@@ -333,11 +333,14 @@ def scheduleMovie():
         rd = request.form['rd']
         pd = request.form['pd']
         movie = request.form['movie']
-
+        rddt = datetime.strptime(rd, "%Y-%m-%d")
+        pddt = datetime.strptime(pd, "%Y-%m-%d")
         if len(rd) == 0:
             message = "You Must Select a Release Date"
         elif len(pd) == 0:
             message = "You Must Select a Play Date"
+        if (rddt > pddt):
+            message = "Play Date Must Come After/On Release Date"
         else:
             message = db.managerScheduleMovie(session['user'], movie, rd, pd)
 

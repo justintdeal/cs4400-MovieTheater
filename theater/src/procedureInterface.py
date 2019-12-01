@@ -272,7 +272,7 @@ def managerScheduleMovie(manUser, movie, movRD, movPD):
         data = "Movie Scheduled"
         connection.commit()
     except:
-        data = "Release Date Be Correct"
+        data = "Release Date Does Not Match Records"
     cursor.close()
     connection.close()
     return data
