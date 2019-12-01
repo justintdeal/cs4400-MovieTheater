@@ -276,8 +276,11 @@ def createMovie():
         if len(rd) == 0:
             message = "Please Enter a Release Date"
         else:
-            db.adminCreateMovie(movie, duration, rd)
-            message = "Movie Created"
+            error = db.adminCreateMovie(movie, duration, rd)
+            if error == None:
+                message = "Movie Created"
+            else:
+                message = error
 
     return render_template('createMovie.html', messages=message)
 

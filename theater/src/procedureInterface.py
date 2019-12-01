@@ -229,10 +229,19 @@ def adminCreateMovie(movie, duration, releaseDate):
     cursor = connection.cursor()
     sql = "call admin_create_movie('{}', {}, \
            '{}');".format(movie, duration, releaseDate)
-    cursor.execute(sql)
-    connection.commit()
-    cursor.close()
-    connection.close()
+    try:
+        cursor.execute(sql)
+        connection.commit()
+        cursor.close()
+        connection.close()
+        return None
+    except:
+        message = "Cannot create duplicate movies"
+        connection.commit()
+        cursor.close()
+        connection.close()
+        return message
+
 
 #screen 18
 def manageFilterTheater(manUser, movie, minDur, maxDur, minMovRD, 
@@ -272,7 +281,7 @@ def managerScheduleMovie(manUser, movie, movRD, movPD):
         data = "Movie Scheduled"
         connection.commit()
     except:
-        data = "Release Date Does Not Match Records"
+        data = "An Error Occured"
     cursor.close()
     connection.close()
     return data
