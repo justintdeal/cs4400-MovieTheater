@@ -1,5 +1,22 @@
 USE `team50`;
 
+DROP VIEW IF EXISTS scheduled_movies;
+CREATE VIEW scheduled_movies
+AS SELECT t.manager as manager, t.street as street, t.city as city, t.state as state, t.zipcode as zipcode,
+t.name as theater, t.company as company, mP.movie as movie, mP.releaseDate as releaseDate, mP.date as date, m.duration as duration
+FROM theater AS t, moviePlay AS mP, movie as m
+WHERE (t.name = mP.theater) AND 
+(t.company = mP.company) AND
+(mP.movie = m.name) AND 
+(mP.releaseDate = m.release);
+
+DROP VIEW IF EXISTS visited_theaters;
+CREATE VIEW visited_theaters
+AS SELECT v.username, v.theater, v.company, v.date, t.street, t.city, t.state, t.zipcode
+FROM visit AS v, theater AS t
+WHERE (t.company = v.company) AND
+(t.name = v.theater);
+
 DROP FUNCTION IF EXISTS num_emp;
 DELIMITER $$
 CREATE FUNCTION `num_emp` (i_compName VARCHAR(50))
@@ -8,6 +25,17 @@ CREATE FUNCTION `num_emp` (i_compName VARCHAR(50))
     READS SQL DATA
 BEGIN
 	RETURN (Select count(*) from `manager` where company = i_compName);
+END$$ 
+DELIMITER ;
+
+DROP FUNCTION IF EXISTS num_movie_scheduled;
+DELIMITER $$
+CREATE FUNCTION `num_movie_scheduled` (i_thName VARCHAR(50), i_compName VARCHAR(50), i_movPlayDate DATE)
+	RETURNS INT
+    DETERMINISTIC
+    READS SQL DATA
+BEGIN
+	RETURN (Select count(*) from `scheduled_movies` where (company = i_compName) and (theater = i_thName) and (date = i_movPlayDate));
 END$$ 
 DELIMITER ;
  
@@ -66,23 +94,6 @@ BEGIN
 	RETURN EXISTS(Select * from `admin` where username = i_username);
 END$$ 
 DELIMITER ;
- 
-DROP VIEW IF EXISTS scheduled_movies;
-CREATE VIEW scheduled_movies
-AS SELECT t.manager as manager, t.street as street, t.city as city, t.state as state, t.zipcode as zipcode,
-t.name as theater, t.company as company, mP.movie as movie, mP.releaseDate as releaseDate, mP.date as date, m.duration as duration
-FROM theater AS t, moviePlay AS mP, movie as m
-WHERE (t.name = mP.theater) AND 
-(t.company = mP.company) AND
-(mP.movie = m.name) AND 
-(mP.releaseDate = m.release);
-
-DROP VIEW IF EXISTS visited_theaters;
-CREATE VIEW visited_theaters
-AS SELECT v.username, v.theater, v.company, v.date, t.street, t.city, t.state, t.zipcode
-FROM visit AS v, theater AS t
-WHERE (t.company = v.company) AND
-(t.name = v.theater);
 
 -- 1 
 DROP PROCEDURE IF EXISTS user_login;
