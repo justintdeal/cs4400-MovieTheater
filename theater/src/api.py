@@ -209,6 +209,7 @@ def createTheater():
     managers = db.query("select username, company from manager;")
     managers = [man[0] + " (" + man[1] + ")" for man in managers]
 
+    message = None
 
     if request.method == "POST":
         name = request.form['name']
@@ -224,13 +225,20 @@ def createTheater():
             "sad"
         else:
             space = " " 
+            par = "("
 
-            manager = manager[0:manager.index(space)]
-            db.adminCreateTheater(name, company, address, city, state, zipcode, cap, manager)
+            manager_name = manager[0:manager.index(space)]
+            comp = manager[manager.index(par) + 1:-1]
+
+            print(comp)
+            if comp != company:
+                message = "Manager must work for selected customer"
+            else:
+                db.adminCreateTheater(name, company, address, city, state, zipcode, cap, manager_name)
 
 
     # managers = db.query("select * from ")
-    return render_template('createTheater.html', companies = companies, managers = managers)
+    return render_template('createTheater.html', companies = companies, managers = managers, messages = message)
 
 #screen 16: Admin Company Detail
 @app.route("/manage/company/<name>", methods=['GET', 'POST'])
@@ -336,6 +344,9 @@ def scheduleMovie():
         movie = request.form['movie']
         rddt = datetime.strptime(rd, "%Y-%m-%d")
         pddt = datetime.strptime(pd, "%Y-%m-%d")
+        user = session['user']
+
+        capacity = db.query("select capaci")
         if len(rd) == 0:
             message = "You Must Select a Release Date"
         elif len(pd) == 0:
