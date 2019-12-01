@@ -222,7 +222,7 @@ def createTheater():
         manager  = request.form['manager']
         
         if manager == "Choose..." or company == "Choose...":
-            "sad"
+            message = "Select a Manager and Company"
         else:
             space = " " 
             par = "("

@@ -147,16 +147,16 @@ def register(role):
                 db.manCustRegister(username, password, first, last, company, street, city, state, zipcode)
             except:
                 message = "User already exists!"
-                return render_template("manReg.html", messages=message)
+                return render_template("custManReg.html", messages=message)
             if len(ccs) == 0:
                 message = "Must Have at Least One CC"
-                return render_template("custReg.html", messages=message)
+                return render_template("custManReg.html", messages=message)
             for cc in ccs:
                 try:
                     db.manCustAddCC(username, cc)
                 except:
                     message = "Credit Cards Must Be Unique in System!"
-                    return render_template("custReg.html", messages=message)
+                    return render_template("custManReg.html", messages=message)
             user = db.userLogin(username, password)
             if len(user) == 0:
                 message = "Invalid Login: Error registering user"
