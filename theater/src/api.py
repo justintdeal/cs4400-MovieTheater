@@ -200,6 +200,7 @@ def manageCompany():
     return render_template('manageCompany.html', comps = view_comps)
 
 #screen 15: Admin Create Theater
+#fix theater company manager mismatch nonsense
 @app.route("/manage/company/create/theater", methods=['GET', 'POST'])
 def createTheater():
     companies = db.query("select * from company;")
