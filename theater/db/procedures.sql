@@ -1,4 +1,4 @@
-USE `team50`;
+USE `Team50`;
 
 DROP VIEW IF EXISTS scheduled_movies;
 CREATE VIEW scheduled_movies
