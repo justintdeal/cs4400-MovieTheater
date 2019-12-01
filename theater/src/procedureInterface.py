@@ -37,7 +37,7 @@ def query(sql):
 def userLogin(user, password):
     connection = connect()
     cursor = connection.cursor()
-    sql = "use `team50`;"
+    sql = "use `Team50`;"
     cursor.execute(sql)
     sql = "call user_login('{}', '{}');".format(user, password)
     cursor.execute(sql)
