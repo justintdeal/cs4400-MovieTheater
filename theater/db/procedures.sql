@@ -17,6 +17,12 @@ FROM visit AS v, theater AS t
 WHERE (t.company = v.company) AND
 (t.name = v.theater);
 
+DROP VIEW IF EXISTS cust_cc_count;
+CREATE VIEW cust_cc_count
+AS SELECT username, count(*) AS creditCardCount, status 
+FROM user NATURAL JOIN creditCard
+GROUP BY username;
+
 DROP FUNCTION IF EXISTS num_emp;
 DELIMITER $$
 CREATE FUNCTION `num_emp` (i_compName VARCHAR(50))
@@ -217,16 +223,15 @@ IN i_sortBy ENUM('username','creditCardCount','userType','status', ''), IN i_sor
 BEGIN
 	DROP TABLE IF EXISTS AdFilterUser;
 	CREATE TABLE AdFilterUser
-	SELECT username, count(*) as creditCardCount, get_type(username) as userType, status
-	FROM user
-    NATURAL JOIN creditCard
+	SELECT username, creditCardCount, get_type(username) as userType, status
+	FROM cust_cc_count 
 		WHERE (username = i_username OR i_username = '') AND
 		(status = i_status OR i_status = "ALL")
-	GROUP BY username
 	UNION
     SELECT username, 0 as creditCardCount, get_type(username) as userType, status
     FROM user
-		WHERE (username = i_username OR i_username = '') AND
+		WHERE (username NOT IN (select username from cust_cc_count)) AND
+        (username = i_username OR i_username = '') AND
 		(status = i_status OR i_status = "ALL")
 	GROUP BY username
 	ORDER BY 
@@ -254,11 +259,9 @@ IN i_sortDirection ENUM('ASC','DESC', ''))
 BEGIN
     DROP TABLE IF EXISTS AdFilterCom;
     CREATE TABLE AdFilterCom
-    SELECT c.name as comName,
-    count(distinct t.city) as numCityCover, count(t.name) as numTheater, num_emp(c.name) as numEmployee
-    FROM company as c
-     right outer join theater as t on (t.company = c.name)
-     where (c.name = i_comName or i_comName = 'ALL' or i_comName = '')
+    SELECT c.name as comName, count(distinct concat(t.city,t.state)) as numCityCover, count(t.name) as numTheater, num_emp(c.name) as numEmployee
+    FROM company as c right outer join theater as t on (t.company = c.name)
+    WHERE (c.name = i_comName or i_comName = 'ALL')
     GROUP BY comName
     HAVING (i_minCity IS NULL or i_maxCity IS NULL or numCityCover >= i_minCity and numCityCover <= i_maxCity) and
     (i_minTheater IS NULL or i_maxTheater IS NULL or numTheater >= i_minTheater and numTheater <= i_maxTheater) and
