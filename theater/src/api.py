@@ -329,7 +329,6 @@ def theaterOverview():
 
 
 #screen 19: Manager Schedule Movie 
-#fixed except maybe ''s
 @app.route("/manage/company/schedule/movie", methods=['GET', 'POST'])
 def scheduleMovie():
     if not loggedIn():
@@ -346,7 +345,10 @@ def scheduleMovie():
         pddt = datetime.strptime(pd, "%Y-%m-%d")
         user = session['user']
 
-        capacity = db.query("select capaci")
+        res = db.query("select capacity,company,name from theater where manager = '{}';".format(session['user']))[0]
+        theater = db.prep(res[2])
+        comp = db.prep(res[1])
+        numSched = db.query("select num_movie_scheduled('{}', '{}', '{}');".format(theater, comp, pd))[0][0]
         if len(rd) == 0:
             message = "You Must Select a Release Date"
         elif len(pd) == 0:
@@ -354,12 +356,14 @@ def scheduleMovie():
         if (rddt > pddt):
             message = "Play Date Must Come After/On Release Date"
         else:
-            message = db.managerScheduleMovie(session['user'], movie, rd, pd)
+            if numSched < res[0]:
+                message = db.managerScheduleMovie(session['user'], movie, rd, pd)
+            else:
+                message = "Theater at Capacity for This Day"
 
     return render_template('scheduleMovie.html', movies = movies, messages = message)
 
 #Screen 20: Customer Explore Movie
-#finished
 @app.route("/movie/explore", methods=['GET', 'POST'])
 def exploreMovie():
     if not loggedIn():
@@ -425,7 +429,6 @@ def exploreMovie():
     return render_template('exploreMovie.html', datas = filtered, companies = companies, movies= movies, ccs=ccs, messages = message)
 
 #Screen 21: Customer View History 
-#Finished
 @app.route("/movie/history", methods=['GET', 'POST'])
 def viewHistory():
     if not loggedIn():
@@ -434,7 +437,6 @@ def viewHistory():
     return render_template('viewHistory.html', history = view_history)
 
 #Screen 22: User Explore Theater
-#finished but need to fix ''s
 @app.route("/theater/explore", methods=['GET', 'POST'])
 def exploreTheater():
     if not loggedIn():
@@ -465,27 +467,29 @@ def exploreTheater():
                 state = ""
             data = db.userFilterTheater(theater, company, city, state)
         else:
-            theater_group = request.form['th']
-            if len(theater_group) == 0:
-                message = "You must select a theater"
-            visit_date = request.form['vd']
-            if len(visit_date) == 0:
-                message = "You Must Select A Visit Date"
-            else: 
-                ind = None
-                for i in range(len(theater_group)):
-                    if theater_group[i] == '|':
-                        ind = i
-                th = theater_group[0:ind]
-                comp  = theater_group[ind+1:]
+            try:
+                theater_group = request.form['th']
+                if len(theater_group) == 0:
+                    message = "You must select a theater"
+                visit_date = request.form['vd']
+                if len(visit_date) == 0:
+                    message = "You Must Select A Visit Date"
+                else: 
+                    ind = None
+                    for i in range(len(theater_group)):
+                        if theater_group[i] == '|':
+                            ind = i
+                    th = theater_group[0:ind]
+                    comp  = theater_group[ind+1:]
 
-                db.userVisitTheater(th, comp, visit_date, session['user'])
-                message = "Added"
+                    db.userVisitTheater(th, comp, visit_date, session['user'])
+                    message = "Added"
+            except:
+                message = "You Must Select A Visit Date"
 
     return render_template('exploreTheater.html', messages = message, datas = data, theaters = theaters, companies = companies)
 
 #screen 23: User Visit History
-#finished
 @app.route("/visit/history", methods=['GET', 'POST'])
 def visitHistory():
     if not loggedIn():

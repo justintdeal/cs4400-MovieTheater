@@ -62,6 +62,9 @@ def register(role):
             except:
                 message = "User already exists!"
                 return render_template("custReg.html", messages=message)
+            if len(ccs) == 0:
+                message = "Must Have at Least One CC"
+                return render_template("custReg.html", messages=message)
             for cc in ccs:
                 try:
                     db.custAddCC(username, cc)
@@ -145,6 +148,9 @@ def register(role):
             except:
                 message = "User already exists!"
                 return render_template("manReg.html", messages=message)
+            if len(ccs) == 0:
+                message = "Must Have at Least One CC"
+                return render_template("custReg.html", messages=message)
             for cc in ccs:
                 try:
                     db.manCustAddCC(username, cc)
