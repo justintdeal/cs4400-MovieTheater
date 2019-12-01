@@ -144,7 +144,7 @@ DELIMITER $$
 CREATE PROCEDURE `customer_add_creditcard`(IN i_username VARCHAR(50), IN i_creditCardNum CHAR(16))
 BEGIN
 	INSERT INTO creditCard (username, creditCardNum) VALUES
-	(i_username, cc_num);
+	(i_username, i_creditCardNum);
 END$$
 DELIMITER ;
  
@@ -320,9 +320,9 @@ END$$
 DELIMITER ;
  
 -- 17
-DROP PROCEDURE IF EXISTS admin_create_movie;
+DROP PROCEDURE IF EXISTS admin_create_mov;
 DELIMITER $$
-CREATE PROCEDURE `admin_create_movie`(IN i_movName VARCHAR(50), IN i_movDuration INT, IN i_movReleaseDate DATE)
+CREATE PROCEDURE `admin_create_mov`(IN i_movName VARCHAR(50), IN i_movDuration INT, IN i_movReleaseDate DATE)
 BEGIN
 	INSERT INTO movie
     VALUES (i_movName, i_movReleaseDate, i_movDuration);
@@ -387,7 +387,7 @@ BEGIN
         (i_movName = "ALL" OR movie = i_movName) AND
 		(i_comName = "ALL" OR company = i_comName) AND
         (i_city = "" OR city = i_city) AND
-        (i_state = "" OR state = i_state) AND
+        (i_state = "ALL" OR state = i_state) AND
 		(i_minMovPlayDate IS NULL OR date >= i_minMovPlayDate) AND
 		(i_maxMovPlayDate IS NULL OR date <= i_maxMovPlayDate) ;
 END$$
