@@ -124,7 +124,7 @@ DELIMITER ;
 -- 4b
 DROP PROCEDURE IF EXISTS customer_add_creditcard;
 DELIMITER $$
-CREATE PROCEDURE `customer_add_creditcard`(IN i_username VARCHAR(50), IN cc_num CHAR(16))
+CREATE PROCEDURE `customer_add_creditcard`(IN i_username VARCHAR(50), IN i_creditCardNum CHAR(16))
 BEGIN
 	INSERT INTO creditCard (username, creditCardNum) VALUES
 	(i_username, cc_num);
@@ -168,7 +168,7 @@ DELIMITER ;
 -- 6b
 DROP PROCEDURE IF EXISTS manager_customer_add_creditcard;
 DELIMITER $$
-CREATE PROCEDURE `manager_customer_add_creditcard`(IN i_username VARCHAR(50), IN cc_num CHAR(16))
+CREATE PROCEDURE `manager_customer_add_creditcard`(IN i_username VARCHAR(50), IN i_creditCardNum CHAR(16))
 BEGIN
 	INSERT INTO creditCard (username, creditCardNum) VALUES
 	(i_username, cc_num);
@@ -181,7 +181,7 @@ DELIMITER $$
 CREATE PROCEDURE `admin_approve_user`(IN i_username VARCHAR(50))
 BEGIN
 	update user
-	set status = 'approved'
+	set status = 'Approved'
 	where username = i_username;
 END$$
 DELIMITER ;
@@ -193,15 +193,15 @@ CREATE PROCEDURE `admin_decline_user`(IN i_username VARCHAR(50))
 BEGIN
 -- cannot alter an approved user
 	update user
-	set status = 'declined'
-	where username = i_username and not status = 'approved';
+	set status = 'Declined'
+	where username = i_username and not status = 'Approved';
 END$$
 DELIMITER ;
  
 -- 13c
 DROP PROCEDURE IF EXISTS admin_filter_user;
 DELIMITER $$
-CREATE PROCEDURE `admin_filter_user`(IN i_username VARCHAR(50), IN i_status ENUM('pending','approved','declined','ALL'), 
+CREATE PROCEDURE `admin_filter_user`(IN i_username VARCHAR(50), IN i_status ENUM('Pending','Approved','Declined','ALL'), 
 IN i_sortBy ENUM('username','creditCardCount','userType','status', ''), IN i_sortDirection ENUM('ASC','DESC', ''))
 BEGIN
 	DROP TABLE IF EXISTS AdFilterUser;

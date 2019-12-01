@@ -17,7 +17,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
     `username` varchar(50) NOT NULL,
     `password` varchar(50) NOT NULL,
-    `status` ENUM('pending','approved','declined') NOT NULL DEFAULT 'pending',
+    `status` ENUM('Pending','Approved','Declined') NOT NULL DEFAULT 'pending',
     `firstname` varchar(50) NOT NULL,
     `lastname` varchar(50) NOT NULL, 
     PRIMARY KEY (`username`)
@@ -55,7 +55,7 @@ CREATE TABLE `manager` (
     `street` varchar(50) NOT NULL,
     `city` varchar(50) NOT NULL,
     `state` char(2) NOT NULL,
-    `zipcode` INT NOT NULL,
+    `zipcode` char(5) NOT NULL,
     PRIMARY KEY (`username`),
     UNIQUE (`street`,`city`,`state`,`zipcode`),
     CONSTRAINT `manager_ibfk_1` FOREIGN KEY (`username`) REFERENCES `employee` (`username`)
@@ -70,7 +70,7 @@ CREATE TABLE `theater` (
     `street` varchar(50) NOT NULL,
     `city` varchar(50) NOT NULL,
     `state` char(2) NOT NULL,
-    `zipcode` INT NOT NULL,
+    `zipcode` char(5) NOT NULL,
     `capacity` INT NOT NULL, 
     `manager` varchar(50) NOT NULL,
     PRIMARY KEY (`company`, `name`),
