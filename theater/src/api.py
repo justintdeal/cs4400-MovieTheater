@@ -397,6 +397,9 @@ def exploreMovie():
             th = data[2]
             com = data[3]
             pd = data[4]
+            # get num movies watched on that day
+            numViews = db.query("select count(*) from cctransaction where date = '{}' and creditCardNum in (select creditCardNum from creditCard where username in(select username from creditCard where creditCardNum = '{}'));".format(pd,cc))
+            print(numViews)
             db.customerViewMovie(cc, mv, rd, th, com, pd)
 
     filtered = db.customerFilterMovie(movie, company, city, state, pd_start, pd_end)
