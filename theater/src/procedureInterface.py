@@ -227,7 +227,7 @@ def adminCreateMovie(movie, duration, releaseDate):
     movie = prep(movie)
     connection = connect()
     cursor = connection.cursor()
-    sql = "call admin_create_movie('{}', {}, \
+    sql = "call admin_create_mov('{}', {}, \
            '{}');".format(movie, duration, releaseDate)
     try:
         cursor.execute(sql)
