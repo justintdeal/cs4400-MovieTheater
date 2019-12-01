@@ -1,4 +1,4 @@
-USE `team50`;
+USE `Team50`;
 INSERT INTO user VALUES('georgep',MD5('111111111'),'Approved','George P.','Burdell');
 INSERT INTO user VALUES('calcwizard',MD5('222222222'),'Approved','Issac','Newton');
 INSERT INTO user VALUES('calcultron',MD5('333333333'),'Approved','Dwight','Schrute');
