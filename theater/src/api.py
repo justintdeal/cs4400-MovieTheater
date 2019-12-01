@@ -384,9 +384,9 @@ def exploreMovie():
     ccs = [cc[0] for cc in ccs]
 
     movie = "All"
-    company = ""
+    company = "All"
     city = ""
-    state = ""
+    state = "All"
     pd_start = "NULL"
     pd_end = "NULL"
 
@@ -395,14 +395,10 @@ def exploreMovie():
         if request.form['hidden'] == 'true':
             movie = request.form['movie']
             company = request.form['company']
-            if company == "All":
-                company = ''
             city = request.form['city']
             if len(city) == 0:
                 city = ''
             state = request.form['state']
-            if state == 'All':
-                state = ''
             pd_start = request.form['pd_start']
             if len(pd_start) == 0:
                 pd_start = "NULL"

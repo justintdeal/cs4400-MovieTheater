@@ -385,7 +385,7 @@ BEGIN
 	FROM scheduled_movies
 	WHERE
         (i_movName = "ALL" OR movie = i_movName) AND
-		(i_comName = "" OR company = i_comName) AND
+		(i_comName = "ALL" OR company = i_comName) AND
         (i_city = "" OR city = i_city) AND
         (i_state = "" OR state = i_state) AND
 		(i_minMovPlayDate IS NULL OR date >= i_minMovPlayDate) AND
