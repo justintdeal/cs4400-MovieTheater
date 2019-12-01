@@ -200,6 +200,7 @@ def manageCompany():
     return render_template('manageCompany.html', comps = view_comps)
 
 #screen 15: Admin Create Theater
+#fix theater company manager mismatch nonsense
 @app.route("/manage/company/create/theater", methods=['GET', 'POST'])
 def createTheater():
     companies = db.query("select * from company;")
@@ -368,8 +369,8 @@ def exploreMovie():
     company = ""
     city = ""
     state = ""
-    pd_start = 'NULL'
-    pd_end = 'NULL'
+    pd_start = "NULL"
+    pd_end = "NULL"
 
     if request.method == "POST":
         if request.form['hidden'] == 'true':
@@ -385,10 +386,10 @@ def exploreMovie():
                 state = ''
             pd_start = request.form['pd_start']
             if len(pd_start) == 0:
-                pd_start = 'NULL'
+                pd_start = "NULL"
             pd_end = request.form['pd_end']
             if len(pd_end) == 0:
-                pd_end = 'NULL'
+                pd_end = "NULL"
         else:
             cc = request.form['cc']
             data = request.form['th_group'].split('|')

@@ -284,12 +284,14 @@ def customerFilterMovie(movName, comName, city, state,
     cursor = connection.cursor()
     if minMovPlayDate != 'NULL':
         minMovPlayDate = "'" + minMovPlayDate + "'"
-    if minMovPlayDate != 'NULL':
-        minMovPlayDate = "'" + minMovPlayDate + "'"
+    if maxMovPlayDate != 'NULL':
+        maxMovPlayDate = "'" + maxMovPlayDate + "'"
+    print(maxMovPlayDate)
 
     sql = "call customer_filter_mov('{}', '{}',\
            '{}', '{}', {}, {});".format(movName, comName, city, state, 
             minMovPlayDate, maxMovPlayDate)
+    print(sql)
     cursor.execute(sql)
     sql = "select * from CosFilterMovie;"
     cursor.execute(sql)
@@ -306,8 +308,7 @@ def customerViewMovie(i_creditCardNum, i_movName, i_movReleaseDate, i_thName,
     i_comName = prep(i_comName)
     connection = connect()
     cursor = connection.cursor()
-    sql = "call customer_view_mov('{}', '{}', '{}', \
-           '{}', '{}', '{}');".format(i_creditCardNum, 
+    sql = "call customer_view_mov('{}', '{}', '{}', '{}', '{}', '{}');".format(i_creditCardNum, 
            i_movName, i_movReleaseDate, i_thName, i_comName, i_movPlayDate)
     cursor.execute(sql)
     connection.commit()
@@ -329,6 +330,8 @@ def customerViewHistory(user):
 
 #screen 22
 def userFilterTheater(i_thName, i_comName, i_city, i_state):
+    i_thName = prep(i_thName)
+    i_comName = prep(i_comName)
     connection = connect()
     cursor = connection.cursor()
     sql = "call user_filter_th('{}', '{}', '{}',\
@@ -345,7 +348,7 @@ def userFilterTheater(i_thName, i_comName, i_city, i_state):
 def userVisitTheater(i_thName, i_comName, i_visitDate, i_username):
     i_thName = prep(i_thName)
     i_comName = prep(i_comName)
-    i_username = prep(i_comName)
+    i_username = prep(i_username)
     connection = connect()
     cursor = connection.cursor()
     sql = "call user_visit_th('{}','{}','{}','{}');".format(i_thName, i_comName, i_visitDate, i_username)
