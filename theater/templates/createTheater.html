@@ -135,8 +135,16 @@
                       </div>
                     </div>
                         
-                   
+                  </div>
+                <div>
                   </form>
-    </div>
-  </div>
+                  {% if messages %}
+                  <ul class="mt-4" style="color:red;">
+                    <li>{{ messages}}</li>
+                      
+                  </ul>
+                  {% endif %}
+                  </div>
+
+
 {% endblock %}
